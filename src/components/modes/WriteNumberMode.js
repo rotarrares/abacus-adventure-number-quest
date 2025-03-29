@@ -138,6 +138,52 @@ const WriteNumberMode = () => {
     }
   };
   
+  const handleDigitButtonClick = (digit) => {
+    const newAnswer = userAnswer + digit;
+    setUserAnswer(newAnswer);
+    dispatch({ type: actions.SET_ANSWER, payload: newAnswer });
+  };
+
+  const handleDeleteDigit = () => {
+    const newAnswer = userAnswer.slice(0, -1);
+    setUserAnswer(newAnswer);
+    dispatch({ type: actions.SET_ANSWER, payload: newAnswer });
+  };
+
+  const handleClearInput = () => {
+    setUserAnswer('');
+    dispatch({ type: actions.SET_ANSWER, payload: '' });
+  };
+
+  // Generate the digit buttons (0-9)
+  const renderDigitButtons = () => {
+    const digits = [1, 2, 3, 4, 5, 6, 7, 8, 9, 0];
+    
+    return (
+      <div className="digit-buttons-container">
+        <div className="digit-buttons">
+          {digits.map((digit) => (
+            <button
+              key={digit}
+              className="digit-button"
+              onClick={() => handleDigitButtonClick(digit.toString())}
+            >
+              {digit}
+            </button>
+          ))}
+        </div>
+        <div className="digit-control-buttons">
+          <button className="digit-control-button delete-button" onClick={handleDeleteDigit}>
+            ⌫
+          </button>
+          <button className="digit-control-button clear-button" onClick={handleClearInput}>
+            C
+          </button>
+        </div>
+      </div>
+    );
+  };
+  
   return (
     <div className="game-mode-container">
       <h2 className="mode-title">Scrie Numărul</h2>
@@ -148,18 +194,11 @@ const WriteNumberMode = () => {
       
       <SimpleAbacus onBeadChange={handleBeadChange} />
       
-      <div className="answer-container">
-        <input
-          type="text"
-          value={userAnswer}
-          onChange={handleInputChange}
-          onKeyPress={handleKeyPress}
-          placeholder="Scrie numărul aici"
-          className="number-input"
-          inputMode="numeric"
-          pattern="[0-9]*"
-        />
+      <div className="answer-display">
+        <div className="answer-text">{userAnswer || "⟨Introduceți răspunsul⟩"}</div>
       </div>
+      
+      {renderDigitButtons()}
       
       <div className="feedback-container">
         {gameState.feedback === 'correct' && (
