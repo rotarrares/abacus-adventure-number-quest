@@ -80,6 +80,12 @@ const StartScreen = () => {
             >
               Scrie Numărul
             </button>
+            <button 
+              className="mode-button featured"
+              onClick={() => handleStartGame('compare')}
+            >
+              Bătălia Abacului: Compară Numerele
+            </button>
           </div>
         </div>
         
