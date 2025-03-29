@@ -12,35 +12,33 @@ import '../../styles/ComparisonControls.css';
 
 /**
  * Component for comparing numbers and selecting the right comparison operator
- * 
- * @param {Object} props
- * @param {Function} props.onComparisonSelect - Handler for comparison operator selection
- * @param {string} props.selectedOperator - Currently selected operator
- * @param {string} props.highlightedPlaceValue - Currently highlighted place value
- * @param {Function} props.onNextPlaceValue - Handler to move to next place value
- * @param {Array} props.abacusStates - Current states of both abacuses
- * @param {Array} props.numbers - Numbers being compared
  */
-const ComparisonControls = ({ 
-  onComparisonSelect, 
-  selectedOperator,
-  highlightedPlaceValue,
-  onNextPlaceValue,
-  abacusStates,
-  numbers
-}) => {
+const ComparisonControls = (props) => {
+  const { 
+    onComparisonSelect, 
+    selectedOperator,
+    highlightedPlaceValue,
+    onNextPlaceValue,
+    abacusStates,
+    numbers
+  } = props;
+  
   const [comparisonResult, setComparisonResult] = useState(null);
-  const [analyzingComplete, setAnalyzingComplete] = useState(false);
+  const [analysisFinished, setAnalysisFinished] = useState(false);
   const [placeValueComparisons, setPlaceValueComparisons] = useState({});
   const [showExplanation, setShowExplanation] = useState(false);
+  
+  // When we don't have a highlighted place value, we're done with analysis
+  useEffect(() => {
+    if (!highlightedPlaceValue) {
+      setAnalysisFinished(true);
+    }
+  }, [highlightedPlaceValue]);
   
   // When highlighted place value changes, analyze the comparison for that place
   useEffect(() => {
     if (highlightedPlaceValue) {
       analyzeHighlightedPlaceValue();
-    } else {
-      // If no highlighted place value, we're ready for selection
-      setAnalyzingComplete(true);
     }
   }, [highlightedPlaceValue, abacusStates]);
   
@@ -79,18 +77,20 @@ const ComparisonControls = ({
   
   // Handle clicking the "Continue" button to move to next place value
   const handleContinueAnalysis = () => {
-    if (!highlightedPlaceValue) return;
-    
     // First check if this place value already determined the result
     const currentComparison = placeValueComparisons[highlightedPlaceValue];
     
     if (currentComparison && currentComparison.result !== '=') {
       // We've found a difference, so we can stop comparing
-      setAnalyzingComplete(true);
-      onNextPlaceValue(null);
+      // Move to final state (null place value)
+      if (typeof onNextPlaceValue === 'function') {
+        onNextPlaceValue(null);
+      }
     } else {
       // Move to the next place value
-      onNextPlaceValue();
+      if (typeof onNextPlaceValue === 'function') {
+        onNextPlaceValue();
+      }
     }
   };
   
@@ -162,7 +162,7 @@ const ComparisonControls = ({
             Continuă
           </button>
         </div>
-      ) : analyzingComplete ? (
+      ) : analysisFinished ? (
         // Show the operator selection interface
         <div className="operator-selection">
           <h3>Alege simbolul de comparare:</h3>
