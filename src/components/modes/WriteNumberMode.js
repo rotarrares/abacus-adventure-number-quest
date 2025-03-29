@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { useGameContext } from '../../context/GameContext';
 import { getRandomNumber } from '../../utils/numberUtils';
 import { playSound } from '../../utils/audioUtils';
@@ -9,12 +9,23 @@ const WriteNumberMode = () => {
   const { gameState, dispatch, actions } = useGameContext();
   const [userAnswer, setUserAnswer] = useState('');
   const [correctAnswerCount, setCorrectAnswerCount] = useState(0);
+  const isInitialMount = useRef(true);
+  const prevNumberRef = useRef(null);
   
   // Generate a random abacus configuration when the component mounts or level changes
   useEffect(() => {
-    generateRandomAbacus();
     // Update difficulty based on level
     updateDifficultyForLevel(gameState.level);
+    
+    if (isInitialMount.current) {
+      generateRandomAbacus();
+      isInitialMount.current = false;
+    } else if (gameState.level !== prevNumberRef.current) {
+      // Only generate new abacus if level has changed
+      generateRandomAbacus();
+    }
+    
+    prevNumberRef.current = gameState.level;
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [gameState.level]);
   
@@ -188,7 +199,7 @@ const WriteNumberMode = () => {
         Care număr este reprezentat pe abac? (Nivel {gameState.level})
       </p>
       
-      <SimpleAbacus onBeadChange={handleBeadChange} />
+      <SimpleAbacus onBeadChange={handleBeadChange} showControls={false} />
       
       <div className="answer-container">
         {renderNumpad()}
