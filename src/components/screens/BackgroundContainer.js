@@ -1,13 +1,11 @@
 import React from 'react';
-import '../../styles/BackgroundContainer.css';
 
 const BackgroundContainer = ({ children }) => {
+  // This component now just passes through children
+  // The background is handled by the CSS in index.html
   return (
-    <div className="background-container">
-      <div className="background-image"></div>
-      <div className="content-container">
-        {children}
-      </div>
+    <div className="app-container">
+      {children}
     </div>
   );
 };
