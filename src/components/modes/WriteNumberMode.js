@@ -18,12 +18,24 @@ const WriteNumberMode = () => {
     checkAnswer 
   } = useWriteNumberGame();
   
+  // Determine difficulty label based on level
+  const getDifficultyLabel = () => {
+    if (gameState.level <= 2) {
+      return 'Ușor';
+    } else if (gameState.level <= 4) {
+      return 'Mediu';
+    } else {
+      return 'Greu';
+    }
+  };
+  
   return (
     <div className="game-mode-container">
       <Instructions 
         title="Scrie Numărul"
         description="Care număr este reprezentat pe abac?"
         level={gameState.level}
+        difficultyLabel={getDifficultyLabel()}
       />
       
       <SimpleAbacus 
