@@ -42,8 +42,8 @@ const StartScreen = () => {
   return (
     <div className="start-screen">
       <div className="start-screen-content">
-        <h1 className="game-title">Abacus Adventure</h1>
-        <h2 className="game-subtitle">Number Quest</h2>
+        <h1 className="game-title">Aventura Abacului</h1>
+        <h2 className="game-subtitle">Călătoria Numerelor</h2>
         
         <div className="character">
           {characterImageLoaded ? (
