@@ -3,8 +3,8 @@
   flex-direction: column;
   align-items: center;
   width: 100%;
-  gap: 25px;
-  margin-top: 10px;
+  gap: 10px;
+  margin-top: 5px;
 }
 
 .instructions-content {
@@ -12,35 +12,37 @@
   flex-direction: column;
   width: 100%;
   background-color: #f5f7fa;
-  border-radius: 12px;
-  padding: 20px;
+  border-radius: 10px;
+  padding: 10px;
 }
 
 .instructions-content h3 {
   color: #4a2c82;
-  margin-top: 0;
-  margin-bottom: 15px;
+  margin: 0 0 8px 0;
   text-align: center;
+  font-size: 1rem;
 }
 
 .basic-instructions {
-  margin-bottom: 20px;
+  margin-bottom: 10px;
 }
 
 .basic-instructions p {
-  margin: 0 0 12px 0;
+  margin: 0 0 6px 0;
   color: #333;
-  line-height: 1.5;
+  line-height: 1.4;
+  font-size: 0.85rem;
 }
 
 .basic-instructions ul {
-  margin: 10px 0;
-  padding-left: 30px;
+  margin: 5px 0;
+  padding-left: 20px;
 }
 
 .basic-instructions li {
-  margin-bottom: 8px;
+  margin-bottom: 4px;
   color: #444;
+  font-size: 0.85rem;
 }
 
 .guide-toggle-button {
@@ -48,34 +50,36 @@
   background-color: #4a2c82;
   color: white;
   border: none;
-  border-radius: 20px;
-  padding: 8px 16px;
-  font-size: 0.9rem;
+  border-radius: 15px;
+  padding: 5px 12px;
+  font-size: 0.8rem;
   cursor: pointer;
   transition: all 0.2s;
-  margin-bottom: 10px;
+  margin-bottom: 5px;
 }
 
 .guide-toggle-button:hover {
   background-color: #3b2368;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 .comparison-guide {
   width: 100%;
   background-color: #fff;
-  border-radius: 8px;
-  padding: 20px;
-  margin-top: 10px;
-  border-left: 4px solid #4a2c82;
+  border-radius: 6px;
+  padding: 8px 10px;
+  margin-top: 8px;
+  border-left: 3px solid #4a2c82;
   animation: fadeIn 0.3s ease-in-out;
+  max-height: 200px;
+  overflow-y: auto;
 }
 
 .comparison-guide h4 {
   color: #4a2c82;
-  margin-top: 0;
-  margin-bottom: 15px;
+  margin: 0 0 8px 0;
   text-align: center;
+  font-size: 0.9rem;
 }
 
 .comparison-guide ol {
@@ -87,38 +91,41 @@
 .comparison-guide li {
   display: flex;
   align-items: flex-start;
-  margin-bottom: 15px;
+  margin-bottom: 6px;
 }
 
 .step-number {
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 30px;
-  height: 30px;
+  width: 22px;
+  height: 22px;
   border-radius: 50%;
   background-color: #4a2c82;
   color: white;
   font-weight: bold;
-  margin-right: 15px;
+  margin-right: 8px;
   flex-shrink: 0;
+  font-size: 0.8rem;
 }
 
 .step-text {
   color: #333;
-  padding-top: 3px;
+  padding-top: 2px;
   flex-grow: 1;
+  font-size: 0.8rem;
 }
 
 .step-text ul {
-  margin: 8px 0 0 0;
-  padding-left: 20px;
+  margin: 5px 0 0 0;
+  padding-left: 16px;
 }
 
 .step-text li {
-  margin-bottom: 5px;
+  margin-bottom: 3px;
   display: list-item;
   list-style-type: disc;
+  font-size: 0.75rem;
 }
 
 .number-line {
@@ -126,16 +133,17 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 10px;
-  padding: 20px;
+  margin-top: 5px;
+  padding: 10px;
   background-color: #f8f9fa;
-  border-radius: 12px;
+  border-radius: 8px;
 }
 
 .number-line-label {
   font-weight: bold;
   color: #4a2c82;
-  margin-bottom: 15px;
+  margin-bottom: 8px;
+  font-size: 0.85rem;
 }
 
 .number-line-graphic {
@@ -150,28 +158,28 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 40px;
-  height: 40px;
+  width: 30px;
+  height: 30px;
   background-color: #4a2c82;
   color: white;
   border-radius: 50%;
   font-weight: bold;
-  font-size: 0.8rem;
+  font-size: 0.75rem;
   z-index: 2;
 }
 
 .number-line-segment {
-  height: 4px;
+  height: 3px;
   background-color: #4a2c82;
   flex-grow: 1;
-  margin: 0 -5px;
+  margin: 0 -3px;
 }
 
 /* Animations */
 @keyframes fadeIn {
   from {
     opacity: 0;
-    transform: translateY(-10px);
+    transform: translateY(-5px);
   }
   to {
     opacity: 1;
@@ -182,28 +190,28 @@
 /* Responsive design */
 @media (max-width: 768px) {
   .instructions-content {
-    padding: 15px;
+    padding: 8px;
   }
   
   .basic-instructions p, 
   .basic-instructions li {
-    font-size: 0.9rem;
-  }
-  
-  .step-number {
-    width: 25px;
-    height: 25px;
-    margin-right: 10px;
     font-size: 0.8rem;
   }
   
+  .step-number {
+    width: 20px;
+    height: 20px;
+    margin-right: 6px;
+    font-size: 0.7rem;
+  }
+  
   .step-text {
-    font-size: 0.9rem;
+    font-size: 0.75rem;
   }
   
   .number-point {
-    width: 30px;
-    height: 30px;
+    width: 25px;
+    height: 25px;
     font-size: 0.7rem;
   }
 }
