@@ -22,9 +22,11 @@ The game is set in Romanian language, focusing on number representation and Roma
 - Level 6-10: Numbers from 100 to 999 (adding hundreds)
 - Level 11+: Numbers from 1000 to 10,000 (using all four columns)
 
-### Interactive 3D Abacus
+### Interactive Abacus
 
-- Realistic 3D rendering using Three.js
+- Two abacus implementations:
+  - 3D abacus using Three.js (for environments that support WebGL)
+  - 2D abacus as a fallback (works everywhere)
 - Interactive beads that can be added or removed
 - Color-coded columns for thousands, hundreds, tens, and units
 
@@ -43,8 +45,8 @@ The game is set in Romanian language, focusing on number representation and Roma
 ## 🛠️ Technologies Used
 
 - **React**: For the UI components and state management
-- **Three.js**: For 3D rendering of the abacus
-- **react-three-fiber**: React bindings for Three.js
+- **Three.js**: For 3D rendering of the abacus (optional)
+- **react-three-fiber**: React bindings for Three.js (optional)
 - **Web Speech API**: For text-to-speech functionality
 - **Express**: Server for production deployment
 
@@ -61,7 +63,7 @@ The game helps children develop:
 
 The project follows a modular architecture with small, focused files:
 
-- `src/components/abacus/`: Components for the 3D abacus
+- `src/components/abacus/`: Components for the abacus (3D and 2D versions)
 - `src/components/modes/`: Game mode implementations
 - `src/components/screens/`: Main screens (Start, Game, Tutorial)
 - `src/components/ui/`: UI elements like headers and buttons
@@ -96,8 +98,11 @@ npm install
 # Start the development server
 npm run dev
 
-# Build for production
+# Build with 3D abacus (requires WebGL support)
 npm run build
+
+# Build with 2D abacus only (works everywhere)
+npm run build:simple
 
 # Start the production server
 npm start
@@ -109,11 +114,14 @@ The game is designed to work well on both desktop and mobile devices, with respo
 
 ## 🌐 Browser Support
 
-The game works best in modern browsers that support WebGL and Web Speech API.
+The game has two versions:
+
+- **Standard version** with 3D abacus: Works best in modern browsers that support WebGL.
+- **Simple version** with 2D abacus: Works in all browsers, including older ones.
 
 ## 🚀 Deployment to Heroku
 
-This project is ready to be deployed to Heroku. Follow these steps:
+This project is ready to be deployed to Heroku. By default, it uses the simple build (2D abacus) for maximum compatibility.
 
 1. Create a Heroku account if you don't have one
 2. Install the Heroku CLI: https://devcenter.heroku.com/articles/heroku-cli
