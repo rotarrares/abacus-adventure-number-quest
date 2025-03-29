@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { 
   numberToPlaceValues, 
   getPlaceValueName, 
+  getPlaceValueLabel,
   findDifferingPlaceValue 
 } from '../../utils/compareNumbersUtils';
 import { 
@@ -12,33 +13,35 @@ import '../../styles/ComparisonControls.css';
 
 /**
  * Component for comparing numbers and selecting the right comparison operator
+ * 
+ * @param {Object} props
+ * @param {Function} props.onComparisonSelect - Handler for comparison operator selection
+ * @param {string} props.selectedOperator - Currently selected operator
+ * @param {string} props.highlightedPlaceValue - Currently highlighted place value
+ * @param {Function} props.onNextPlaceValue - Handler to move to next place value
+ * @param {Array} props.abacusStates - Current states of both abacuses
+ * @param {Array} props.numbers - Numbers being compared
  */
-const ComparisonControls = (props) => {
-  const { 
-    onComparisonSelect, 
-    selectedOperator,
-    highlightedPlaceValue,
-    onNextPlaceValue,
-    abacusStates,
-    numbers
-  } = props;
-  
+const ComparisonControls = ({ 
+  onComparisonSelect, 
+  selectedOperator,
+  highlightedPlaceValue,
+  onNextPlaceValue,
+  abacusStates,
+  numbers
+}) => {
   const [comparisonResult, setComparisonResult] = useState(null);
-  const [analysisFinished, setAnalysisFinished] = useState(false);
+  const [analyzingComplete, setAnalyzingComplete] = useState(false);
   const [placeValueComparisons, setPlaceValueComparisons] = useState({});
   const [showExplanation, setShowExplanation] = useState(false);
-  
-  // When we don't have a highlighted place value, we're done with analysis
-  useEffect(() => {
-    if (!highlightedPlaceValue) {
-      setAnalysisFinished(true);
-    }
-  }, [highlightedPlaceValue]);
   
   // When highlighted place value changes, analyze the comparison for that place
   useEffect(() => {
     if (highlightedPlaceValue) {
       analyzeHighlightedPlaceValue();
+    } else {
+      // If no highlighted place value, we're ready for selection
+      setAnalyzingComplete(true);
     }
   }, [highlightedPlaceValue, abacusStates]);
   
@@ -82,15 +85,11 @@ const ComparisonControls = (props) => {
     
     if (currentComparison && currentComparison.result !== '=') {
       // We've found a difference, so we can stop comparing
-      // Move to final state (null place value)
-      if (typeof onNextPlaceValue === 'function') {
-        onNextPlaceValue(null);
-      }
+      setAnalyzingComplete(true);
+      setHighlightedPlaceValue(null);
     } else {
       // Move to the next place value
-      if (typeof onNextPlaceValue === 'function') {
-        onNextPlaceValue();
-      }
+      onNextPlaceValue();
     }
   };
   
@@ -123,7 +122,7 @@ const ComparisonControls = (props) => {
       {highlightedPlaceValue ? (
         // Show the step-by-step analysis interface
         <div className="place-value-analysis">
-          <h3>Compară {getPlaceValueName(highlightedPlaceValue)}</h3>
+          <h3>Compară {getPlaceValueName(highlightedPlaceValue)} ({getPlaceValueLabel(highlightedPlaceValue)})</h3>
           
           <div className="place-value-comparison">
             <div className="comparison-value">
@@ -162,7 +161,7 @@ const ComparisonControls = (props) => {
             Continuă
           </button>
         </div>
-      ) : analysisFinished ? (
+      ) : analyzingComplete ? (
         // Show the operator selection interface
         <div className="operator-selection">
           <h3>Alege simbolul de comparare:</h3>
