@@ -173,7 +173,7 @@ const ComparisonControls = (props) => {
               <button
                 key={operator.symbol}
                 className={`operator-button ${selectedOperator === operator.symbol ? 'selected' : ''}`}
-                onClick={() => onComparisonSelect(operator.symbol)}
+                onClick={() => typeof onComparisonSelect === 'function' && onComparisonSelect(operator.symbol)}
                 disabled={!!selectedOperator}
               >
                 <span className="operator-symbol">{operator.symbol}</span>
