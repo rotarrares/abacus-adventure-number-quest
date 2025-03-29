@@ -12,9 +12,31 @@ const useWriteNumberGame = () => {
   const [correctAnswerCount, setCorrectAnswerCount] = useState(0);
   const isInitialMount = useRef(true);
   const prevLevelRef = useRef(null);
-
-  // Set up and clean up
+  const prevScreenRef = useRef(null);
+  
+  // Cleanup effect when unmounting or changing screen
   useEffect(() => {
+    return () => {
+      // Ensure we stop all audio when leaving the game
+      stopAllAudio();
+    };
+  }, []);
+
+  // Set up and clean up when entering/leaving game mode
+  useEffect(() => {
+    // Ensure we stop any ongoing audio when re-mounting the component
+    if (gameState.currentScreen === 'game' && prevScreenRef.current !== 'game') {
+      stopAllAudio();
+    }
+    
+    prevScreenRef.current = gameState.currentScreen;
+  }, [gameState.currentScreen]);
+  
+  // Set up and handle level changes
+  useEffect(() => {
+    // Stop any ongoing audio when level changes
+    stopAllAudio();
+    
     // Update difficulty based on level
     const difficulty = calculateDifficultyForLevel(gameState.level);
     dispatch({ 
@@ -32,10 +54,6 @@ const useWriteNumberGame = () => {
     
     prevLevelRef.current = gameState.level;
     
-    // Cleanup function to stop all audio when component unmounts
-    return () => {
-      stopAllAudio();
-    };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [gameState.level]);
 
@@ -117,6 +135,9 @@ const useWriteNumberGame = () => {
       
       // Check if we should level up
       if (shouldLevelUp(newCorrectCount)) {
+        // Stop all audio before level change
+        stopAllAudio();
+        
         dispatch({ type: actions.SET_LEVEL, payload: gameState.level + 1 });
         setCorrectAnswerCount(0); // Reset count after leveling up
       }
@@ -129,6 +150,9 @@ const useWriteNumberGame = () => {
       
       // Move to next abacus after delay
       setTimeout(() => {
+        // Stop all audio before generating new problem
+        stopAllAudio();
+        
         dispatch({ type: actions.INCREMENT_ATTEMPTS, payload: 0 });
         generateRandomAbacus();
       }, 1500);
