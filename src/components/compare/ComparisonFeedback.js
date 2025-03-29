@@ -2,7 +2,8 @@ import React from 'react';
 import { 
   numberToPlaceValues, 
   findDifferingPlaceValue, 
-  getPlaceValueName, 
+  getPlaceValueName,
+  getPlaceValueLabel,
   compareNumbers 
 } from '../../utils/compareNumbersUtils';
 import { PLACE_VALUES, FEEDBACK_MESSAGES } from '../../constants/compareNumbersConstants';
@@ -36,9 +37,10 @@ const ComparisonFeedback = ({ feedback, numbers }) => {
     const place1 = numberToPlaceValues(numbers[0])[firstDifferingPlace];
     const place2 = numberToPlaceValues(numbers[1])[firstDifferingPlace];
     const placeName = getPlaceValueName(firstDifferingPlace);
+    const placeLabel = getPlaceValueLabel(firstDifferingPlace);
     const correctOperator = compareNumbers(numbers[0], numbers[1]).symbol;
     
-    return `${placeName} sunt diferite: ${place1} ${place1 < place2 ? '<' : '>'} ${place2}, deci ${numbers[0]} ${correctOperator} ${numbers[1]}.`;
+    return `${placeName} (${placeLabel}) sunt diferite: ${place1} ${place1 < place2 ? '<' : '>'} ${place2}, deci ${numbers[0]} ${correctOperator} ${numbers[1]}.`;
   };
   
   // If no feedback, don't show anything

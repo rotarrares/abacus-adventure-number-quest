@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { 
   numberToPlaceValues, 
   getPlaceValueName, 
+  getPlaceValueLabel,
   findDifferingPlaceValue 
 } from '../../utils/compareNumbersUtils';
 import { 
@@ -123,7 +124,7 @@ const ComparisonControls = (props) => {
       {highlightedPlaceValue ? (
         // Show the step-by-step analysis interface
         <div className="place-value-analysis">
-          <h3>Compară {getPlaceValueName(highlightedPlaceValue)}</h3>
+          <h3>Compară {getPlaceValueName(highlightedPlaceValue)} ({getPlaceValueLabel(highlightedPlaceValue)})</h3>
           
           <div className="place-value-comparison">
             <div className="comparison-value">

@@ -1,4 +1,4 @@
-import { PLACE_VALUES, COMPARISON_OPERATORS } from '../constants/compareNumbersConstants';
+import { PLACE_VALUES, PLACE_VALUE_LABELS, COMPARISON_OPERATORS } from '../constants/compareNumbersConstants';
 
 /**
  * Generates two random numbers within a specified range
@@ -88,4 +88,13 @@ export const getPlaceValueName = (placeValue) => {
     default:
       return '';
   }
+};
+
+/**
+ * Gets the display label for a place value
+ * @param {string} placeValue - The place value key
+ * @returns {string} The display label (M, S, Z, U)
+ */
+export const getPlaceValueLabel = (placeValue) => {
+  return PLACE_VALUE_LABELS[placeValue] || '';
 };
