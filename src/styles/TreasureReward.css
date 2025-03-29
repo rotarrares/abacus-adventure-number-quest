@@ -53,6 +53,19 @@
   height: auto;
 }
 
+/* Placeholder for when the image doesn't exist */
+.treasure-placeholder {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  font-size: 3rem;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
 .reward-details h3 {
   color: #4d96ff;
   font-size: 1.5rem;
@@ -108,8 +121,10 @@
     font-size: 1rem;
   }
   
-  .treasure-image {
+  .treasure-image,
+  .treasure-placeholder {
     width: 120px;
+    height: 120px;
   }
   
   .reward-details h3 {
