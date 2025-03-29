@@ -4,9 +4,8 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background-image: url('/assets/images/background.jpg');
-  background-size: cover;
-  background-position: center;
+  /* Use a gradient background instead of image */
+  background: linear-gradient(135deg, #c2e9fb 0%, #a1c4fd 100%);
   overflow: auto;
   padding: 20px;
 }
@@ -76,6 +75,27 @@
 .s-label { background-color: #e74c3c; }
 .z-label { background-color: #2ecc71; }
 .u-label { background-color: #9b59b6; }
+
+/* Abacus example placeholder if image is not available */
+.abacus-example {
+  margin: 20px 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.abacus-placeholder {
+  width: 300px;
+  height: 200px;
+  background: linear-gradient(135deg, #f6d365 0%, #fda085 100%);
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  font-size: 1.5rem;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
 
 .back-button {
   display: block;
