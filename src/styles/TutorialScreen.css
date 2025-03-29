@@ -4,10 +4,9 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  /* Remove gradient background to let the global background show through */
   background: transparent;
   overflow: auto;
-  padding: 20px;
+  padding: 15px;
 }
 
 .tutorial-content {
@@ -17,7 +16,7 @@
   overflow-y: auto;
   background-color: rgba(255, 255, 255, 0.95);
   border-radius: 20px;
-  padding: 30px;
+  padding: 25px;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
 }
 
@@ -25,13 +24,13 @@
   font-size: 2.2rem;
   color: #ff6b6b;
   text-align: center;
-  margin-bottom: 25px;
+  margin-bottom: 20px;
 }
 
 .tutorial-section {
-  margin-bottom: 30px;
+  margin-bottom: 25px;
   border-bottom: 1px solid #eee;
-  padding-bottom: 20px;
+  padding-bottom: 15px;
 }
 
 .tutorial-section:last-child {
@@ -41,13 +40,13 @@
 .tutorial-section h3 {
   font-size: 1.6rem;
   color: #4d96ff;
-  margin-bottom: 15px;
+  margin-bottom: 12px;
 }
 
 .tutorial-section p {
   font-size: 1.1rem;
   line-height: 1.5;
-  margin-bottom: 15px;
+  margin-bottom: 12px;
 }
 
 .column-labels {
@@ -55,8 +54,8 @@
   padding-left: 0 !important;
   display: flex;
   flex-wrap: wrap;
-  gap: 15px;
-  margin-bottom: 20px;
+  gap: 12px;
+  margin-bottom: 15px;
 }
 
 .column-label {
@@ -67,7 +66,7 @@
   font-weight: bold;
   line-height: 30px;
   text-align: center;
-  margin-right: 10px;
+  margin-right: 8px;
   color: white;
 }
 
@@ -78,15 +77,15 @@
 
 /* Abacus example placeholder if image is not available */
 .abacus-example {
-  margin: 20px 0;
+  margin: 15px 0;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
 .abacus-placeholder {
-  width: 300px;
-  height: 200px;
+  width: 280px;
+  height: 180px;
   background: linear-gradient(135deg, #f6d365 0%, #fda085 100%);
   border-radius: 10px;
   display: flex;
@@ -99,8 +98,82 @@
 
 .back-button {
   display: block;
-  margin: 30px auto 0;
+  margin: 25px auto 0;
   background-color: #9c88ff;
   color: white;
-  padding: 12px 25px;
+  padding: 10px 25px;
+  border-radius: 10px;
+  border: none;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transition: all 0.2s;
+  font-size: 1rem;
+}
+
+.back-button:hover {
+  background-color: #8c78ff;
+}
+
+/* Media queries for mobile */
+@media (max-width: 768px) {
+  .tutorial-screen {
+    padding: 10px;
+    align-items: flex-start;
+  }
+  
+  .tutorial-content {
+    width: 95%;
+    max-height: 95vh;
+    padding: 15px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+  
+  .tutorial-content h2 {
+    font-size: 1.7rem;
+    margin-bottom: 15px;
+  }
+  
+  .tutorial-section {
+    margin-bottom: 15px;
+    padding-bottom: 10px;
+  }
+  
+  .tutorial-section h3 {
+    font-size: 1.3rem;
+    margin-bottom: 8px;
+  }
+  
+  .tutorial-section p {
+    font-size: 1rem;
+    line-height: 1.4;
+    margin-bottom: 8px;
+  }
+  
+  .column-labels {
+    gap: 8px;
+    margin-bottom: 10px;
+  }
+  
+  .column-label {
+    width: 25px;
+    height: 25px;
+    line-height: 25px;
+    font-size: 0.9rem;
+  }
+  
+  .abacus-example {
+    margin: 10px 0;
+  }
+  
+  .abacus-placeholder {
+    width: 200px;
+    height: 130px;
+    font-size: 1.2rem;
+  }
+  
+  .back-button {
+    margin: 15px auto 0;
+    padding: 8px 20px;
+    font-size: 0.9rem;
+  }
 }
