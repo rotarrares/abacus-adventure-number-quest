@@ -137,55 +137,41 @@ const WriteNumberMode = () => {
       checkAnswer();
     }
   };
-  
-  const handleDigitButtonClick = (digit) => {
-    const newAnswer = userAnswer + digit;
-    setUserAnswer(newAnswer);
-    dispatch({ type: actions.SET_ANSWER, payload: newAnswer });
+
+  // Handle numeric input with keyboard
+  const handleKeyDown = (e) => {
+    // If a number key is pressed (0-9)
+    if ((e.keyCode >= 48 && e.keyCode <= 57) || (e.keyCode >= 96 && e.keyCode <= 105)) {
+      // Append the number to current answer
+      const newDigit = e.key.replace(/[^0-9]/g, '');
+      const newValue = userAnswer + newDigit;
+      setUserAnswer(newValue);
+      dispatch({ type: actions.SET_ANSWER, payload: newValue });
+    }
+    // Handle backspace
+    else if (e.keyCode === 8) {
+      setUserAnswer(prev => {
+        const newValue = prev.slice(0, -1);
+        dispatch({ type: actions.SET_ANSWER, payload: newValue });
+        return newValue;
+      });
+    }
+    // Handle Enter key for checking answer
+    else if (e.keyCode === 13) {
+      checkAnswer();
+    }
   };
 
-  const handleDeleteDigit = () => {
-    const newAnswer = userAnswer.slice(0, -1);
-    setUserAnswer(newAnswer);
-    dispatch({ type: actions.SET_ANSWER, payload: newAnswer });
-  };
-
-  const handleClearInput = () => {
-    setUserAnswer('');
-    dispatch({ type: actions.SET_ANSWER, payload: '' });
-  };
-
-  // Generate the digit buttons (0-9)
-  const renderDigitButtons = () => {
-    const digits = [1, 2, 3, 4, 5, 6, 7, 8, 9, 0];
-    
-    return (
-      <div className="digit-buttons-container">
-        <div className="digit-buttons">
-          {digits.map((digit) => (
-            <button
-              key={digit}
-              className="digit-button"
-              onClick={() => handleDigitButtonClick(digit.toString())}
-            >
-              {digit}
-            </button>
-          ))}
-        </div>
-        <div className="digit-control-buttons">
-          <button className="digit-control-button delete-button" onClick={handleDeleteDigit}>
-            ⌫
-          </button>
-          <button className="digit-control-button clear-button" onClick={handleClearInput}>
-            C
-          </button>
-        </div>
-      </div>
-    );
-  };
+  // Add keyboard event listener on component mount and remove on unmount
+  useEffect(() => {
+    window.addEventListener('keydown', handleKeyDown);
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [userAnswer]); // Re-apply when userAnswer changes
   
   return (
-    <div className="game-mode-container">
+    <div className="game-mode-container" tabIndex="0">
       <h2 className="mode-title">Scrie Numărul</h2>
       
       <p className="instructions">
@@ -194,11 +180,22 @@ const WriteNumberMode = () => {
       
       <SimpleAbacus onBeadChange={handleBeadChange} />
       
-      <div className="answer-display">
-        <div className="answer-text">{userAnswer || "⟨Introduceți răspunsul⟩"}</div>
+      <div className="answer-container">
+        <div className="display-answer">{userAnswer || '?'}</div>
+        
+        {/* Hidden input to maintain state, but not visible to user */}
+        <input
+          type="text"
+          value={userAnswer}
+          onChange={handleInputChange}
+          onKeyPress={handleKeyPress}
+          className="hidden-input"
+          inputMode="numeric"
+          pattern="[0-9]*"
+          aria-hidden="true"
+          tabIndex="-1"
+        />
       </div>
-      
-      {renderDigitButtons()}
       
       <div className="feedback-container">
         {gameState.feedback === 'correct' && (
