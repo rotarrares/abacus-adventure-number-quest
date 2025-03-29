@@ -19,13 +19,46 @@
   text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.8);
 }
 
+.instructions-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  width: 100%;
+  margin-bottom: 10px;
+}
+
 .instructions {
   font-size: 1.1rem; /* Reduced from 1.2rem */
   text-align: center;
-  margin-bottom: 10px; /* Reduced from 15px */
   background-color: rgba(255, 255, 255, 0.8);
   padding: 8px 12px; /* Reduced from 10px 15px */
   border-radius: 10px;
+  margin: 0;
+}
+
+.difficulty-badge {
+  position: absolute;
+  top: -10px;
+  right: 10px;
+  font-size: 0.8rem;
+  font-weight: bold;
+  color: white;
+  padding: 3px 8px;
+  border-radius: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.difficulty-ușor {
+  background-color: #2ecc71; /* Green */
+}
+
+.difficulty-mediu {
+  background-color: #f39c12; /* Orange */
+}
+
+.difficulty-greu {
+  background-color: #e74c3c; /* Red */
 }
 
 .target-number {
@@ -214,7 +247,17 @@
   .instructions {
     font-size: 0.9rem; /* Reduced from 1rem */
     padding: 5px 8px;
+  }
+  
+  .instructions-container {
     margin-bottom: 5px;
+  }
+  
+  .difficulty-badge {
+    font-size: 0.7rem;
+    padding: 2px 6px;
+    top: -8px;
+    right: 5px;
   }
   
   .target-number {
