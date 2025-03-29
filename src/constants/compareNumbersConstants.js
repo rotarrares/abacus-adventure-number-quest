@@ -1,9 +1,17 @@
-// Romanian terms for place values
+// Romanian terms for place values (matched to match existing abacus implementation)
 export const PLACE_VALUES = {
-  THOUSANDS: 'M', // Mii
-  HUNDREDS: 'S',  // Sute
-  TENS: 'Z',      // Zeci
-  UNITS: 'U'      // Unități
+  THOUSANDS: 'thousands', // Mii
+  HUNDREDS: 'hundreds',   // Sute
+  TENS: 'tens',           // Zeci
+  UNITS: 'units'          // Unități
+};
+
+// Display labels for place values
+export const PLACE_VALUE_LABELS = {
+  [PLACE_VALUES.THOUSANDS]: 'M',
+  [PLACE_VALUES.HUNDREDS]: 'S',
+  [PLACE_VALUES.TENS]: 'Z',
+  [PLACE_VALUES.UNITS]: 'U'
 };
 
 // Romanian terms for comparison operators
@@ -43,10 +51,10 @@ export const DIFFICULTY_LEVELS = {
 
 // Color mapping for abacus beads by place value
 export const BEAD_COLORS = {
-  [PLACE_VALUES.THOUSANDS]: 'blue',
-  [PLACE_VALUES.HUNDREDS]: 'red',
-  [PLACE_VALUES.TENS]: 'green',
-  [PLACE_VALUES.UNITS]: 'purple'
+  [PLACE_VALUES.THOUSANDS]: '#3498db', // Blue
+  [PLACE_VALUES.HUNDREDS]: '#e74c3c',  // Red
+  [PLACE_VALUES.TENS]: '#2ecc71',      // Green
+  [PLACE_VALUES.UNITS]: '#9b59b6'      // Purple
 };
 
 // Romanian feedback messages
