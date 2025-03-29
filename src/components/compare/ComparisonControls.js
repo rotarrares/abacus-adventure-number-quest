@@ -85,7 +85,8 @@ const ComparisonControls = ({
     if (currentComparison && currentComparison.result !== '=') {
       // We've found a difference, so we can stop comparing
       setAnalyzingComplete(true);
-      setHighlightedPlaceValue(null);
+      // Use the prop function instead of trying to set the state directly
+      onNextPlaceValue(null);
     } else {
       // Move to the next place value
       onNextPlaceValue();
