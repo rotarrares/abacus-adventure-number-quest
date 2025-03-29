@@ -8,12 +8,33 @@ import '../../styles/GameModes.css';
 const WriteNumberMode = () => {
   const { gameState, dispatch, actions } = useGameContext();
   const [userAnswer, setUserAnswer] = useState('');
+  const [correctAnswerCount, setCorrectAnswerCount] = useState(0);
   
-  // Generate a random abacus configuration when the component mounts
+  // Generate a random abacus configuration when the component mounts or level changes
   useEffect(() => {
     generateRandomAbacus();
+    // Update difficulty based on level
+    updateDifficultyForLevel(gameState.level);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [gameState.level]);
+  
+  // Update difficulty based on level
+  const updateDifficultyForLevel = (level) => {
+    let difficulty;
+    
+    if (level <= 2) {
+      difficulty = { min: 8, max: 99 }; // 2-digit numbers
+    } else if (level <= 4) {
+      difficulty = { min: 100, max: 999 }; // 3-digit numbers
+    } else {
+      difficulty = { min: 1000, max: 9999 }; // 4-digit numbers
+    }
+    
+    dispatch({ 
+      type: actions.SET_DIFFICULTY, 
+      payload: difficulty
+    });
+  };
   
   const generateRandomAbacus = () => {
     const { min, max } = gameState.difficulty;
@@ -78,6 +99,16 @@ const WriteNumberMode = () => {
       const scoreToAdd = Math.max(10 - (gameState.attempts * 2), 1);
       dispatch({ type: actions.ADD_SCORE, payload: scoreToAdd });
       
+      // Increment correct answer count
+      const newCorrectCount = correctAnswerCount + 1;
+      setCorrectAnswerCount(newCorrectCount);
+      
+      // Check if we should level up (every 5 correct answers)
+      if (newCorrectCount >= 5) {
+        dispatch({ type: actions.SET_LEVEL, payload: gameState.level + 1 });
+        setCorrectAnswerCount(0); // Reset count after leveling up
+      }
+      
       // Add a star after each 3rd correct answer
       if (gameState.score % 30 < scoreToAdd) {
         dispatch({ type: actions.ADD_STARS, payload: 1 });
@@ -112,7 +143,7 @@ const WriteNumberMode = () => {
       <h2 className="mode-title">Scrie Numărul</h2>
       
       <p className="instructions">
-        Care număr este reprezentat pe abac?
+        Care număr este reprezentat pe abac? (Nivel {gameState.level})
       </p>
       
       <SimpleAbacus onBeadChange={handleBeadChange} />
