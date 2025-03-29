@@ -68,6 +68,18 @@ The project follows a modular architecture with small, focused files:
 - `src/context/`: Game state management
 - `src/utils/`: Utility functions for numbers and audio
 - `src/styles/`: CSS files for styling components
+- `public/assets/`: Directory for images and audio files (all optional)
+
+## 🎨 Assets
+
+All image and audio assets are optional. The application will display colorful placeholders for missing images and will function without sound effects. If you want to add custom assets:
+
+1. Create these directories if they don't exist:
+   - `public/assets/images/`
+   - `public/assets/images/rewards/`
+   - `public/assets/audio/`
+
+2. Add your PNG image files and MP3 audio files as described in `public/assets/README.md`
 
 ## 🚀 Getting Started
 
