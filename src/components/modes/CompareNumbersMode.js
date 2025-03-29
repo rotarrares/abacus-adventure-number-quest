@@ -22,10 +22,23 @@ const CompareNumbersMode = () => {
   const { gameState, dispatch, actions } = useGameContext();
   const [numbers, setNumbers] = useState([null, null]);
   const [difficultyLevel, setDifficultyLevel] = useState(DIFFICULTY_LEVELS.LEVEL_1);
+  
+  // Initialize abacus states with the proper place value keys
   const [abacusStates, setAbacusStates] = useState([
-    { [PLACE_VALUES.THOUSANDS]: 0, [PLACE_VALUES.HUNDREDS]: 0, [PLACE_VALUES.TENS]: 0, [PLACE_VALUES.UNITS]: 0 },
-    { [PLACE_VALUES.THOUSANDS]: 0, [PLACE_VALUES.HUNDREDS]: 0, [PLACE_VALUES.TENS]: 0, [PLACE_VALUES.UNITS]: 0 }
+    { 
+      [PLACE_VALUES.THOUSANDS]: 0, 
+      [PLACE_VALUES.HUNDREDS]: 0, 
+      [PLACE_VALUES.TENS]: 0, 
+      [PLACE_VALUES.UNITS]: 0 
+    },
+    { 
+      [PLACE_VALUES.THOUSANDS]: 0, 
+      [PLACE_VALUES.HUNDREDS]: 0, 
+      [PLACE_VALUES.TENS]: 0, 
+      [PLACE_VALUES.UNITS]: 0 
+    }
   ]);
+  
   const [selectedComparisonOperator, setSelectedComparisonOperator] = useState(null);
   const [highlightedPlaceValue, setHighlightedPlaceValue] = useState(null);
   const [isComparingNow, setIsComparingNow] = useState(false);
@@ -51,10 +64,23 @@ const CompareNumbersMode = () => {
   const generateNewNumbers = () => {
     const newNumbers = generateRandomNumbers(difficultyLevel.range);
     setNumbers(newNumbers);
+    
+    // Reset the abacus states
     setAbacusStates([
-      { [PLACE_VALUES.THOUSANDS]: 0, [PLACE_VALUES.HUNDREDS]: 0, [PLACE_VALUES.TENS]: 0, [PLACE_VALUES.UNITS]: 0 },
-      { [PLACE_VALUES.THOUSANDS]: 0, [PLACE_VALUES.HUNDREDS]: 0, [PLACE_VALUES.TENS]: 0, [PLACE_VALUES.UNITS]: 0 }
+      { 
+        [PLACE_VALUES.THOUSANDS]: 0, 
+        [PLACE_VALUES.HUNDREDS]: 0, 
+        [PLACE_VALUES.TENS]: 0, 
+        [PLACE_VALUES.UNITS]: 0 
+      },
+      { 
+        [PLACE_VALUES.THOUSANDS]: 0, 
+        [PLACE_VALUES.HUNDREDS]: 0, 
+        [PLACE_VALUES.TENS]: 0, 
+        [PLACE_VALUES.UNITS]: 0 
+      }
     ]);
+    
     setSelectedComparisonOperator(null);
     setHighlightedPlaceValue(null);
     setIsComparingNow(false);
@@ -67,8 +93,12 @@ const CompareNumbersMode = () => {
   };
 
   const handleAbacusChange = (index, placeValue, value) => {
+    // Make sure value stays within limits (0-9)
+    const limitedValue = Math.max(0, Math.min(9, value));
+    
+    // Create a copy of the current states and update the specific value
     const newStates = [...abacusStates];
-    newStates[index] = { ...newStates[index], [placeValue]: value };
+    newStates[index] = { ...newStates[index], [placeValue]: limitedValue };
     setAbacusStates(newStates);
     
     // Check if abacus is correctly reflecting the number
@@ -94,7 +124,7 @@ const CompareNumbersMode = () => {
     setIsComparingNow(true);
     // Start highlighting from the highest place value
     setHighlightedPlaceValue(difficultyLevel.usedPlaceValues[0]);
-    playSound('compare-start', gameState.sound);
+    playSound('click', gameState.sound);
   };
 
   const handleComparisonOperatorSelect = (operatorSymbol) => {
@@ -135,14 +165,8 @@ const CompareNumbersMode = () => {
     }
   };
 
-  const handleNextPlaceValueHighlight = (nextValue) => {
-    // If we receive null, we're finishing the analysis
-    if (nextValue === null) {
-      setHighlightedPlaceValue(null);
-      return;
-    }
-    
-    // Otherwise, move to the next place value in sequence
+  const handleNextPlaceValueHighlight = () => {
+    // Find current index
     const currentIndex = difficultyLevel.usedPlaceValues.indexOf(highlightedPlaceValue);
     if (currentIndex < difficultyLevel.usedPlaceValues.length - 1) {
       // Move to next place value
