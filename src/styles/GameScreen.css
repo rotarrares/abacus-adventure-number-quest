@@ -3,8 +3,8 @@
   height: 100%;
   display: flex;
   flex-direction: column;
-  /* Use a gradient background instead of an image */
-  background: linear-gradient(135deg, #a9c9ff 0%, #ffbbec 100%);
+  /* Remove gradient background to let the global background show through */
+  background: transparent;
   overflow: auto;
 }
 
