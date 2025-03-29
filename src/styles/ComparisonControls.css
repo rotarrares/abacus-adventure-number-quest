@@ -1,0 +1,249 @@
+.comparison-controls {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  padding: 20px;
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+/* Place value analysis section */
+.place-value-analysis {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-width: 500px;
+  background-color: #f5f7fa;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.place-value-analysis h3 {
+  color: #4a2c82;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.place-value-comparison {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 30px;
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.comparison-value {
+  background-color: #fff;
+  border: 2px solid #7048c0;
+  border-radius: 8px;
+  padding: 12px 20px;
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #444;
+}
+
+.comparison-symbol {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #e67e22;
+  animation: pulse 1.5s infinite;
+}
+
+.comparison-note {
+  background-color: #e8f4f8;
+  border-left: 4px solid #3498db;
+  padding: 12px;
+  margin-bottom: 20px;
+  width: 100%;
+  border-radius: 0 8px 8px 0;
+}
+
+.comparison-note p {
+  margin: 0;
+  color: #2980b9;
+}
+
+.continue-button {
+  background-color: #4a2c82;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 12px 30px;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.continue-button:hover {
+  background-color: #3b2368;
+  transform: translateY(-3px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+/* Operator selection section */
+.operator-selection {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-width: 500px;
+}
+
+.operator-selection h3 {
+  color: #4a2c82;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.operator-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  width: 100%;
+  margin-bottom: 25px;
+}
+
+.operator-button {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #fff;
+  border: 2px solid #7048c0;
+  border-radius: 12px;
+  padding: 15px;
+  min-width: 100px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.operator-button:hover:not(:disabled) {
+  background-color: #f0e5ff;
+  transform: translateY(-5px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+}
+
+.operator-button.selected {
+  background-color: #4a2c82;
+  border-color: #4a2c82;
+  color: white;
+  transform: translateY(-5px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.operator-button:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.operator-symbol {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 8px;
+}
+
+.operator-button.selected .operator-symbol {
+  color: white;
+}
+
+.operator-text {
+  font-size: 0.9rem;
+  text-align: center;
+}
+
+.hint-button {
+  background-color: #f0e5ff;
+  color: #4a2c82;
+  border: 1px solid #7048c0;
+  border-radius: 6px;
+  padding: 8px 15px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.hint-button:hover {
+  background-color: #e6d4ff;
+}
+
+.explanation-box {
+  background-color: #f8f8f8;
+  border-radius: 8px;
+  padding: 15px;
+  margin-top: 15px;
+  width: 100%;
+  border-left: 4px solid #4a2c82;
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+.explanation-box p {
+  margin: 0;
+  color: #333;
+  line-height: 1.5;
+}
+
+/* Loading state */
+.loading-comparison {
+  color: #666;
+  font-style: italic;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .comparison-controls {
+    padding: 15px;
+  }
+  
+  .place-value-comparison {
+    gap: 15px;
+  }
+  
+  .comparison-value {
+    padding: 10px 15px;
+    font-size: 1rem;
+  }
+  
+  .operator-buttons {
+    gap: 10px;
+  }
+  
+  .operator-button {
+    min-width: 80px;
+    padding: 10px;
+  }
+  
+  .operator-symbol {
+    font-size: 1.5rem;
+  }
+  
+  .operator-text {
+    font-size: 0.8rem;
+  }
+}
