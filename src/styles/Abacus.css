@@ -1,0 +1,103 @@
+.abacus-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 20px 0;
+}
+
+.abacus-canvas-container {
+  width: 100%;
+  height: 300px;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+}
+
+.abacus-controls {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+.abacus-column-control {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: rgba(255, 255, 255, 0.9);
+  border-radius: 10px;
+  padding: 15px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 100px;
+}
+
+.column-label {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  font-weight: bold;
+  font-size: 1.2rem;
+  margin-bottom: 10px;
+}
+
+.bead-controls {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.bead-count {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin: 8px 0;
+}
+
+.bead-button {
+  width: 100%;
+  background-color: #f8f9fa;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  padding: 5px;
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+
+.add-button {
+  color: #28a745;
+}
+
+.add-button:hover:not(:disabled) {
+  background-color: #e8f5e9;
+}
+
+.remove-button {
+  color: #dc3545;
+}
+
+.remove-button:hover:not(:disabled) {
+  background-color: #fbe9e7;
+}
+
+.bead-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Responsive adjustments */
+@media (max-width: 600px) {
+  .abacus-canvas-container {
+    height: 250px;
+  }
+  
+  .abacus-column-control {
+    width: 85px;
+    padding: 10px;
+  }
+}
