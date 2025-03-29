@@ -165,8 +165,14 @@ const CompareNumbersMode = () => {
     }
   };
 
-  const handleNextPlaceValueHighlight = () => {
-    // Find current index
+  const handleNextPlaceValueHighlight = (nextValue) => {
+    // If we receive null, we're finishing the analysis
+    if (nextValue === null) {
+      setHighlightedPlaceValue(null);
+      return;
+    }
+    
+    // Otherwise, move to the next place value in sequence
     const currentIndex = difficultyLevel.usedPlaceValues.indexOf(highlightedPlaceValue);
     if (currentIndex < difficultyLevel.usedPlaceValues.length - 1) {
       // Move to next place value
