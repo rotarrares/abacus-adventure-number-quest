@@ -1,0 +1,56 @@
+/* CompareAbacus.css - Styles for the more compact abacus */
+.compare-abacus-container {
+  transform: scale(0.9);
+  transform-origin: top center;
+  margin-bottom: -15px;
+}
+
+.compare-simple-abacus {
+  max-height: 250px;
+}
+
+.compare-abacus-frame {
+  padding: 10px 5px;
+  margin: 0;
+}
+
+.compare-bead-columns {
+  gap: 5px;
+}
+
+.compare-bead-column {
+  gap: 3px;
+}
+
+.compare-column-label {
+  font-size: 0.8rem;
+  padding: 3px 6px;
+  margin-bottom: 4px;
+}
+
+.compare-bead {
+  width: 20px;
+  height: 20px;
+}
+
+.compare-bead-slot {
+  width: 20px;
+  height: 20px;
+}
+
+/* Media queries for smaller screens */
+@media (max-width: 768px) {
+  .compare-abacus-container {
+    transform: scale(0.85);
+  }
+  
+  .compare-bead, .compare-bead-slot {
+    width: 18px;
+    height: 18px;
+  }
+  
+  .compare-column-label {
+    font-size: 0.7rem;
+    padding: 2px 4px;
+  }
+}

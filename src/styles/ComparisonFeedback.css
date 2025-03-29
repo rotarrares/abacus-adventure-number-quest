@@ -3,10 +3,10 @@
   flex-direction: column;
   align-items: center;
   width: 100%;
-  padding: 20px;
-  border-radius: 12px;
+  padding: 10px;
+  border-radius: 10px;
   animation: slideIn 0.5s ease-in-out;
-  margin-top: 20px;
+  margin-top: 10px;
 }
 
 .comparison-feedback.correct {
@@ -31,7 +31,7 @@
   display: flex;
   align-items: flex-start;
   width: 100%;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
 }
 
 .character-bubble.robi {
@@ -43,13 +43,13 @@
 }
 
 .character-icon {
-  width: 70px;
-  height: 70px;
+  width: 50px;
+  height: 50px;
   flex-shrink: 0;
   border-radius: 50%;
   overflow: hidden;
-  border: 3px solid #fff;
-  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+  border: 2px solid #fff;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
 }
 
 .character-icon img {
@@ -60,11 +60,11 @@
 
 .bubble-content {
   background-color: #fff;
-  border-radius: 15px;
-  padding: 15px;
-  margin: 0 15px;
+  border-radius: 12px;
+  padding: 8px 12px;
+  margin: 0 10px;
   position: relative;
-  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
   flex-grow: 1;
 }
 
@@ -77,9 +77,9 @@
 }
 
 .bubble-content h3 {
-  margin-top: 0;
-  margin-bottom: 10px;
+  margin: 0 0 5px 0;
   color: #333;
+  font-size: 1rem;
 }
 
 .success-feedback h3 {
@@ -91,54 +91,57 @@
 }
 
 .bubble-content p {
-  margin: 0 0 10px 0;
+  margin: 0 0 5px 0;
   color: #555;
+  font-size: 0.9rem;
 }
 
 .star-coins {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 8px;
   background-color: #fcf8e3;
-  padding: 8px 12px;
-  border-radius: 20px;
-  margin-top: 10px;
+  padding: 5px 10px;
+  border-radius: 15px;
+  margin-top: 5px;
+  font-size: 0.85rem;
 }
 
 .star-icon {
   color: #f39c12;
-  font-size: 1.2rem;
+  font-size: 1rem;
   animation: spin 1s ease-in-out;
 }
 
 .explanation {
   background-color: #f8f9fa;
-  border-radius: 8px;
-  padding: 15px;
+  border-radius: 6px;
+  padding: 8px 12px;
   width: 100%;
   max-width: 600px;
-  margin-top: 10px;
+  margin-top: 5px;
 }
 
 .success-feedback .explanation {
-  border-left: 4px solid #2ecc71;
+  border-left: 3px solid #2ecc71;
 }
 
 .error-feedback .explanation {
-  border-left: 4px solid #e74c3c;
+  border-left: 3px solid #e74c3c;
 }
 
 .explanation p {
   margin: 0;
   color: #444;
-  line-height: 1.5;
+  line-height: 1.4;
+  font-size: 0.85rem;
 }
 
 /* Animations */
 @keyframes slideIn {
   from {
     opacity: 0;
-    transform: translateY(20px);
+    transform: translateY(10px);
   }
   to {
     opacity: 1;
@@ -167,24 +170,24 @@
 /* Responsive design */
 @media (max-width: 768px) {
   .comparison-feedback {
-    padding: 15px;
+    padding: 8px;
   }
   
   .character-icon {
-    width: 60px;
-    height: 60px;
+    width: 40px;
+    height: 40px;
   }
   
   .bubble-content {
-    padding: 12px;
-    margin: 0 10px;
+    padding: 8px 10px;
+    margin: 0 8px;
   }
   
   .bubble-content h3 {
-    font-size: 1.1rem;
+    font-size: 0.9rem;
   }
   
   .bubble-content p {
-    font-size: 0.9rem;
+    font-size: 0.8rem;
   }
 }

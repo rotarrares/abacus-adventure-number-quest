@@ -3,7 +3,7 @@
   flex-direction: column;
   align-items: center;
   width: 100%;
-  padding: 20px;
+  padding: 10px;
   animation: fadeIn 0.5s ease-in-out;
 }
 
@@ -13,40 +13,41 @@
   flex-direction: column;
   align-items: center;
   width: 100%;
-  max-width: 500px;
+  max-width: 450px;
   background-color: #f5f7fa;
-  padding: 20px;
-  border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  padding: 10px;
+  border-radius: 10px;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.05);
 }
 
 .place-value-analysis h3 {
   color: #4a2c82;
-  margin-bottom: 20px;
+  margin: 0 0 10px 0;
   text-align: center;
+  font-size: 1rem;
 }
 
 .place-value-comparison {
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 30px;
+  gap: 15px;
   width: 100%;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
 }
 
 .comparison-value {
   background-color: #fff;
   border: 2px solid #7048c0;
-  border-radius: 8px;
-  padding: 12px 20px;
-  font-size: 1.2rem;
+  border-radius: 6px;
+  padding: 8px 12px;
+  font-size: 1rem;
   font-weight: bold;
   color: #444;
 }
 
 .comparison-symbol {
-  font-size: 2rem;
+  font-size: 1.5rem;
   font-weight: bold;
   color: #e67e22;
   animation: pulse 1.5s infinite;
@@ -54,25 +55,26 @@
 
 .comparison-note {
   background-color: #e8f4f8;
-  border-left: 4px solid #3498db;
-  padding: 12px;
-  margin-bottom: 20px;
+  border-left: 3px solid #3498db;
+  padding: 6px 10px;
+  margin-bottom: 10px;
   width: 100%;
-  border-radius: 0 8px 8px 0;
+  border-radius: 0 6px 6px 0;
 }
 
 .comparison-note p {
   margin: 0;
   color: #2980b9;
+  font-size: 0.85rem;
 }
 
 .continue-button {
   background-color: #4a2c82;
   color: white;
   border: none;
-  border-radius: 8px;
-  padding: 12px 30px;
-  font-size: 1rem;
+  border-radius: 6px;
+  padding: 8px 20px;
+  font-size: 0.9rem;
   font-weight: bold;
   cursor: pointer;
   transition: all 0.2s;
@@ -80,8 +82,8 @@
 
 .continue-button:hover {
   background-color: #3b2368;
-  transform: translateY(-3px);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+  transform: translateY(-2px);
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.15);
 }
 
 /* Operator selection section */
@@ -90,21 +92,22 @@
   flex-direction: column;
   align-items: center;
   width: 100%;
-  max-width: 500px;
+  max-width: 450px;
 }
 
 .operator-selection h3 {
   color: #4a2c82;
-  margin-bottom: 20px;
+  margin: 0 0 10px 0;
   text-align: center;
+  font-size: 1rem;
 }
 
 .operator-buttons {
   display: flex;
   justify-content: center;
-  gap: 20px;
+  gap: 12px;
   width: 100%;
-  margin-bottom: 25px;
+  margin-bottom: 12px;
 }
 
 .operator-button {
@@ -113,25 +116,25 @@
   align-items: center;
   background-color: #fff;
   border: 2px solid #7048c0;
-  border-radius: 12px;
-  padding: 15px;
-  min-width: 100px;
+  border-radius: 8px;
+  padding: 8px 12px;
+  min-width: 80px;
   cursor: pointer;
   transition: all 0.2s;
 }
 
 .operator-button:hover:not(:disabled) {
   background-color: #f0e5ff;
-  transform: translateY(-5px);
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+  transform: translateY(-3px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .operator-button.selected {
   background-color: #4a2c82;
   border-color: #4a2c82;
   color: white;
-  transform: translateY(-5px);
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+  transform: translateY(-3px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
 }
 
 .operator-button:disabled {
@@ -140,9 +143,9 @@
 }
 
 .operator-symbol {
-  font-size: 2rem;
+  font-size: 1.5rem;
   font-weight: bold;
-  margin-bottom: 8px;
+  margin-bottom: 4px;
 }
 
 .operator-button.selected .operator-symbol {
@@ -150,7 +153,7 @@
 }
 
 .operator-text {
-  font-size: 0.9rem;
+  font-size: 0.8rem;
   text-align: center;
 }
 
@@ -158,9 +161,9 @@
   background-color: #f0e5ff;
   color: #4a2c82;
   border: 1px solid #7048c0;
-  border-radius: 6px;
-  padding: 8px 15px;
-  font-size: 0.9rem;
+  border-radius: 4px;
+  padding: 5px 10px;
+  font-size: 0.8rem;
   cursor: pointer;
   transition: all 0.2s;
 }
@@ -171,31 +174,33 @@
 
 .explanation-box {
   background-color: #f8f8f8;
-  border-radius: 8px;
-  padding: 15px;
-  margin-top: 15px;
+  border-radius: 6px;
+  padding: 8px 12px;
+  margin-top: 8px;
   width: 100%;
-  border-left: 4px solid #4a2c82;
+  border-left: 3px solid #4a2c82;
   animation: fadeIn 0.3s ease-in-out;
 }
 
 .explanation-box p {
   margin: 0;
   color: #333;
-  line-height: 1.5;
+  line-height: 1.4;
+  font-size: 0.85rem;
 }
 
 /* Loading state */
 .loading-comparison {
   color: #666;
   font-style: italic;
+  font-size: 0.9rem;
 }
 
 /* Animations */
 @keyframes fadeIn {
   from {
     opacity: 0;
-    transform: translateY(-10px);
+    transform: translateY(-6px);
   }
   to {
     opacity: 1;
@@ -208,7 +213,7 @@
     transform: scale(1);
   }
   50% {
-    transform: scale(1.1);
+    transform: scale(1.05);
   }
   100% {
     transform: scale(1);
@@ -218,32 +223,32 @@
 /* Responsive design */
 @media (max-width: 768px) {
   .comparison-controls {
-    padding: 15px;
+    padding: 8px;
   }
   
   .place-value-comparison {
-    gap: 15px;
-  }
-  
-  .comparison-value {
-    padding: 10px 15px;
-    font-size: 1rem;
-  }
-  
-  .operator-buttons {
     gap: 10px;
   }
   
+  .comparison-value {
+    padding: 6px 10px;
+    font-size: 0.9rem;
+  }
+  
+  .operator-buttons {
+    gap: 8px;
+  }
+  
   .operator-button {
-    min-width: 80px;
-    padding: 10px;
+    min-width: 70px;
+    padding: 6px 8px;
   }
   
   .operator-symbol {
-    font-size: 1.5rem;
+    font-size: 1.3rem;
   }
   
   .operator-text {
-    font-size: 0.8rem;
+    font-size: 0.7rem;
   }
 }
