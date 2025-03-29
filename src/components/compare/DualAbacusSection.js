@@ -1,6 +1,6 @@
 import React from 'react';
-import Abacus from '../abacus/Abacus';
-import { numberToPlaceValues, getPlaceValueName } from '../../utils/compareNumbersUtils';
+import CompareAbacus from './CompareAbacus';
+import { numberToPlaceValues, getPlaceValueName, getPlaceValueLabel } from '../../utils/compareNumbersUtils';
 import { PLACE_VALUES, BEAD_COLORS, FEEDBACK_MESSAGES } from '../../constants/compareNumbersConstants';
 import '../../styles/DualAbacusSection.css';
 
@@ -49,25 +49,26 @@ const DualAbacusSection = ({
       <div className="abacus-labels">
         <div className="place-value-labels">
           <div className={`place-value-label ${highlightedPlaceValue === PLACE_VALUES.THOUSANDS ? 'highlighted' : ''}`}>
-            {getPlaceValueName(PLACE_VALUES.THOUSANDS)} (M)
+            {getPlaceValueName(PLACE_VALUES.THOUSANDS)} ({getPlaceValueLabel(PLACE_VALUES.THOUSANDS)})
           </div>
           <div className={`place-value-label ${highlightedPlaceValue === PLACE_VALUES.HUNDREDS ? 'highlighted' : ''}`}>
-            {getPlaceValueName(PLACE_VALUES.HUNDREDS)} (S)
+            {getPlaceValueName(PLACE_VALUES.HUNDREDS)} ({getPlaceValueLabel(PLACE_VALUES.HUNDREDS)})
           </div>
           <div className={`place-value-label ${highlightedPlaceValue === PLACE_VALUES.TENS ? 'highlighted' : ''}`}>
-            {getPlaceValueName(PLACE_VALUES.TENS)} (Z)
+            {getPlaceValueName(PLACE_VALUES.TENS)} ({getPlaceValueLabel(PLACE_VALUES.TENS)})
           </div>
           <div className={`place-value-label ${highlightedPlaceValue === PLACE_VALUES.UNITS ? 'highlighted' : ''}`}>
-            {getPlaceValueName(PLACE_VALUES.UNITS)} (U)
+            {getPlaceValueName(PLACE_VALUES.UNITS)} ({getPlaceValueLabel(PLACE_VALUES.UNITS)})
           </div>
         </div>
       </div>
       
       <div className="abacus-container-dual">
         <div className={`abacus-wrapper ${isAbacusComplete[0] ? 'completed' : ''}`}>
-          <Abacus 
+          <CompareAbacus 
             onBeadChange={(placeValue, value) => onAbacusChange(0, placeValue, value)} 
             abacusState={abacusStates[0]}
+            showControls={false}
           />
           
           {/* Hints for first abacus */}
@@ -83,9 +84,10 @@ const DualAbacusSection = ({
         </div>
         
         <div className={`abacus-wrapper ${isAbacusComplete[1] ? 'completed' : ''}`}>
-          <Abacus 
+          <CompareAbacus 
             onBeadChange={(placeValue, value) => onAbacusChange(1, placeValue, value)} 
             abacusState={abacusStates[1]}
+            showControls={false}
           />
           
           {/* Hints for second abacus */}
@@ -111,7 +113,7 @@ const DualAbacusSection = ({
                 className="color-sample" 
                 style={{ backgroundColor: color }}
               ></div>
-              <span>{getPlaceValueName(placeValue)} ({placeValue})</span>
+              <span>{getPlaceValueName(placeValue)} ({getPlaceValueLabel(placeValue)})</span>
             </div>
           ))}
         </div>
