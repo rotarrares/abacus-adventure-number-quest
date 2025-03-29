@@ -16,8 +16,8 @@ const SimpleAbacus = ({ onBeadChange, showControls = true }) => {
     units: '#9b59b6'      // Purple
   };
 
-  // Function to render a column of beads
-  const renderBeadColumn = (count, columnName, color) => {
+  // Function to render a column of beads with its label
+  const renderBeadColumn = (count, columnName, color, label) => {
     const beads = [];
     
     // Add beads based on count
@@ -44,8 +44,13 @@ const SimpleAbacus = ({ onBeadChange, showControls = true }) => {
     }
     
     return (
-      <div className="bead-column">
-        {beads}
+      <div className="bead-column-wrapper">
+        <div className="column-label" style={{ backgroundColor: color }}>
+          {label}
+        </div>
+        <div className="bead-column">
+          {beads}
+        </div>
       </div>
     );
   };
@@ -54,18 +59,11 @@ const SimpleAbacus = ({ onBeadChange, showControls = true }) => {
     <div className="abacus-container">
       <div className="simple-abacus">
         <div className="abacus-frame">
-          <div className="column-labels">
-            <div className="column-label" style={{ backgroundColor: beadColors.thousands }}>M</div>
-            <div className="column-label" style={{ backgroundColor: beadColors.hundreds }}>S</div>
-            <div className="column-label" style={{ backgroundColor: beadColors.tens }}>Z</div>
-            <div className="column-label" style={{ backgroundColor: beadColors.units }}>U</div>
-          </div>
-          
           <div className="bead-columns">
-            {renderBeadColumn(abacusState.thousands, 'thousands', beadColors.thousands)}
-            {renderBeadColumn(abacusState.hundreds, 'hundreds', beadColors.hundreds)}
-            {renderBeadColumn(abacusState.tens, 'tens', beadColors.tens)}
-            {renderBeadColumn(abacusState.units, 'units', beadColors.units)}
+            {renderBeadColumn(abacusState.thousands, 'thousands', beadColors.thousands, 'M')}
+            {renderBeadColumn(abacusState.hundreds, 'hundreds', beadColors.hundreds, 'S')}
+            {renderBeadColumn(abacusState.tens, 'tens', beadColors.tens, 'Z')}
+            {renderBeadColumn(abacusState.units, 'units', beadColors.units, 'U')}
           </div>
         </div>
       </div>
