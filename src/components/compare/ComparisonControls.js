@@ -85,7 +85,8 @@ const ComparisonControls = ({
     if (currentComparison && currentComparison.result !== '=') {
       // We've found a difference, so we can stop comparing
       setAnalyzingComplete(true);
-      onNextPlaceValue(null);
+      /* eslint-disable-next-line no-undef */
+      setHighlightedPlaceValue(null);
     } else {
       // Move to the next place value
       onNextPlaceValue();
