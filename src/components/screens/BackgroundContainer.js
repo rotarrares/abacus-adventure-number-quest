@@ -1,34 +1,42 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 
 const BackgroundContainer = ({ children }) => {
-  const [backgroundLoaded, setBackgroundLoaded] = useState(false);
-  
-  useEffect(() => {
-    // Check if the background image exists using the same method as for ana.png
-    const img = new Image();
-    img.onload = () => setBackgroundLoaded(true);
-    img.onerror = () => setBackgroundLoaded(false);
-    img.src = '/assets/images/background.png';
-  }, []);
-
-  // Base styles that work with or without background image
   const containerStyle = {
     width: '100vw',
     height: '100vh',
     overflow: 'hidden',
     position: 'relative',
-    // Fallback gradient if image doesn't load
-    background: backgroundLoaded 
-      ? `linear-gradient(rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0.6)), url('/assets/images/background.png')`
-      : 'linear-gradient(135deg, #a1c4fd 0%, #c2e9fb 100%)',
+    backgroundColor: '#f0f8ff', // Light blue background color
+  };
+
+  // Create an overlay div with the background image
+  const backgroundImageStyle = {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    width: '100%',
+    height: '100%',
+    backgroundImage: 'url(/assets/images/background.png)',
     backgroundSize: 'cover',
     backgroundPosition: 'center',
-    backgroundRepeat: 'no-repeat'
+    backgroundRepeat: 'no-repeat',
+    opacity: 0.5, // Make the background semi-transparent
+    zIndex: 0,
+  };
+
+  const contentStyle = {
+    position: 'relative',
+    width: '100%',
+    height: '100%',
+    zIndex: 1,
   };
 
   return (
     <div style={containerStyle}>
-      {children}
+      <div style={backgroundImageStyle}></div>
+      <div style={contentStyle}>
+        {children}
+      </div>
     </div>
   );
 };
