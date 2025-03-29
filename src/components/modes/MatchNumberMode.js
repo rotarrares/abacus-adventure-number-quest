@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { useGameContext } from '../../context/GameContext';
 import { numberToRomanianWord, getRandomNumber } from '../../utils/numberUtils';
 import { playSound, speakText } from '../../utils/audioUtils';
-import Abacus from '../abacus/Abacus';
+import SimpleAbacus from '../abacus/SimpleAbacus';
 import '../../styles/GameModes.css';
 
 const MatchNumberMode = () => {
@@ -106,7 +106,7 @@ const MatchNumberMode = () => {
         <span>{gameState.currentNumber}</span>
       </div>
       
-      <Abacus onBeadChange={handleBeadChange} />
+      <SimpleAbacus onBeadChange={handleBeadChange} />
       
       <div className="feedback-container">
         {gameState.feedback === 'correct' && (
