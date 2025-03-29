@@ -91,6 +91,37 @@
   transform: translateY(-3px);
 }
 
+/* Featured mode button styles */
+.mode-button.featured {
+  background-color: #4a2c82;
+  border: 2px solid #ffd700;
+  padding: 12px 20px;
+  font-weight: bold;
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  margin-top: 8px;
+}
+
+.mode-button.featured:hover {
+  background-color: #3b2368;
+  transform: translateY(-3px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+}
+
+.mode-button.featured::before {
+  content: "Nou!";
+  position: absolute;
+  top: -8px;
+  right: -20px;
+  background-color: #ff6b6b;
+  color: white;
+  padding: 2px 20px;
+  font-size: 0.8rem;
+  transform: rotate(45deg);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
 .stars-display {
   display: flex;
   align-items: center;
@@ -187,6 +218,10 @@
     width: 100%;
     font-size: 1rem;
     padding: 8px 15px;
+  }
+  
+  .mode-button.featured {
+    padding: 10px 15px;
   }
   
   .stars-display {

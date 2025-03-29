@@ -1,0 +1,53 @@
+.compare-numbers-mode {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  gap: 24px;
+}
+
+.mode-title {
+  text-align: center;
+  color: #4a2c82;
+  font-size: 28px;
+  margin-bottom: 10px;
+  animation: fadeIn 0.5s ease-in-out;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Section dividers */
+.compare-numbers-mode > div {
+  background-color: rgba(255, 255, 255, 0.9);
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .compare-numbers-mode {
+    padding: 10px;
+  }
+  
+  .mode-title {
+    font-size: 24px;
+  }
+  
+  .compare-numbers-mode > div {
+    padding: 15px;
+  }
+}
+
+/* Animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
