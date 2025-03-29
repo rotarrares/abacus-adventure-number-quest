@@ -12,6 +12,9 @@ const AUDIO_PATHS = {
 // Cache for audio elements
 const audioCache = {};
 
+// Flag to track if speech synthesis is currently speaking
+let isSpeaking = false;
+
 /**
  * Preload all audio files
  */
@@ -62,18 +65,56 @@ export const speakText = (text, soundEnabled = true) => {
   if (!soundEnabled) return;
   
   if ('speechSynthesis' in window) {
-    // Create speech synthesis utterance
-    const utterance = new SpeechSynthesisUtterance(text);
+    // Cancel any ongoing speech
+    window.speechSynthesis.cancel();
     
-    // Set language to Romanian
-    utterance.lang = 'ro-RO';
-    
-    // Use a slightly slower rate for educational purposes
-    utterance.rate = 0.9;
-    
-    // Speak the text
-    window.speechSynthesis.speak(utterance);
+    // Add a small delay to ensure previous speech is fully canceled
+    setTimeout(() => {
+      if (isSpeaking) return; // Prevent multiple simultaneous speech
+      
+      // Create speech synthesis utterance
+      const utterance = new SpeechSynthesisUtterance(text);
+      
+      // Set language to Romanian
+      utterance.lang = 'ro-RO';
+      
+      // Use a slightly slower rate for educational purposes
+      utterance.rate = 0.9;
+      
+      // Add event listeners to track speaking state
+      utterance.onstart = () => {
+        isSpeaking = true;
+      };
+      
+      utterance.onend = () => {
+        isSpeaking = false;
+      };
+      
+      utterance.onerror = () => {
+        isSpeaking = false;
+      };
+      
+      // Speak the text
+      window.speechSynthesis.speak(utterance);
+    }, 50);
   } else {
     console.warn('Speech synthesis not supported in this browser');
+  }
+};
+
+/**
+ * Stop all audio playback
+ */
+export const stopAllAudio = () => {
+  // Stop all cached audio elements
+  Object.values(audioCache).forEach(audio => {
+    audio.pause();
+    audio.currentTime = 0;
+  });
+  
+  // Stop speech synthesis
+  if ('speechSynthesis' in window) {
+    window.speechSynthesis.cancel();
+    isSpeaking = false;
   }
 };
