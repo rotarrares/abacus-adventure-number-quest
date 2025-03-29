@@ -31,7 +31,7 @@ const ComparisonControls = (props) => {
   
   // When we don't have a highlighted place value, we're done with analysis
   useEffect(() => {
-    if (!highlightedPlaceValue) {
+    if (highlightedPlaceValue === null) {
       setAnalysisFinished(true);
     }
   }, [highlightedPlaceValue]);
@@ -118,6 +118,14 @@ const ComparisonControls = (props) => {
       return `${placeName} sunt diferite! ${place1} este mai mare decât ${place2}, deci ${numbers[0]} este mai mare decât ${numbers[1]}.`;
     }
   };
+
+  // Handle selecting an operator
+  const handleOperatorSelect = (operatorSymbol) => {
+    console.log('Operator selected:', operatorSymbol);
+    if (typeof onComparisonSelect === 'function') {
+      onComparisonSelect(operatorSymbol);
+    }
+  };
   
   return (
     <div className="comparison-controls">
@@ -173,7 +181,7 @@ const ComparisonControls = (props) => {
               <button
                 key={operator.symbol}
                 className={`operator-button ${selectedOperator === operator.symbol ? 'selected' : ''}`}
-                onClick={() => typeof onComparisonSelect === 'function' && onComparisonSelect(operator.symbol)}
+                onClick={() => handleOperatorSelect(operator.symbol)}
                 disabled={!!selectedOperator}
               >
                 <span className="operator-symbol">{operator.symbol}</span>
