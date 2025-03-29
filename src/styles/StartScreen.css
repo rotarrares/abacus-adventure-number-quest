@@ -4,9 +4,8 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background-image: url('/assets/images/background.jpg');
-  background-size: cover;
-  background-position: center;
+  /* Use a gradient background instead of image */
+  background: linear-gradient(45deg, #85FFBD 0%, #FFFB7D 100%);
   overflow: hidden;
 }
 
@@ -36,6 +35,24 @@
 
 .character {
   margin: 20px 0;
+  /* If image is not available, provide a colorful placeholder */
+  min-height: 150px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.character-placeholder {
+  width: 150px;
+  height: 150px;
+  background: linear-gradient(135deg, #ff9a9e 0%, #fad0c4 100%);
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  font-size: 2rem;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .character img {
