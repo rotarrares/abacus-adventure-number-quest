@@ -90,14 +90,107 @@
   cursor: not-allowed;
 }
 
+/* Simple Abacus Styles */
+.simple-abacus {
+  width: 100%;
+  height: 300px;
+  background-color: white;
+  border-radius: 12px;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  overflow: hidden;
+}
+
+.abacus-frame {
+  width: 100%;
+  height: 100%;
+  background-color: #8B4513;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  padding: 10px;
+}
+
+.column-labels {
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+  position: absolute;
+  bottom: -20px;
+}
+
+.bead-columns {
+  display: flex;
+  justify-content: space-around;
+  height: 100%;
+  width: 100%;
+  padding: 15px 0;
+}
+
+.bead-column {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  height: 100%;
+}
+
+.bead-column::before {
+  content: '';
+  position: absolute;
+  top: -10px;
+  bottom: -10px;
+  width: 4px;
+  background-color: #555;
+  z-index: 1;
+}
+
+.bead {
+  width: 30px;
+  height: 15px;
+  border-radius: 15px;
+  margin: 3px 0;
+  z-index: 2;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.bead:hover {
+  transform: scale(1.1);
+}
+
+.bead-slot {
+  width: 30px;
+  height: 15px;
+  border-radius: 15px;
+  margin: 3px 0;
+  background-color: rgba(0, 0, 0, 0.1);
+  z-index: 2;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.bead-slot:hover {
+  background-color: rgba(0, 0, 0, 0.2);
+}
+
 /* Responsive adjustments */
 @media (max-width: 600px) {
-  .abacus-canvas-container {
+  .abacus-canvas-container,
+  .simple-abacus {
     height: 250px;
   }
   
   .abacus-column-control {
     width: 85px;
     padding: 10px;
+  }
+  
+  .bead,
+  .bead-slot {
+    width: 25px;
+    height: 12px;
+    margin: 2px 0;
   }
 }
