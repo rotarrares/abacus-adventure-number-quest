@@ -1,6 +1,7 @@
 import React from 'react';
 import AbacusControls from '../abacus/AbacusControls';
 import '../../styles/Abacus.css';
+import '../../styles/CompareAbacus.css';
 
 /**
  * A simplified 2D version of the abacus that accepts state directly via props
@@ -32,7 +33,7 @@ const CompareAbacus = ({ abacusState, onBeadChange, showControls = true }) => {
       beads.push(
         <div 
           key={`bead-${columnName}-${i}`}
-          className="bead"
+          className="bead compare-bead"
           style={{ backgroundColor: color }}
           onClick={() => onBeadChange(columnName, count - 1)}
         />
@@ -44,7 +45,7 @@ const CompareAbacus = ({ abacusState, onBeadChange, showControls = true }) => {
       beads.push(
         <div 
           key={`empty-${columnName}-${i}`}
-          className="bead-slot"
+          className="bead-slot compare-bead-slot"
           onClick={() => onBeadChange(columnName, count + 1)}
         />
       );
@@ -52,10 +53,10 @@ const CompareAbacus = ({ abacusState, onBeadChange, showControls = true }) => {
     
     return (
       <div className="bead-column-wrapper">
-        <div className="column-label" style={{ backgroundColor: color }}>
+        <div className="column-label compare-column-label" style={{ backgroundColor: color }}>
           {label}
         </div>
-        <div className="bead-column">
+        <div className="bead-column compare-bead-column">
           {beads}
         </div>
       </div>
@@ -63,10 +64,10 @@ const CompareAbacus = ({ abacusState, onBeadChange, showControls = true }) => {
   };
 
   return (
-    <div className="abacus-container">
-      <div className="simple-abacus">
-        <div className="abacus-frame">
-          <div className="bead-columns">
+    <div className="abacus-container compare-abacus-container">
+      <div className="simple-abacus compare-simple-abacus">
+        <div className="abacus-frame compare-abacus-frame">
+          <div className="bead-columns compare-bead-columns">
             {renderBeadColumn(
               abacusState.thousands, 
               'thousands', 
