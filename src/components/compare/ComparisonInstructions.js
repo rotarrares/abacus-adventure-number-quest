@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { getPlaceValueName } from '../../utils/compareNumbersUtils';
+import { getPlaceValueName, getPlaceValueLabel } from '../../utils/compareNumbersUtils';
 import '../../styles/ComparisonInstructions.css';
 
 /**
@@ -15,7 +15,10 @@ const ComparisonInstructions = ({ level, difficultyLevel }) => {
   // Generate instructions text based on the current difficulty level
   const getInstructionsText = () => {
     const usedPlaceValues = difficultyLevel.usedPlaceValues;
-    const placeValueNames = usedPlaceValues.map(pv => getPlaceValueName(pv));
+    // Get both the full name and shorthand label for each place value
+    const placeValueDetails = usedPlaceValues.map(pv => 
+      `${getPlaceValueName(pv)} (${getPlaceValueLabel(pv)})`
+    );
     
     // For level 1 (most basic)
     if (level <= 5) {
@@ -26,7 +29,7 @@ const ComparisonInstructions = ({ level, difficultyLevel }) => {
             <li>Abacul din stânga pentru primul număr</li>
             <li>Abacul din dreapta pentru al doilea număr</li>
           </ul>
-          <p>Apoi, compară valorile din {placeValueNames.join(' și ')} pentru a determina care număr este mai mare.</p>
+          <p>Apoi, compară valorile din {placeValueDetails.join(' și ')} pentru a determina care număr este mai mare.</p>
         </>
       );
     }
@@ -34,7 +37,7 @@ const ComparisonInstructions = ({ level, difficultyLevel }) => {
     // For higher levels
     return (
       <>
-        <p>Construiește numerele pe abacuri, apoi compară-le începând cu cea mai mare valoare de poziție ({placeValueNames[0]}):</p>
+        <p>Construiește numerele pe abacuri, apoi compară-le începând cu cea mai mare valoare de poziție ({placeValueDetails[0]}):</p>
         <ul>
           <li>Dacă valorile sunt egale, treci la următoarea poziție</li>
           <li>Dacă valorile sunt diferite, numărul cu valoarea mai mare este mai mare</li>
@@ -55,7 +58,7 @@ const ComparisonInstructions = ({ level, difficultyLevel }) => {
         </li>
         <li>
           <span className="step-number">2</span>
-          <span className="step-text">Începe cu poziția de cea mai mare valoare (Mii - M)</span>
+          <span className="step-text">Începe cu poziția de cea mai mare valoare ({getPlaceValueName(difficultyLevel.usedPlaceValues[0])} - {getPlaceValueLabel(difficultyLevel.usedPlaceValues[0])})</span>
         </li>
         <li>
           <span className="step-number">3</span>
@@ -63,7 +66,7 @@ const ComparisonInstructions = ({ level, difficultyLevel }) => {
         </li>
         <li>
           <span className="step-number">4</span>
-          <span className="step-text">Dacă valorile sunt egale, treci la următoarea poziție (Sute - S)</span>
+          <span className="step-text">Dacă valorile sunt egale, treci la următoarea poziție ({difficultyLevel.usedPlaceValues.length > 1 ? getPlaceValueName(difficultyLevel.usedPlaceValues[1]) + ' - ' + getPlaceValueLabel(difficultyLevel.usedPlaceValues[1]) : ''})</span>
         </li>
         <li>
           <span className="step-number">5</span>
