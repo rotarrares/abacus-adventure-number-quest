@@ -2,13 +2,13 @@
   display: flex;
   flex-direction: column;
   width: 100%;
-  gap: 20px;
+  gap: 10px;
 }
 
 .abacus-labels {
   display: flex;
   justify-content: center;
-  margin-bottom: 10px;
+  margin-bottom: 5px;
 }
 
 .place-value-labels {
@@ -16,31 +16,32 @@
   justify-content: space-around;
   width: 100%;
   max-width: 800px;
-  padding: 0 20px;
+  padding: 0 10px;
 }
 
 .place-value-label {
-  padding: 8px 12px;
+  padding: 4px 8px;
   background-color: #f1f1f1;
   border-radius: 6px;
   font-weight: 600;
   color: #555;
   text-align: center;
   transition: all 0.3s ease;
+  font-size: 0.75rem;
 }
 
 .place-value-label.highlighted {
   background-color: #4a2c82;
   color: white;
-  transform: translateY(-5px);
-  box-shadow: 0 4px 10px rgba(74, 44, 130, 0.3);
+  transform: translateY(-3px);
+  box-shadow: 0 3px 8px rgba(74, 44, 130, 0.3);
 }
 
 .abacus-container-dual {
   display: flex;
   flex-direction: row;
   justify-content: center;
-  gap: 40px;
+  gap: 20px;
   width: 100%;
   flex-wrap: wrap;
 }
@@ -48,9 +49,9 @@
 .abacus-wrapper {
   position: relative;
   width: 45%;
-  min-width: 300px;
-  border-radius: 12px;
-  padding: 15px;
+  min-width: 280px;
+  border-radius: 10px;
+  padding: 8px;
   background-color: #f8f9fa;
   border: 2px solid #ddd;
   transition: all 0.3s ease;
@@ -58,22 +59,24 @@
 
 .abacus-wrapper.completed {
   border-color: #2ecc71;
-  box-shadow: 0 0 15px rgba(46, 204, 113, 0.3);
+  box-shadow: 0 0 10px rgba(46, 204, 113, 0.3);
 }
 
 .abacus-hints {
-  margin-top: 10px;
-  min-height: 60px;
+  margin-top: 5px;
+  min-height: 40px;
+  max-height: 60px;
+  overflow-y: auto;
 }
 
 .hint-message {
   background-color: #fff3cd;
   color: #856404;
-  padding: 8px 12px;
-  border-radius: 6px;
-  margin-bottom: 8px;
-  font-size: 0.9rem;
-  border-left: 4px solid #ffc107;
+  padding: 4px 8px;
+  border-radius: 4px;
+  margin-bottom: 4px;
+  font-size: 0.8rem;
+  border-left: 3px solid #ffc107;
   animation: fadeIn 0.5s ease-in-out;
 }
 
@@ -81,43 +84,51 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 20px;
-  padding: 15px;
+  margin-top: 5px;
+  padding: 8px;
   background-color: #f8f9fa;
-  border-radius: 8px;
+  border-radius: 6px;
 }
 
 .legend-title {
   font-weight: bold;
-  margin-bottom: 10px;
+  margin-bottom: 5px;
   color: #4a2c82;
+  font-size: 0.85rem;
 }
 
 .legend-items {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 15px;
+  gap: 8px;
 }
 
 .legend-item {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 5px;
+  font-size: 0.75rem;
 }
 
 .color-sample {
-  width: 20px;
-  height: 20px;
+  width: 15px;
+  height: 15px;
   border-radius: 50%;
   border: 1px solid #ddd;
+}
+
+/* Override abacus size */
+.abacus-wrapper .abacus-container {
+  transform: scale(0.9);
+  transform-origin: top center;
 }
 
 /* Animation */
 @keyframes fadeIn {
   from {
     opacity: 0;
-    transform: translateY(-10px);
+    transform: translateY(-5px);
   }
   to {
     opacity: 1;
@@ -129,14 +140,15 @@
 @media (max-width: 768px) {
   .abacus-wrapper {
     width: 100%;
+    min-width: 250px;
   }
   
   .place-value-label {
-    font-size: 0.8rem;
-    padding: 6px 8px;
+    font-size: 0.7rem;
+    padding: 3px 6px;
   }
   
   .legend-items {
-    gap: 10px;
+    gap: 6px;
   }
 }
