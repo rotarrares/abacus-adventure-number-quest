@@ -135,8 +135,18 @@ const CompareNumbersMode = () => {
     }
   };
 
-  const handleNextPlaceValueHighlight = () => {
-    // Find current index
+  const handleNextPlaceValueHighlight = (nextValue = undefined) => {
+    // If a specific value is provided (e.g. null), use that
+    if (nextValue !== undefined) {
+      setHighlightedPlaceValue(nextValue);
+      if (nextValue === null) {
+        // We're done with the place value comparison
+        setAnalyzingComplete(true);
+      }
+      return;
+    }
+    
+    // Otherwise move to the next place value in sequence
     const currentIndex = difficultyLevel.usedPlaceValues.indexOf(highlightedPlaceValue);
     if (currentIndex < difficultyLevel.usedPlaceValues.length - 1) {
       // Move to next place value
@@ -146,6 +156,9 @@ const CompareNumbersMode = () => {
       setHighlightedPlaceValue(null);
     }
   };
+
+  // Additional state for analysis completion
+  const [analyzingComplete, setAnalyzingComplete] = useState(false);
 
   return (
     <div className="compare-numbers-mode">
