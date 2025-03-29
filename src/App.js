@@ -3,6 +3,7 @@ import { useGameContext } from './context/GameContext';
 import StartScreen from './components/screens/StartScreen';
 import GameScreen from './components/screens/GameScreen';
 import TutorialScreen from './components/screens/TutorialScreen';
+import BackgroundContainer from './components/screens/BackgroundContainer';
 import './styles/App.css';
 
 function App() {
@@ -21,17 +22,12 @@ function App() {
     }
   };
 
-  const backgroundStyle = {
-    backgroundImage: "url(%PUBLIC_URL%/assets/images/background.png)",
-    backgroundSize: 'cover',
-    backgroundPosition: 'center',
-    backgroundRepeat: 'no-repeat'
-  };
-
   return (
-    <div className="app" style={backgroundStyle}>
-      {renderScreen()}
-    </div>
+    <BackgroundContainer>
+      <div className="app">
+        {renderScreen()}
+      </div>
+    </BackgroundContainer>
   );
 }
 
