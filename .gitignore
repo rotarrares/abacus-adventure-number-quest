@@ -26,3 +26,7 @@ yarn-error.log*
 .vscode/
 *.swp
 *.swo
+
+# Skip Three.js files in production if needed
+# (add this line to exclude Three.js components when deploying)
+# /src/components/abacus/AbacusModel.js
