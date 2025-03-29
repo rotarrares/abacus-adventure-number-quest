@@ -1,0 +1,152 @@
+.game-mode-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  width: 100%;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.mode-title {
+  font-size: 2rem;
+  color: #4d96ff;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.instructions {
+  font-size: 1.2rem;
+  text-align: center;
+  margin-bottom: 15px;
+}
+
+.target-number {
+  font-size: 3rem;
+  font-weight: bold;
+  color: #4d96ff;
+  background-color: rgba(255, 255, 255, 0.9);
+  padding: 15px 40px;
+  border-radius: 50px;
+  margin-bottom: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.target-word {
+  display: flex;
+  align-items: center;
+  background-color: rgba(255, 255, 255, 0.9);
+  padding: 15px 25px;
+  border-radius: 15px;
+  margin-bottom: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.target-word p {
+  font-size: 1.5rem;
+  color: #5c6bc0;
+  margin: 0;
+  margin-right: 10px;
+}
+
+.speak-button {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  padding: 5px;
+  border-radius: 50%;
+}
+
+.speak-button:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+.answer-container {
+  width: 100%;
+  max-width: 300px;
+  margin: 20px 0;
+}
+
+.number-input {
+  width: 100%;
+  font-size: 1.5rem;
+  text-align: center;
+  padding: 12px;
+  border: 2px solid #ddd;
+  border-radius: 10px;
+}
+
+.number-input:focus {
+  border-color: #4d96ff;
+  outline: none;
+}
+
+.feedback-container {
+  min-height: 100px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin: 10px 0;
+}
+
+.feedback {
+  padding: 15px 25px;
+  border-radius: 10px;
+  font-weight: bold;
+  text-align: center;
+  max-width: 400px;
+}
+
+.correct {
+  background-color: rgba(46, 204, 113, 0.2);
+  color: #27ae60;
+}
+
+.incorrect {
+  background-color: rgba(231, 76, 60, 0.2);
+  color: #e74c3c;
+}
+
+.hint {
+  font-weight: normal;
+  font-style: italic;
+  margin-top: 10px;
+  font-size: 0.9rem;
+}
+
+.check-button {
+  background-color: #4d96ff;
+  color: white;
+  font-size: 1.2rem;
+  padding: 12px 30px;
+  margin-top: 10px;
+  border-radius: 50px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transition: all 0.2s;
+}
+
+.check-button:hover {
+  background-color: #3a7bd5;
+  transform: translateY(-3px);
+}
+
+.check-button:active {
+  transform: translateY(-1px);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .mode-title {
+    font-size: 1.6rem;
+  }
+  
+  .target-number {
+    font-size: 2.5rem;
+    padding: 10px 30px;
+  }
+  
+  .target-word p {
+    font-size: 1.2rem;
+  }
+}
