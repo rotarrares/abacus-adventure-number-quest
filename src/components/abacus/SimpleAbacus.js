@@ -4,7 +4,7 @@ import { useGameContext } from '../../context/GameContext';
 import '../../styles/Abacus.css';
 
 // A simplified 2D version of the abacus that doesn't use Three.js
-const SimpleAbacus = ({ onBeadChange }) => {
+const SimpleAbacus = ({ onBeadChange, showControls = true }) => {
   const { gameState } = useGameContext();
   const { abacusState } = gameState;
 
@@ -70,10 +70,12 @@ const SimpleAbacus = ({ onBeadChange }) => {
         </div>
       </div>
       
-      <AbacusControls 
-        abacusState={abacusState}
-        onBeadChange={onBeadChange}
-      />
+      {showControls && (
+        <AbacusControls 
+          abacusState={abacusState}
+          onBeadChange={onBeadChange}
+        />
+      )}
     </div>
   );
 };
