@@ -1,0 +1,18 @@
+{
+  "name": "Abacus Adventure: Number Quest",
+  "description": "An educational game for learning about natural numbers using a virtual abacus.",
+  "repository": "https://github.com/rotarrares/abacus-adventure-number-quest",
+  "keywords": ["react", "education", "game", "abacus", "numbers", "romanian"],
+  "buildpacks": [
+    {
+      "url": "heroku/nodejs"
+    }
+  ],
+  "env": {
+    "NODE_ENV": {
+      "description": "Environment for the application",
+      "value": "production"
+    }
+  },
+  "success_url": "/"
+}
