@@ -4,6 +4,7 @@ import { playSound } from '../../utils/audioUtils';
 import MatchNumberMode from '../modes/MatchNumberMode';
 import ReadBuildMode from '../modes/ReadBuildMode';
 import WriteNumberMode from '../modes/WriteNumberMode';
+import CompareNumbersMode from '../modes/CompareNumbersMode';
 import GameHeader from '../ui/GameHeader';
 import '../../styles/GameScreen.css';
 
@@ -25,6 +26,8 @@ const GameScreen = () => {
         return <ReadBuildMode />;
       case 'write':
         return <WriteNumberMode />;
+      case 'compare':
+        return <CompareNumbersMode />;
       default:
         return <div>Mod de joc necunoscut</div>;
     }
