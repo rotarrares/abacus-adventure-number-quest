@@ -67,13 +67,29 @@ const WriteNumberMode = () => {
     setUserAnswer('');
   };
   
-  const handleInputChange = (e) => {
-    // Only allow numeric input
-    const value = e.target.value.replace(/[^0-9]/g, '');
-    setUserAnswer(value);
-    
-    // Update answer in state
-    dispatch({ type: actions.SET_ANSWER, payload: value });
+  // Funcție pentru a gestiona cifrele introduse
+  const handleDigitClick = (digit) => {
+    // Asigură-te că nu adaugi mai mult de 4 cifre
+    if (userAnswer.length < 4) {
+      const newAnswer = userAnswer + digit;
+      setUserAnswer(newAnswer);
+      dispatch({ type: actions.SET_ANSWER, payload: newAnswer });
+    }
+  };
+  
+  // Funcție pentru a șterge ultima cifră
+  const handleBackspace = () => {
+    if (userAnswer.length > 0) {
+      const newAnswer = userAnswer.slice(0, -1);
+      setUserAnswer(newAnswer);
+      dispatch({ type: actions.SET_ANSWER, payload: newAnswer });
+    }
+  };
+  
+  // Funcție pentru a șterge tot input-ul
+  const handleClear = () => {
+    setUserAnswer('');
+    dispatch({ type: actions.SET_ANSWER, payload: '' });
   };
   
   const handleBeadChange = (column, value) => {
@@ -132,46 +148,40 @@ const WriteNumberMode = () => {
     }
   };
   
-  const handleKeyPress = (e) => {
-    if (e.key === 'Enter') {
-      checkAnswer();
-    }
+  // Renderea tastaturii numerice
+  const renderNumpad = () => {
+    return (
+      <div className="numpad-container">
+        <div className="numpad-display">{userAnswer}</div>
+        <div className="numpad-buttons">
+          {[1, 2, 3, 4, 5, 6, 7, 8, 9, 0].map((digit) => (
+            <button 
+              key={digit}
+              className="numpad-button"
+              onClick={() => handleDigitClick(digit.toString())}
+            >
+              {digit}
+            </button>
+          ))}
+          <button 
+            className="numpad-button numpad-action"
+            onClick={handleBackspace}
+          >
+            ⌫
+          </button>
+          <button 
+            className="numpad-button numpad-action"
+            onClick={handleClear}
+          >
+            C
+          </button>
+        </div>
+      </div>
+    );
   };
-
-  // Handle numeric input with keyboard
-  const handleKeyDown = (e) => {
-    // If a number key is pressed (0-9)
-    if ((e.keyCode >= 48 && e.keyCode <= 57) || (e.keyCode >= 96 && e.keyCode <= 105)) {
-      // Append the number to current answer
-      const newDigit = e.key.replace(/[^0-9]/g, '');
-      const newValue = userAnswer + newDigit;
-      setUserAnswer(newValue);
-      dispatch({ type: actions.SET_ANSWER, payload: newValue });
-    }
-    // Handle backspace
-    else if (e.keyCode === 8) {
-      setUserAnswer(prev => {
-        const newValue = prev.slice(0, -1);
-        dispatch({ type: actions.SET_ANSWER, payload: newValue });
-        return newValue;
-      });
-    }
-    // Handle Enter key for checking answer
-    else if (e.keyCode === 13) {
-      checkAnswer();
-    }
-  };
-
-  // Add keyboard event listener on component mount and remove on unmount
-  useEffect(() => {
-    window.addEventListener('keydown', handleKeyDown);
-    return () => {
-      window.removeEventListener('keydown', handleKeyDown);
-    };
-  }, [userAnswer]); // Re-apply when userAnswer changes
   
   return (
-    <div className="game-mode-container" tabIndex="0">
+    <div className="game-mode-container">
       <h2 className="mode-title">Scrie Numărul</h2>
       
       <p className="instructions">
@@ -181,20 +191,7 @@ const WriteNumberMode = () => {
       <SimpleAbacus onBeadChange={handleBeadChange} />
       
       <div className="answer-container">
-        <div className="display-answer">{userAnswer || '?'}</div>
-        
-        {/* Hidden input to maintain state, but not visible to user */}
-        <input
-          type="text"
-          value={userAnswer}
-          onChange={handleInputChange}
-          onKeyPress={handleKeyPress}
-          className="hidden-input"
-          inputMode="numeric"
-          pattern="[0-9]*"
-          aria-hidden="true"
-          tabIndex="-1"
-        />
+        {renderNumpad()}
       </div>
       
       <div className="feedback-container">
