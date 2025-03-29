@@ -4,8 +4,8 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  /* Use a gradient background instead of image */
-  background: linear-gradient(45deg, #85FFBD 0%, #FFFB7D 100%);
+  /* Remove the gradient background to let the global background show through */
+  background: transparent;
   overflow: hidden;
 }
 
