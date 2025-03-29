@@ -21,15 +21,15 @@ function App() {
     }
   };
 
-  const appStyle = {
-    backgroundImage: 'url(./assets/images/background.png)',
+  const backgroundStyle = {
+    backgroundImage: "url(%PUBLIC_URL%/assets/images/background.png)",
     backgroundSize: 'cover',
     backgroundPosition: 'center',
     backgroundRepeat: 'no-repeat'
   };
 
   return (
-    <div className="app" style={appStyle}>
+    <div className="app" style={backgroundStyle}>
       {renderScreen()}
     </div>
   );
