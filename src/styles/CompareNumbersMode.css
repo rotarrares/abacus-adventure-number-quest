@@ -4,15 +4,17 @@
   width: 100%;
   max-width: 1200px;
   margin: 0 auto;
-  padding: 20px;
-  gap: 24px;
+  padding: 12px;
+  gap: 12px;
+  max-height: 100vh;
+  overflow: hidden;
 }
 
 .mode-title {
   text-align: center;
   color: #4a2c82;
-  font-size: 28px;
-  margin-bottom: 10px;
+  font-size: 24px;
+  margin: 0 0 6px 0;
   animation: fadeIn 0.5s ease-in-out;
   text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
@@ -21,22 +23,23 @@
 .compare-numbers-mode > div {
   background-color: rgba(255, 255, 255, 0.9);
   border-radius: 12px;
-  padding: 20px;
+  padding: 12px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  margin-bottom: 6px;
 }
 
 /* Responsive design */
 @media (max-width: 768px) {
   .compare-numbers-mode {
-    padding: 10px;
+    padding: 6px;
   }
   
   .mode-title {
-    font-size: 24px;
+    font-size: 20px;
   }
   
   .compare-numbers-mode > div {
-    padding: 15px;
+    padding: 8px;
   }
 }
 
