@@ -79,14 +79,15 @@ const ComparisonControls = ({
   
   // Handle clicking the "Continue" button to move to next place value
   const handleContinueAnalysis = () => {
+    if (!highlightedPlaceValue) return;
+    
     // First check if this place value already determined the result
     const currentComparison = placeValueComparisons[highlightedPlaceValue];
     
     if (currentComparison && currentComparison.result !== '=') {
       // We've found a difference, so we can stop comparing
       setAnalyzingComplete(true);
-      /* eslint-disable-next-line no-undef */
-      setHighlightedPlaceValue(null);
+      onNextPlaceValue(null);
     } else {
       // Move to the next place value
       onNextPlaceValue();
