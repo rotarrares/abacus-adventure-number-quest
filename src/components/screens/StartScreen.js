@@ -1,10 +1,19 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useGameContext } from '../../context/GameContext';
 import { playSound } from '../../utils/audioUtils';
 import '../../styles/StartScreen.css';
 
 const StartScreen = () => {
   const { gameState, dispatch, actions } = useGameContext();
+  const [characterImageLoaded, setCharacterImageLoaded] = useState(false);
+
+  // Check if the character image exists
+  useEffect(() => {
+    const img = new Image();
+    img.onload = () => setCharacterImageLoaded(true);
+    img.onerror = () => setCharacterImageLoaded(false);
+    img.src = '/assets/images/ana.png';
+  }, []);
 
   const handleStartGame = (mode) => {
     playSound('click', gameState.sound);
@@ -37,11 +46,17 @@ const StartScreen = () => {
         <h2 className="game-subtitle">Number Quest</h2>
         
         <div className="character">
-          <img 
-            src="/assets/images/ana.png" 
-            alt="Ana character" 
-            className="float" 
-          />
+          {characterImageLoaded ? (
+            <img 
+              src="/assets/images/ana.png" 
+              alt="Ana character" 
+              className="float" 
+            />
+          ) : (
+            <div className="character-placeholder float">
+              👧
+            </div>
+          )}
         </div>
         
         <div className="mode-selection">
