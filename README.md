@@ -46,6 +46,7 @@ The game is set in Romanian language, focusing on number representation and Roma
 - **Three.js**: For 3D rendering of the abacus
 - **react-three-fiber**: React bindings for Three.js
 - **Web Speech API**: For text-to-speech functionality
+- **Express**: Server for production deployment
 
 ## 🧠 Educational Value
 
@@ -81,6 +82,12 @@ cd abacus-adventure-number-quest
 npm install
 
 # Start the development server
+npm run dev
+
+# Build for production
+npm run build
+
+# Start the production server
 npm start
 ```
 
@@ -91,6 +98,37 @@ The game is designed to work well on both desktop and mobile devices, with respo
 ## 🌐 Browser Support
 
 The game works best in modern browsers that support WebGL and Web Speech API.
+
+## 🚀 Deployment to Heroku
+
+This project is ready to be deployed to Heroku. Follow these steps:
+
+1. Create a Heroku account if you don't have one
+2. Install the Heroku CLI: https://devcenter.heroku.com/articles/heroku-cli
+3. Log in to Heroku CLI:
+   ```
+   heroku login
+   ```
+4. Create a new Heroku app:
+   ```
+   heroku create abacus-adventure-number-quest
+   ```
+5. Push to Heroku:
+   ```
+   git push heroku main
+   ```
+6. Alternatively, you can deploy directly from GitHub:
+   - Go to your Heroku Dashboard
+   - Create a new app
+   - Go to the "Deploy" tab
+   - Connect your GitHub repository
+   - Enable automatic deploys or manually deploy
+
+### One-Click Deployment
+
+You can also use the "Deploy to Heroku" button below to create and deploy the app with a single click:
+
+[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/rotarrares/abacus-adventure-number-quest)
 
 ## 📄 License
 
