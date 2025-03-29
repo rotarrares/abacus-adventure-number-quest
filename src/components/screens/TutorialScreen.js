@@ -1,10 +1,19 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useGameContext } from '../../context/GameContext';
 import { playSound } from '../../utils/audioUtils';
 import '../../styles/TutorialScreen.css';
 
 const TutorialScreen = () => {
   const { gameState, dispatch, actions } = useGameContext();
+  const [abacusImageLoaded, setAbacusImageLoaded] = useState(false);
+
+  // Check if the abacus example image exists
+  useEffect(() => {
+    const img = new Image();
+    img.onload = () => setAbacusImageLoaded(true);
+    img.onerror = () => setAbacusImageLoaded(false);
+    img.src = '/assets/images/abacus_example.png';
+  }, []);
 
   const handleBack = () => {
     playSound('click', gameState.sound);
@@ -26,7 +35,13 @@ const TutorialScreen = () => {
             <li><span className="column-label u-label">U</span> - Unități (Units)</li>
           </ul>
           <div className="abacus-example">
-            <img src="/assets/images/abacus_example.png" alt="Exemplu de abac" />
+            {abacusImageLoaded ? (
+              <img src="/assets/images/abacus_example.png" alt="Exemplu de abac" />
+            ) : (
+              <div className="abacus-placeholder">
+                Exemplu de Abac
+              </div>
+            )}
           </div>
         </div>
         
