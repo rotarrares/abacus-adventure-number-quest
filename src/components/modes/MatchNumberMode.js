@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useGameContext } from '../../context/GameContext';
 import { numberToRomanianWord, getRandomNumber } from '../../utils/numberUtils';
 import { playSound, speakText } from '../../utils/audioUtils';
@@ -7,12 +7,15 @@ import '../../styles/GameModes.css';
 
 const MatchNumberMode = () => {
   const { gameState, dispatch, actions } = useGameContext();
+  const [correctAnswerCount, setCorrectAnswerCount] = useState(0);
   
-  // Generate a random number when the component mounts
+  // Generate a random number when the component mounts or level changes
   useEffect(() => {
+    // Update difficulty based on level
+    updateDifficultyForLevel(gameState.level);
     generateNumber();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [gameState.level]);
   
   // Speak the number when it changes
   useEffect(() => {
@@ -20,6 +23,24 @@ const MatchNumberMode = () => {
       speakText(gameState.currentNumber.toString(), gameState.sound);
     }
   }, [gameState.currentNumber, gameState.sound]);
+  
+  // Update difficulty based on level
+  const updateDifficultyForLevel = (level) => {
+    let difficulty;
+    
+    if (level <= 2) {
+      difficulty = { min: 8, max: 99 }; // 2-digit numbers
+    } else if (level <= 4) {
+      difficulty = { min: 100, max: 999 }; // 3-digit numbers
+    } else {
+      difficulty = { min: 1000, max: 9999 }; // 4-digit numbers
+    }
+    
+    dispatch({ 
+      type: actions.SET_DIFFICULTY, 
+      payload: difficulty
+    });
+  };
   
   const generateNumber = () => {
     const { min, max } = gameState.difficulty;
@@ -75,6 +96,16 @@ const MatchNumberMode = () => {
       const scoreToAdd = Math.max(10 - (gameState.attempts * 2), 1);
       dispatch({ type: actions.ADD_SCORE, payload: scoreToAdd });
       
+      // Increment correct answer count
+      const newCorrectCount = correctAnswerCount + 1;
+      setCorrectAnswerCount(newCorrectCount);
+      
+      // Check if we should level up (every 5 correct answers)
+      if (newCorrectCount >= 5) {
+        dispatch({ type: actions.SET_LEVEL, payload: gameState.level + 1 });
+        setCorrectAnswerCount(0); // Reset count after leveling up
+      }
+      
       // Add a star after each 3rd correct answer
       if (gameState.score % 30 < scoreToAdd) {
         dispatch({ type: actions.ADD_STARS, payload: 1 });
@@ -101,6 +132,10 @@ const MatchNumberMode = () => {
   return (
     <div className="game-mode-container">
       <h2 className="mode-title">Potrivește Numărul</h2>
+      
+      <p className="instructions">
+        Potrivește numărul {gameState.currentNumber} pe abac. (Nivel {gameState.level})
+      </p>
       
       <div className="target-number">
         <span>{gameState.currentNumber}</span>
