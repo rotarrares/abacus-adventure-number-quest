@@ -85,7 +85,6 @@ const ComparisonControls = ({
     if (currentComparison && currentComparison.result !== '=') {
       // We've found a difference, so we can stop comparing
       setAnalyzingComplete(true);
-      // Clear the highlighted place value
       onNextPlaceValue(null);
     } else {
       // Move to the next place value
