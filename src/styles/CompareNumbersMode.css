@@ -4,17 +4,17 @@
   width: 100%;
   max-width: 1200px;
   margin: 0 auto;
-  padding: 12px;
-  gap: 12px;
-  max-height: 100vh;
+  padding: 10px;
+  gap: 8px;
+  height: 100vh;
   overflow: hidden;
 }
 
 .mode-title {
   text-align: center;
   color: #4a2c82;
-  font-size: 24px;
-  margin: 0 0 6px 0;
+  font-size: 22px;
+  margin: 0 0 4px 0;
   animation: fadeIn 0.5s ease-in-out;
   text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
@@ -22,24 +22,43 @@
 /* Section dividers */
 .compare-numbers-mode > div {
   background-color: rgba(255, 255, 255, 0.9);
-  border-radius: 12px;
-  padding: 12px;
+  border-radius: 10px;
+  padding: 10px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  margin-bottom: 6px;
+  margin-bottom: 5px;
 }
 
 /* Responsive design */
 @media (max-width: 768px) {
   .compare-numbers-mode {
-    padding: 6px;
+    padding: 5px;
+    gap: 6px;
   }
   
   .mode-title {
-    font-size: 20px;
+    font-size: 18px;
   }
   
   .compare-numbers-mode > div {
-    padding: 8px;
+    padding: 6px;
+    margin-bottom: 4px;
+  }
+}
+
+/* Specific adjustments for smaller height screens */
+@media (max-height: 700px) {
+  .compare-numbers-mode {
+    gap: 4px;
+  }
+  
+  .mode-title {
+    font-size: 16px;
+    margin: 0 0 2px 0;
+  }
+  
+  .compare-numbers-mode > div {
+    padding: 5px;
+    margin-bottom: 3px;
   }
 }
 
