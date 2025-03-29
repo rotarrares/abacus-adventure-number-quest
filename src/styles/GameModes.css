@@ -89,6 +89,95 @@
   outline: none;
 }
 
+/* Styles for the Write Number Mode with digit buttons */
+.answer-display {
+  width: 100%;
+  max-width: 300px;
+  background-color: rgba(255, 255, 255, 0.9);
+  border: 2px solid #ddd;
+  border-radius: 10px;
+  padding: 12px;
+  margin: 10px 0;
+  text-align: center;
+}
+
+.answer-text {
+  font-size: 1.5rem;
+  min-height: 1.5em;
+  color: #333;
+}
+
+.digit-buttons-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-width: 300px;
+  margin: 5px 0 10px;
+}
+
+.digit-buttons {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  width: 100%;
+}
+
+.digit-button {
+  background-color: #4d96ff;
+  color: white;
+  font-size: 1.2rem;
+  padding: 10px 0;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.digit-button:hover {
+  background-color: #3a7bd5;
+  transform: translateY(-2px);
+}
+
+.digit-button:active {
+  transform: translateY(0);
+}
+
+.digit-control-buttons {
+  display: flex;
+  gap: 8px;
+  width: 100%;
+  margin-top: 8px;
+}
+
+.digit-control-button {
+  flex: 1;
+  padding: 10px 0;
+  font-size: 1.1rem;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.delete-button {
+  background-color: #ff9800;
+  color: white;
+}
+
+.delete-button:hover {
+  background-color: #f57c00;
+}
+
+.clear-button {
+  background-color: #f44336;
+  color: white;
+}
+
+.clear-button:hover {
+  background-color: #d32f2f;
+}
+
 .feedback-container {
   min-height: 45px; /* Reduced from 60px */
   width: 100%;
@@ -178,6 +267,33 @@
   .number-input {
     font-size: 1.1rem;
     padding: 6px;
+  }
+  
+  .answer-display {
+    padding: 8px;
+  }
+  
+  .answer-text {
+    font-size: 1.3rem;
+  }
+  
+  .digit-buttons {
+    gap: 5px;
+  }
+  
+  .digit-button {
+    font-size: 1rem;
+    padding: 8px 0;
+  }
+  
+  .digit-control-buttons {
+    gap: 5px;
+    margin-top: 5px;
+  }
+  
+  .digit-control-button {
+    padding: 8px 0;
+    font-size: 1rem;
   }
   
   .feedback-container {
