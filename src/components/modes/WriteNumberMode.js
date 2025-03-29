@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useGameContext } from '../../context/GameContext';
-import { getRandomNumber, placeValuesToNumber } from '../../utils/numberUtils';
+import { getRandomNumber } from '../../utils/numberUtils';
 import { playSound } from '../../utils/audioUtils';
-import Abacus from '../abacus/Abacus';
+import SimpleAbacus from '../abacus/SimpleAbacus';
 import '../../styles/GameModes.css';
 
 const WriteNumberMode = () => {
@@ -56,8 +56,7 @@ const WriteNumberMode = () => {
   };
   
   const handleBeadChange = (column, value) => {
-    // This is a read-only view of the abacus for this mode,
-    // so we prevent changes to the beads configuration
+    // This is a read-only view of the abacus for this mode
     playSound('click', gameState.sound);
   };
   
@@ -116,7 +115,7 @@ const WriteNumberMode = () => {
         Care număr este reprezentat pe abac?
       </p>
       
-      <Abacus onBeadChange={handleBeadChange} />
+      <SimpleAbacus onBeadChange={handleBeadChange} />
       
       <div className="answer-container">
         <input
