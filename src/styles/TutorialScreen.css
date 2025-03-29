@@ -1,0 +1,86 @@
+.tutorial-screen {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-image: url('/assets/images/background.jpg');
+  background-size: cover;
+  background-position: center;
+  overflow: auto;
+  padding: 20px;
+}
+
+.tutorial-content {
+  width: 90%;
+  max-width: 900px;
+  max-height: 90vh;
+  overflow-y: auto;
+  background-color: rgba(255, 255, 255, 0.95);
+  border-radius: 20px;
+  padding: 30px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+}
+
+.tutorial-content h2 {
+  font-size: 2.2rem;
+  color: #ff6b6b;
+  text-align: center;
+  margin-bottom: 25px;
+}
+
+.tutorial-section {
+  margin-bottom: 30px;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 20px;
+}
+
+.tutorial-section:last-child {
+  border-bottom: none;
+}
+
+.tutorial-section h3 {
+  font-size: 1.6rem;
+  color: #4d96ff;
+  margin-bottom: 15px;
+}
+
+.tutorial-section p {
+  font-size: 1.1rem;
+  line-height: 1.5;
+  margin-bottom: 15px;
+}
+
+.column-labels {
+  list-style: none;
+  padding-left: 0 !important;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+.column-label {
+  display: inline-block;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  font-weight: bold;
+  line-height: 30px;
+  text-align: center;
+  margin-right: 10px;
+  color: white;
+}
+
+.m-label { background-color: #3498db; }
+.s-label { background-color: #e74c3c; }
+.z-label { background-color: #2ecc71; }
+.u-label { background-color: #9b59b6; }
+
+.back-button {
+  display: block;
+  margin: 30px auto 0;
+  background-color: #9c88ff;
+  color: white;
+  padding: 12px 25px;
+}
