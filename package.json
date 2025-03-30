@@ -31,9 +31,6 @@
       "react-app"
     ]
   },
-  "devDependencies": {
-    "typescript": "^4.9.5"
-  },
   "browserslist": {
     "production": [
       ">0.2%",
@@ -49,5 +46,8 @@
   "engines": {
     "node": "18.x",
     "npm": "9.x"
+  },
+  "devDependencies": {
+    "typescript": "^5.8.2"
   }
 }
