@@ -172,6 +172,99 @@
   background-color: #5c4cd7;
 }
 
+/* Game Selection Styles */
+.game-selection, .placeholder-selection {
+  margin: 20px 0;
+  padding: 15px;
+  background-color: rgba(230, 230, 250, 0.7); /* Light lavender background */
+  border-radius: 10px;
+}
+
+.game-selection h3, .placeholder-selection h3 {
+  color: #6a1b9a; /* Deep purple */
+  margin-bottom: 15px;
+}
+
+.game-buttons {
+  display: flex;
+  flex-direction: column; /* Stack buttons vertically */
+  align-items: center; /* Center buttons */
+  gap: 15px;
+}
+
+.game-button {
+  background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%); /* Pink gradient */
+  color: #4a148c; /* Dark purple text */
+  font-size: 1.2rem;
+  font-weight: bold;
+  padding: 15px 25px;
+  border-radius: 12px;
+  border: none;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+  width: 80%; /* Make buttons wider */
+  max-width: 350px;
+  cursor: pointer;
+}
+
+.game-button:hover:not(:disabled) {
+  transform: translateY(-4px) scale(1.02);
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3);
+}
+
+.game-button:disabled {
+  background: #e0e0e0; /* Grey background */
+  color: #a0a0a0; /* Lighter text color */
+  cursor: not-allowed;
+  box-shadow: none;
+  transform: none;
+}
+
+.placeholder-selection p {
+  color: #555;
+  font-size: 1.1rem;
+}
+
+/* Back Button Style */
+.back-button {
+  background-color: #f0f0f0;
+  color: #555;
+  border: 1px solid #ccc;
+  padding: 5px 10px;
+  border-radius: 5px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  margin-bottom: 15px; /* Add space below */
+  align-self: flex-start; /* Align to the left */
+}
+
+.back-button:hover {
+  background-color: #e0e0e0;
+}
+
+/* Gradient background for game selection */
+.start-screen.game-select-active {
+  /* Apply a gradient background directly to the start screen when game select is active */
+  background: linear-gradient(135deg, #a1c4fd 0%, #c2e9fb 100%); /* Light blue gradient */
+  /* Ensure this element covers the full viewport height */
+  min-height: 100vh; 
+  width: 100%;
+  position: fixed; /* Use fixed positioning to cover the body */
+  top: 0;
+  left: 0;
+  z-index: 0; /* Keep it behind the content but above the body::before if needed */
+  display: flex; /* Re-apply flex properties if needed */
+  justify-content: center;
+  align-items: center;
+}
+
+/* Hide the body's background image when game select is active */
+body:has(.start-screen.game-select-active)::before {
+  opacity: 0; 
+}
+
+
 /* Responsive styles */
 @media (max-width: 768px) {
   .start-screen-content {

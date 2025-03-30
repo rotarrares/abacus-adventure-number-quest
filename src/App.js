@@ -1,10 +1,19 @@
-import React from 'react';
+import React, { Suspense, lazy } from 'react';
 import { useGameContext } from './context/GameContext';
-import StartScreen from './components/screens/StartScreen';
-import GameScreen from './components/screens/GameScreen';
-import TutorialScreen from './components/screens/TutorialScreen';
-import BackgroundContainer from './components/screens/BackgroundContainer';
-import './styles/App.css';
+import './styles/App.css'; // Moved CSS import to the top with other imports
+
+// Lazy load screen components
+const StartScreen = lazy(() => import('./components/screens/StartScreen'));
+const GameScreen = lazy(() => import('./components/screens/GameScreen'));
+const TutorialScreen = lazy(() => import('./components/screens/TutorialScreen'));
+const BackgroundContainer = lazy(() => import('./components/screens/BackgroundContainer')); // Also lazy load container if possible
+
+// Simple loading fallback component
+const LoadingFallback = () => (
+  <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh', fontSize: '1.5rem' }}>
+    Se încarcă...
+  </div>
+);
 
 function App() {
   const { gameState } = useGameContext();
@@ -23,11 +32,13 @@ function App() {
   };
 
   return (
-    <BackgroundContainer>
-      <div className="app">
-        {renderScreen()}
-      </div>
-    </BackgroundContainer>
+    <Suspense fallback={<LoadingFallback />}>
+      <BackgroundContainer>
+        <div className="app">
+          {renderScreen()}
+        </div>
+      </BackgroundContainer>
+    </Suspense>
   );
 }
 

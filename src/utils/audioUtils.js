@@ -9,50 +9,33 @@ const AUDIO_PATHS = {
   beadRemove: '/assets/audio/bead-remove.mp3'
 };
 
-// Cache for audio elements
-const audioCache = {};
+// Removed audioCache and preloadAudio function
 
 // Flag to track if speech synthesis is currently speaking
-let isSpeaking = false;
+// let isSpeaking = false; // This flag seems unused, removing it.
 
 /**
- * Preload all audio files
- */
-export const preloadAudio = () => {
-  Object.entries(AUDIO_PATHS).forEach(([key, path]) => {
-    const audio = new Audio(path);
-    audio.load();
-    audioCache[key] = audio;
-  });
-};
-
-/**
- * Play a sound effect if sound is enabled
+ * Play a sound effect if sound is enabled (loads on demand)
  * @param {string} soundName - Name of the sound effect to play
  * @param {boolean} soundEnabled - Whether sound is enabled
  */
 export const playSound = (soundName, soundEnabled = true) => {
-  if (!soundEnabled) return;
+  if (!soundEnabled || !AUDIO_PATHS[soundName]) return;
   
   try {
-    // Get from cache or create new
-    const audio = audioCache[soundName] || new Audio(AUDIO_PATHS[soundName]);
-    
-    // Cache if not already cached
-    if (!audioCache[soundName]) {
-      audioCache[soundName] = audio;
-    }
-    
-    // Stop and reset current playback if any
-    audio.pause();
-    audio.currentTime = 0;
+    // Create a new Audio object each time to load on demand
+    const audio = new Audio(AUDIO_PATHS[soundName]);
     
     // Play the sound
+    // No need to pause/reset currentTime as it's a new instance
     audio.play().catch(err => {
+      // Log error but don't crash the app
       console.error(`Error playing sound "${soundName}":`, err);
+      // Prevent further errors if play() fails repeatedly on the same object
+      audio.onerror = () => console.error(`Audio element error for ${soundName}`); 
     });
   } catch (error) {
-    console.error(`Error with sound "${soundName}":`, error);
+    console.error(`Error creating or playing sound "${soundName}":`, error);
   }
 };
 
@@ -85,14 +68,10 @@ export const speakText = (text, soundEnabled = true) => {
 };
 
 /**
- * Stop all audio playback
+ * Stop all audio playback (only affects speech synthesis now)
  */
 export const stopAllAudio = () => {
-  // Stop all cached audio elements
-  Object.values(audioCache).forEach(audio => {
-    audio.pause();
-    audio.currentTime = 0;
-  });
+  // No cached audio elements to stop anymore
   
   // Stop speech synthesis
   if ('speechSynthesis' in window) {
