@@ -19,6 +19,7 @@ const LoadingFallback = () => {
   );
 };
 
+
 function App() {
   const { gameState } = useGameContext();
 

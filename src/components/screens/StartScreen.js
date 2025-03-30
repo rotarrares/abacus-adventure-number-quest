@@ -123,6 +123,7 @@ const StartScreen = () => {
                 onClick={() => handleStartGame('compare')}
               >
                 {t('compare_numbers_mode')}
+
               </button>
             </div>
           </div>
@@ -136,6 +137,7 @@ const StartScreen = () => {
             {/* Placeholder for the second game's options or start button */}
           </div>
         )}
+
 
         <div className="stars-display">
           <span className="star-icon">⭐</span>
