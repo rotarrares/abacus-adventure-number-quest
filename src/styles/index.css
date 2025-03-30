@@ -10,7 +10,8 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background-color: #f5f9ff;
-  overflow: auto;
+  overflow-y: auto; /* Allow vertical scroll */
+  overflow-x: hidden; /* Prevent horizontal scroll */
   min-height: 100vh;
 }
 

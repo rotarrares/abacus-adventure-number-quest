@@ -65,38 +65,20 @@ export const speakText = (text, soundEnabled = true) => {
   if (!soundEnabled) return;
   
   if ('speechSynthesis' in window) {
-    // Cancel any ongoing speech
+    // Cancel any ongoing speech immediately before speaking the new text
     window.speechSynthesis.cancel();
-    
-    // Add a small delay to ensure previous speech is fully canceled
-    setTimeout(() => {
-      if (isSpeaking) return; // Prevent multiple simultaneous speech
       
-      // Create speech synthesis utterance
-      const utterance = new SpeechSynthesisUtterance(text);
+    // Create speech synthesis utterance
+    const utterance = new SpeechSynthesisUtterance(text);
       
-      // Set language to Romanian
-      utterance.lang = 'ro-RO';
+    // Set language to Romanian
+    utterance.lang = 'ro-RO';
       
-      // Use a slightly slower rate for educational purposes
-      utterance.rate = 0.9;
+    // Use a slightly slower rate for educational purposes
+    utterance.rate = 0.9;
       
-      // Add event listeners to track speaking state
-      utterance.onstart = () => {
-        isSpeaking = true;
-      };
-      
-      utterance.onend = () => {
-        isSpeaking = false;
-      };
-      
-      utterance.onerror = () => {
-        isSpeaking = false;
-      };
-      
-      // Speak the text
-      window.speechSynthesis.speak(utterance);
-    }, 50);
+    // Speak the text
+    window.speechSynthesis.speak(utterance);
   } else {
     console.warn('Speech synthesis not supported in this browser');
   }
@@ -115,6 +97,6 @@ export const stopAllAudio = () => {
   // Stop speech synthesis
   if ('speechSynthesis' in window) {
     window.speechSynthesis.cancel();
-    isSpeaking = false;
+    // No need to manage isSpeaking flag anymore
   }
 };

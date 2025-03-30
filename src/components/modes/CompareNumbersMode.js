@@ -50,6 +50,14 @@ const CompareNumbersMode = () => {
     generateNewNumbers();
   }, [gameState.level]);
 
+  // Effect to start comparison when both abacuses are complete
+  useEffect(() => {
+    if (isAbacusComplete[0] && isAbacusComplete[1] && !isComparingNow) {
+      startComparison();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isAbacusComplete, isComparingNow]); // Dependency array includes the state variables
+
   // Determine difficulty level based on game level
   useEffect(() => {
     if (gameState.level <= 5) {
@@ -113,10 +121,7 @@ const CompareNumbersMode = () => {
       newIsComplete[index] = isCorrect;
       setIsAbacusComplete(newIsComplete);
       
-      // If both abacuses are complete, start the comparison process
-      if (newIsComplete[0] && newIsComplete[1] && !isComparingNow) {
-        startComparison();
-      }
+      // Removed the immediate check from here, moved to useEffect
     }
   };
 
