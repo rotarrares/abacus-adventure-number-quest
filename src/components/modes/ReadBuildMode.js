@@ -22,6 +22,13 @@ const ReadBuildMode = () => {
     if (gameState.numberWord) {
       speakText(gameState.numberWord, gameState.sound);
     }
+    
+    // Cleanup function to cancel speech synthesis on unmount or dependency change
+    return () => {
+      if ('speechSynthesis' in window) {
+        window.speechSynthesis.cancel();
+      }
+    };
   }, [gameState.numberWord, gameState.sound]);
   
   // Update difficulty based on level
@@ -137,26 +144,28 @@ const ReadBuildMode = () => {
     <div className="game-mode-container">
       <h2 className="mode-title">Citește și Construiește</h2>
       
-      <p className="instructions">
-        Construiește numărul pe care îl auzi pe abac. (Nivel {gameState.level})
-      </p>
-      
-      <div className="target-word">
-        <p>{gameState.numberWord}</p>
-        <button 
-          className="speak-button"
+      {/* Added scrollable container */}
+      <div className="game-content-scrollable"> 
+        <p className="instructions">
+          Construiește numărul pe care îl auzi pe abac. (Nivel {gameState.level})
+        </p>
+        
+        <div className="target-word">
+          <p>{gameState.numberWord}</p>
+          <button 
+            className="speak-button"
           onClick={handleSpeak}
           aria-label="Citește cu voce tare"
         >
           🔊
-        </button>
-      </div>
-      
-      <SimpleAbacus onBeadChange={handleBeadChange} />
-      
-      <div className="feedback-container">
-        {gameState.feedback === 'correct' && (
-          <div className="feedback correct">
+          </button>
+        </div>
+        
+        <SimpleAbacus onBeadChange={handleBeadChange} />
+        
+        <div className="feedback-container">
+          {gameState.feedback === 'correct' && (
+            <div className="feedback correct">
             Corect! Excelent!
           </div>
         )}
@@ -169,10 +178,11 @@ const ReadBuildMode = () => {
               <div className="hint">
                 Indiciu: "{gameState.numberWord}" reprezintă numărul {gameState.currentNumber}
               </div>
-            )}
-          </div>
-        )}
-      </div>
+              )}
+            </div>
+          )}
+        </div>
+      </div> {/* End scrollable container */}
       
       <button 
         className="check-button"
