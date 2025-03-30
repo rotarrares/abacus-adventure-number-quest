@@ -1,3 +1,5 @@
+import i18n from '../i18n'; // Import the i18n instance
+
 // Audio files paths
 const AUDIO_PATHS = {
   correct: '/assets/audio/correct.mp3',
@@ -37,26 +39,36 @@ export const playSound = (soundName, soundEnabled = true) => {
   } catch (error) {
     console.error(`Error creating or playing sound "${soundName}":`, error);
   }
-};
+}; // End of playSound function
 
 /**
- * Speak the given text using Web Speech API
+ * Speak the given text using Web Speech API, respecting the current language.
  * @param {string} text - Text to speak
  * @param {boolean} soundEnabled - Whether sound is enabled
  */
 export const speakText = (text, soundEnabled = true) => {
   if (!soundEnabled) return;
-  
+
   if ('speechSynthesis' in window) {
     // Cancel any ongoing speech immediately before speaking the new text
     window.speechSynthesis.cancel();
-      
+
     // Create speech synthesis utterance
     const utterance = new SpeechSynthesisUtterance(text);
-      
-    // Set language to Romanian
-    utterance.lang = 'ro-RO';
-      
+
+    // Map our app language code to Web Speech API language code
+    const currentLang = i18n.language; // e.g., 'en', 'ro'
+    let speechLang = 'en-US'; // Default to English (US)
+    if (currentLang === 'ro') {
+      speechLang = 'ro-RO';
+    }
+    // Add more language mappings here if needed in the future
+    // else if (currentLang === 'fr') {
+    //   speechLang = 'fr-FR';
+    // }
+
+    utterance.lang = speechLang;
+
     // Use a slightly slower rate for educational purposes
     utterance.rate = 0.9;
       

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { getPlaceValueName, getPlaceValueLabel } from '../../utils/compareNumbersUtils';
+import { useTranslation } from 'react-i18next'; // Import useTranslation
+import { getPlaceValueName, getPlaceValueLabel } from '../../utils/compareNumbersUtils'; // Note: These might need translation if they return strings directly
 import '../../styles/ComparisonInstructions.css';
 
 /**
@@ -10,6 +11,7 @@ import '../../styles/ComparisonInstructions.css';
  * @param {Object} props.difficultyLevel - Current difficulty level settings
  */
 const ComparisonInstructions = ({ level, difficultyLevel }) => {
+  const { t } = useTranslation(); // Get translation function
   const [showGuide, setShowGuide] = useState(false);
   
   // Generate instructions text based on the current difficulty level
@@ -21,15 +23,18 @@ const ComparisonInstructions = ({ level, difficultyLevel }) => {
     );
     
     // For level 1 (most basic)
+    // TODO: Consider translating placeValueDetails joiner (' și ') if needed, maybe via t function options
+    const placeValuesString = placeValueDetails.join(t('and_conjunction', ' and ')); // Add 'and_conjunction' key if needed
+
     if (level <= 5) {
       return (
         <>
-          <p>Pune mărgelele pe abacuri pentru a reprezenta numerele:</p>
+          <p>{t('compare_instructions_level1_part1')}</p>
           <ul>
-            <li>Abacul din stânga pentru primul număr</li>
-            <li>Abacul din dreapta pentru al doilea număr</li>
+            <li>{t('compare_instructions_level1_part2_left')}</li>
+            <li>{t('compare_instructions_level1_part2_right')}</li>
           </ul>
-          <p>Apoi, compară valorile din {placeValueDetails.join(' și ')} pentru a determina care număr este mai mare.</p>
+          <p>{t('compare_instructions_level1_part3', { placeValues: placeValuesString })}</p>
         </>
       );
     }
@@ -37,59 +42,66 @@ const ComparisonInstructions = ({ level, difficultyLevel }) => {
     // For higher levels
     return (
       <>
-        <p>Construiește numerele pe abacuri, apoi compară-le începând cu cea mai mare valoare de poziție ({placeValueDetails[0]}):</p>
+        <p>{t('compare_instructions_higher_level_part1', { placeValue: placeValueDetails[0] })}</p>
         <ul>
-          <li>Dacă valorile sunt egale, treci la următoarea poziție</li>
-          <li>Dacă valorile sunt diferite, numărul cu valoarea mai mare este mai mare</li>
+          <li>{t('compare_instructions_higher_level_part2_equal')}</li>
+          <li>{t('compare_instructions_higher_level_part2_different')}</li>
         </ul>
-        <p>Selectează simbolul de comparare corect (mai mic decât, mai mare decât, sau egal cu).</p>
+        <p>{t('compare_instructions_higher_level_part3')}</p>
       </>
     );
   };
   
   // Show comprehensive step-by-step guide
-  const renderComparisonGuide = () => (
-    <div className="comparison-guide">
-      <h4>Ghid de Comparare</h4>
-      <ol>
-        <li>
-          <span className="step-number">1</span>
-          <span className="step-text">Construiește numerele pe cele două abacuri</span>
-        </li>
-        <li>
-          <span className="step-number">2</span>
-          <span className="step-text">Începe cu poziția de cea mai mare valoare ({getPlaceValueName(difficultyLevel.usedPlaceValues[0])} - {getPlaceValueLabel(difficultyLevel.usedPlaceValues[0])})</span>
-        </li>
-        <li>
-          <span className="step-number">3</span>
-          <span className="step-text">Compară mărgelele de pe aceeași poziție pe ambele abacuri</span>
-        </li>
-        <li>
-          <span className="step-number">4</span>
-          <span className="step-text">Dacă valorile sunt egale, treci la următoarea poziție ({difficultyLevel.usedPlaceValues.length > 1 ? getPlaceValueName(difficultyLevel.usedPlaceValues[1]) + ' - ' + getPlaceValueLabel(difficultyLevel.usedPlaceValues[1]) : ''})</span>
-        </li>
-        <li>
-          <span className="step-number">5</span>
-          <span className="step-text">Continuă până găsești o diferență sau verifici toate pozițiile</span>
-        </li>
-        <li>
-          <span className="step-number">6</span>
-          <span className="step-text">Alege simbolul de comparare corect:
-            <ul>
-              <li>&lt; (mai mic decât): Când primul număr este mai mic</li>
-              <li>&gt; (mai mare decât): Când primul număr este mai mare</li>
-              <li>= (egal cu): Când numerele sunt identice</li>
-            </ul>
-          </span>
-        </li>
-      </ol>
-    </div>
-  );
+  const renderComparisonGuide = () => {
+    const firstPlaceValueDetail = `${getPlaceValueName(difficultyLevel.usedPlaceValues[0])} (${getPlaceValueLabel(difficultyLevel.usedPlaceValues[0])})`;
+    const secondPlaceValueDetail = difficultyLevel.usedPlaceValues.length > 1 
+      ? `${getPlaceValueName(difficultyLevel.usedPlaceValues[1])} (${getPlaceValueLabel(difficultyLevel.usedPlaceValues[1])})` 
+      : '';
+
+    return (
+      <div className="comparison-guide">
+        <h4>{t('compare_guide_title')}</h4>
+        <ol>
+          <li>
+            <span className="step-number">1</span>
+            <span className="step-text">{t('compare_guide_step1')}</span>
+          </li>
+          <li>
+            <span className="step-number">2</span>
+            <span className="step-text">{t('compare_guide_step2', { placeValue: firstPlaceValueDetail })}</span>
+          </li>
+          <li>
+            <span className="step-number">3</span>
+            <span className="step-text">{t('compare_guide_step3')}</span>
+          </li>
+          <li>
+            <span className="step-number">4</span>
+            <span className="step-text">{t('compare_guide_step4', { placeValue: secondPlaceValueDetail })}</span>
+          </li>
+          <li>
+            <span className="step-number">5</span>
+            <span className="step-text">{t('compare_guide_step5')}</span>
+          </li>
+          <li>
+            <span className="step-number">6</span>
+            <span className="step-text">{t('compare_guide_step6_title')}
+              <ul>
+                <li>{t('compare_guide_step6_less')}</li>
+                <li>{t('compare_guide_step6_greater')}</li>
+                <li>{t('compare_guide_step6_equal')}</li>
+              </ul>
+            </span>
+          </li>
+        </ol>
+      </div>
+    );
+  };
   
   return (
     <div className="comparison-instructions">
       <div className="instructions-content">
-        <h3>Instrucțiuni:</h3>
+        <h3>{t('compare_instructions_title')}</h3>
         <div className="basic-instructions">
           {getInstructionsText()}
         </div>
@@ -98,14 +110,14 @@ const ComparisonInstructions = ({ level, difficultyLevel }) => {
           className="guide-toggle-button"
           onClick={() => setShowGuide(!showGuide)}
         >
-          {showGuide ? 'Ascunde ghidul' : 'Arată ghidul de comparare'}
+          {showGuide ? t('compare_guide_hide') : t('compare_guide_show')}
         </button>
         
         {showGuide && renderComparisonGuide()}
       </div>
       
       <div className="number-line">
-        <div className="number-line-label">Linie Numerică:</div>
+        <div className="number-line-label">{t('compare_number_line_label')}</div>
         <div className="number-line-graphic">
           <div className="number-point">0</div>
           <div className="number-line-segment"></div>

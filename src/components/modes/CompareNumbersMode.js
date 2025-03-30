@@ -16,10 +16,12 @@ import ComparisonControls from '../compare/ComparisonControls';
 import DualAbacusSection from '../compare/DualAbacusSection';
 import ComparisonFeedback from '../compare/ComparisonFeedback';
 import ComparisonInstructions from '../compare/ComparisonInstructions';
+import { useTranslation } from 'react-i18next'; // Import useTranslation
 import '../../styles/CompareNumbersMode.css';
 
 const CompareNumbersMode = () => {
   const { gameState, dispatch, actions } = useGameContext();
+  const { t } = useTranslation(); // Get translation function
   const [numbers, setNumbers] = useState([null, null]);
   const [difficultyLevel, setDifficultyLevel] = useState(DIFFICULTY_LEVELS.LEVEL_1);
   
@@ -190,7 +192,7 @@ const CompareNumbersMode = () => {
 
   return (
     <div className="compare-numbers-mode">
-      <h2 className="mode-title">Bătălia Abacului: Compară Numerele</h2>
+      <h2 className="mode-title">{t('compare_numbers_mode_title')}</h2>
       
       <CompareDisplay 
         numbers={numbers}

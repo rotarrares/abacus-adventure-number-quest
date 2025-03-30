@@ -1,12 +1,16 @@
 import React, { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useGameContext } from '../../context/GameContext';
-import { numberToRomanianWord, getRandomNumber } from '../../utils/numberUtils';
+import { numberToRomanianWord, getRandomNumber } from '../../utils/numberUtils'; // Keep Ro specific for now
+import { getPlaceValueName } from '../../utils/compareNumbersUtils'; // Import for hint
+import { PLACE_VALUES } from '../../constants/compareNumbersConstants'; // Import for hint
 import { playSound, speakText } from '../../utils/audioUtils';
 import SimpleAbacus from '../abacus/SimpleAbacus';
 import '../../styles/GameModes.css';
 
 const MatchNumberMode = () => {
   const { gameState, dispatch, actions } = useGameContext();
+  const { t } = useTranslation();
   const [correctAnswerCount, setCorrectAnswerCount] = useState(0);
   
   // Generate a random number when the component mounts or level changes
@@ -45,7 +49,8 @@ const MatchNumberMode = () => {
   const generateNumber = () => {
     const { min, max } = gameState.difficulty;
     const number = getRandomNumber(min, max);
-    const word = numberToRomanianWord(number);
+    // TODO: Use language-aware number-to-word library here instead of just Romanian
+    const word = numberToRomanianWord(number); 
     
     dispatch({
       type: actions.SET_NUMBER,
@@ -129,12 +134,31 @@ const MatchNumberMode = () => {
     }
   };
   
+  // Helper function to construct the hint text
+  const getHintText = () => {
+    const num = gameState.currentNumber;
+    if (num === null) return '';
+
+    let hintParts = [];
+    const thousands = Math.floor(num / 1000);
+    const hundreds = Math.floor((num % 1000) / 100);
+    const tens = Math.floor((num % 100) / 10);
+    const units = num % 10;
+
+    if (thousands > 0) hintParts.push(`${thousands} ${getPlaceValueName(PLACE_VALUES.THOUSANDS, t).toLowerCase()}`);
+    if (hundreds > 0) hintParts.push(`${hundreds} ${getPlaceValueName(PLACE_VALUES.HUNDREDS, t).toLowerCase()}`);
+    if (tens > 0) hintParts.push(`${tens} ${getPlaceValueName(PLACE_VALUES.TENS, t).toLowerCase()}`);
+    if (units > 0) hintParts.push(`${units} ${getPlaceValueName(PLACE_VALUES.UNITS, t).toLowerCase()}`);
+    
+    return `${t('match_number_mode_hint_prefix', { number: num })} ${hintParts.join(', ')}`;
+  };
+
   return (
     <div className="game-mode-container">
-      <h2 className="mode-title">Potrivește Numărul</h2>
+      <h2 className="mode-title">{t('match_number_mode')}</h2>
       
       <p className="instructions">
-        Potrivește numărul {gameState.currentNumber} pe abac. (Nivel {gameState.level})
+        {t('match_number_mode_instructions', { number: gameState.currentNumber, level: gameState.level })}
       </p>
       
       <div className="target-number">
@@ -146,21 +170,17 @@ const MatchNumberMode = () => {
       <div className="feedback-container">
         {gameState.feedback === 'correct' && (
           <div className="feedback correct">
-            Corect! Excelent!
+            {t('feedback_correct')}
           </div>
         )}
         
         {gameState.feedback === 'incorrect' && (
           <div className="feedback incorrect">
-            Hmm, nu este corect. Încearcă din nou!
+            {t('feedback_incorrect')}
             
             {gameState.showHint && (
               <div className="hint">
-                Indiciu: Numărul {gameState.currentNumber} are 
-                {gameState.currentNumber >= 1000 ? ` ${Math.floor(gameState.currentNumber / 1000)} mii` : ''}
-                {gameState.currentNumber % 1000 >= 100 ? ` ${Math.floor((gameState.currentNumber % 1000) / 100)} sute` : ''}
-                {gameState.currentNumber % 100 >= 10 ? ` ${Math.floor((gameState.currentNumber % 100) / 10)} zeci` : ''}
-                {gameState.currentNumber % 10 > 0 ? ` ${gameState.currentNumber % 10} unități` : ''}
+                {getHintText()}
               </div>
             )}
           </div>
@@ -171,7 +191,7 @@ const MatchNumberMode = () => {
         className="check-button"
         onClick={checkAnswer}
       >
-        Verifică
+        {t('check_button')}
       </button>
     </div>
   );

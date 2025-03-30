@@ -71,30 +71,53 @@ export const findDifferingPlaceValue = (placeValues1, placeValues2, usedPlaceVal
 };
 
 /**
- * Maps a place value key to its Romanian name
+ * Maps a place value key to its translated name using the provided t function
  * @param {string} placeValue - The place value key
- * @returns {string} Romanian name for the place value
+ * @param {Function} t - The translation function from i18next
+ * @returns {string} Translated name for the place value
  */
-export const getPlaceValueName = (placeValue) => {
+export const getPlaceValueName = (placeValue, t) => {
+  if (!t) {
+    console.error("Translation function 't' not provided to getPlaceValueName");
+    // Fallback to non-translated keys or default names if needed
+    return placeValue; 
+  }
   switch (placeValue) {
     case PLACE_VALUES.THOUSANDS:
-      return 'Mii';
+      return t('place_value_thousands');
     case PLACE_VALUES.HUNDREDS:
-      return 'Sute';
+      return t('place_value_hundreds');
     case PLACE_VALUES.TENS:
-      return 'Zeci';
+      return t('place_value_tens');
     case PLACE_VALUES.UNITS:
-      return 'Unități';
+      return t('place_value_units');
     default:
       return '';
   }
 };
 
 /**
- * Gets the display label for a place value
+ * Gets the translated display label for a place value using the provided t function
  * @param {string} placeValue - The place value key
- * @returns {string} The display label (M, S, Z, U)
+ * @param {Function} t - The translation function from i18next
+ * @returns {string} The translated display label
  */
-export const getPlaceValueLabel = (placeValue) => {
-  return PLACE_VALUE_LABELS[placeValue] || '';
+export const getPlaceValueLabel = (placeValue, t) => {
+  if (!t) {
+    console.error("Translation function 't' not provided to getPlaceValueLabel");
+    // Fallback to non-translated keys or default labels if needed
+    return PLACE_VALUE_LABELS[placeValue] || ''; // Keep original labels as fallback
+  }
+  switch (placeValue) {
+    case PLACE_VALUES.THOUSANDS:
+      return t('place_value_label_thousands');
+    case PLACE_VALUES.HUNDREDS:
+      return t('place_value_label_hundreds');
+    case PLACE_VALUES.TENS:
+      return t('place_value_label_tens');
+    case PLACE_VALUES.UNITS:
+      return t('place_value_label_units');
+    default:
+      return '';
+  }
 };

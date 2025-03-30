@@ -1,4 +1,5 @@
 import React, { Suspense, lazy } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useGameContext } from './context/GameContext';
 import './styles/App.css'; // Moved CSS import to the top with other imports
 
@@ -9,11 +10,14 @@ const TutorialScreen = lazy(() => import('./components/screens/TutorialScreen'))
 const BackgroundContainer = lazy(() => import('./components/screens/BackgroundContainer')); // Also lazy load container if possible
 
 // Simple loading fallback component
-const LoadingFallback = () => (
-  <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh', fontSize: '1.5rem' }}>
-    Se încarcă...
-  </div>
-);
+const LoadingFallback = () => {
+  const { t } = useTranslation();
+  return (
+    <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh', fontSize: '1.5rem' }}>
+      {t('loading_text')}
+    </div>
+  );
+};
 
 function App() {
   const { gameState } = useGameContext();
