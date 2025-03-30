@@ -1,4 +1,5 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next'; // Import useTranslation
 import { 
   numberToPlaceValues, 
   findDifferingPlaceValue, 
@@ -17,6 +18,8 @@ import '../../styles/ComparisonFeedback.css';
  * @param {Array} props.numbers - Numbers being compared
  */
 const ComparisonFeedback = ({ feedback, numbers }) => {
+  const { t } = useTranslation(); // Get translation function
+
   // Generate explanation text for correct/incorrect answers
   const getExplanationText = () => {
     if (!numbers[0] || !numbers[1]) return '';
@@ -30,17 +33,32 @@ const ComparisonFeedback = ({ feedback, numbers }) => {
     
     // If numbers are equal
     if (!firstDifferingPlace) {
-      return `Toate valorile sunt la fel, deci ${numbers[0]} este egal cu ${numbers[1]}.`;
+      return t('compare_feedback_explanation_equal', { num1: numbers[0], num2: numbers[1] });
     }
     
     // Numbers differ at some place value
     const place1 = numberToPlaceValues(numbers[0])[firstDifferingPlace];
     const place2 = numberToPlaceValues(numbers[1])[firstDifferingPlace];
-    const placeName = getPlaceValueName(firstDifferingPlace);
-    const placeLabel = getPlaceValueLabel(firstDifferingPlace);
-    const correctOperator = compareNumbers(numbers[0], numbers[1]).symbol;
+    const placeName = getPlaceValueName(firstDifferingPlace, t); // Pass t
+    const placeLabel = getPlaceValueLabel(firstDifferingPlace, t); // Pass t
+    const correctOperatorResult = compareNumbers(numbers[0], numbers[1]);
+    const correctOperatorSymbol = correctOperatorResult.symbol;
+    // Get translated operator text for the explanation
+    const correctOperatorText = t(correctOperatorResult.translationKey); 
+    const comparisonOperatorSymbol = place1 < place2 ? '<' : '>';
+    // Get translated operator text for the place value comparison part
+    const comparisonOperatorText = t(comparisonOperatorSymbol === '<' ? 'operator_less_than' : 'operator_greater_than');
     
-    return `${placeName} (${placeLabel}) sunt diferite: ${place1} ${place1 < place2 ? '<' : '>'} ${place2}, deci ${numbers[0]} ${correctOperator} ${numbers[1]}.`;
+    return t('compare_feedback_explanation_different', {
+      placeName: placeName,
+      placeLabel: placeLabel,
+      val1: place1,
+      operator: comparisonOperatorText, // Use translated text
+      val2: place2,
+      num1: numbers[0],
+      correctOperator: correctOperatorText, // Use translated text
+      num2: numbers[1]
+    });
   };
   
   // If no feedback, don't show anything
@@ -52,14 +70,17 @@ const ComparisonFeedback = ({ feedback, numbers }) => {
         <div className="success-feedback">
           <div className="character-bubble robi">
             <div className="character-icon">
-              <img src="/assets/images/robi.png" alt="Robi" />
+              {/* Use existing alt text keys */}
+              <img src="/assets/images/robi.png" alt={t('compare_display_robi_alt')} /> 
             </div>
             <div className="bubble-content">
-              <h3>Corect!</h3>
-              <p>{FEEDBACK_MESSAGES.CORRECT.text}</p>
+              <h3>{t('compare_feedback_correct_title')}</h3>
+              {/* Use translationKey from constant */}
+              <p>{t(FEEDBACK_MESSAGES.CORRECT.translationKey)}</p> 
               <div className="star-coins">
                 <span className="star-icon">⭐</span>
-                <span>+10 monede stea</span>
+                 {/* Assuming count is fixed for now, could be dynamic */}
+                <span>{t('compare_feedback_star_coins', { count: 10 })}</span>
               </div>
             </div>
           </div>
@@ -71,11 +92,13 @@ const ComparisonFeedback = ({ feedback, numbers }) => {
         <div className="error-feedback">
           <div className="character-bubble ana">
             <div className="character-icon">
-              <img src="/assets/images/ana.png" alt="Ana" />
+              {/* Use existing alt text keys */}
+              <img src="/assets/images/ana.png" alt={t('compare_display_ana_alt')} />
             </div>
             <div className="bubble-content">
-              <h3>Încearcă din nou!</h3>
-              <p>{FEEDBACK_MESSAGES.INCORRECT.text}</p>
+              <h3>{t('compare_feedback_incorrect_title')}</h3>
+              {/* Use translationKey from constant */}
+              <p>{t(FEEDBACK_MESSAGES.INCORRECT.translationKey)}</p> 
             </div>
           </div>
           <div className="explanation">

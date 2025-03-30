@@ -1,5 +1,6 @@
 import React from 'react';
-import { numberToRomanianWord } from '../../utils/numberUtils';
+import { useTranslation } from 'react-i18next';
+import { numberToRomanianWord } from '../../utils/numberUtils'; // Keep for now
 import '../../styles/CompareDisplay.css';
 
 /**
@@ -11,6 +12,8 @@ import '../../styles/CompareDisplay.css';
  * @param {Object} props.difficultyLevel - Current difficulty level settings
  */
 const CompareDisplay = ({ numbers, level, difficultyLevel }) => {
+  const { t, i18n } = useTranslation();
+
   // Format numbers as strings with leading zeros based on difficulty
   const formatNumber = (num) => {
     if (num === null) return '';
@@ -26,16 +29,16 @@ const CompareDisplay = ({ numbers, level, difficultyLevel }) => {
   return (
     <div className="compare-display">
       <div className="level-indicator">
-        <span>Nivel: {level}</span>
-        <span>{difficultyLevel.name}</span>
+        <span>{t('compare_display_level', { level: level })}</span>
+        <span>{difficultyLevel.name}</span> {/* Assuming difficulty name doesn't need translation? If it does, it needs a key */}
       </div>
       
       <div className="character-speech-bubble robi">
         <div className="character-icon">
-          <img src="/assets/images/robi.png" alt="Robi" className="character-avatar" />
+          <img src="/assets/images/robi.png" alt={t('compare_display_robi_alt')} className="character-avatar" />
         </div>
         <div className="speech-content">
-          <p>Hai să comparăm {numbers[0]} și {numbers[1]}!</p>
+          <p>{t('compare_display_robi_speech', { num1: numbers[0], num2: numbers[1] })}</p>
         </div>
       </div>
       
@@ -57,10 +60,10 @@ const CompareDisplay = ({ numbers, level, difficultyLevel }) => {
       
       <div className="character-speech-bubble ana">
         <div className="character-icon">
-          <img src="/assets/images/ana.png" alt="Ana" className="character-avatar" />
+          <img src="/assets/images/ana.png" alt={t('compare_display_ana_alt')} className="character-avatar" />
         </div>
         <div className="speech-content">
-          <p>Pune mărgelele pe abacuri și apoi compară numerele!</p>
+          <p>{t('compare_display_ana_speech')}</p>
         </div>
       </div>
     </div>

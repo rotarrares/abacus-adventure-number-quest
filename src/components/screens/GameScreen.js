@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useGameContext } from '../../context/GameContext';
 import { playSound } from '../../utils/audioUtils';
 import MatchNumberMode from '../modes/MatchNumberMode';
@@ -10,6 +11,7 @@ import '../../styles/GameScreen.css';
 
 const GameScreen = () => {
   const { gameState, dispatch, actions } = useGameContext();
+  const { t } = useTranslation();
   
   useEffect(() => {
     // Play level complete sound when level changes (except first load)
@@ -29,7 +31,7 @@ const GameScreen = () => {
       case 'compare':
         return <CompareNumbersMode />;
       default:
-        return <div>Mod de joc necunoscut</div>;
+        return <div>{t('unknown_game_mode')}</div>;
     }
   };
   
@@ -53,14 +55,14 @@ const GameScreen = () => {
         className="back-button"
         onClick={handleBackToMenu}
       >
-        Înapoi la Meniu
+        {t('back_to_menu')}
       </button>
       
       {showTreasure && (
         <div className="treasure-container">
           <div className="treasure-box bounce">
-            <img src="/assets/images/treasure.png" alt="Treasure chest" />
-            <p>Ai deblocat o comoară!</p>
+            <img src="/assets/images/treasure.png" alt={t('treasure_alt')} />
+            <p>{t('treasure_unlocked')}</p>
           </div>
         </div>
       )}

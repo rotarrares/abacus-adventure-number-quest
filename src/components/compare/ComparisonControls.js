@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import { 
   numberToPlaceValues, 
   getPlaceValueName, 
@@ -28,6 +29,7 @@ const ComparisonControls = (props) => {
   const [analysisFinished, setAnalysisFinished] = useState(false);
   const [placeValueComparisons, setPlaceValueComparisons] = useState({});
   const [showExplanation, setShowExplanation] = useState(false);
+  const { t } = useTranslation();
   
   // When we don't have a highlighted place value, we're done with analysis
   useEffect(() => {
@@ -103,20 +105,38 @@ const ComparisonControls = (props) => {
       numberToPlaceValues(numbers[1]),
       Object.values(PLACE_VALUES)
     );
-    
+    const placeName = getPlaceValueName(firstDifferingPlace);
+    const placeLabel = getPlaceValueLabel(firstDifferingPlace);
+
     if (!firstDifferingPlace) {
-      return `Toate valorile sunt egale, deci ${numbers[0]} este egal cu ${numbers[1]}.`;
+      // Use the existing key from ComparisonFeedback
+      return t('compare_feedback_explanation_equal', { num1: numbers[0], num2: numbers[1] });
     }
     
     const place1 = numberToPlaceValues(numbers[0])[firstDifferingPlace];
     const place2 = numberToPlaceValues(numbers[1])[firstDifferingPlace];
-    const placeName = getPlaceValueName(firstDifferingPlace).toLowerCase();
     
-    if (place1 < place2) {
-      return `${placeName} sunt diferite! ${place1} este mai mic decât ${place2}, deci ${numbers[0]} este mai mic decât ${numbers[1]}.`;
-    } else {
-      return `${placeName} sunt diferite! ${place1} este mai mare decât ${place2}, deci ${numbers[0]} este mai mare decât ${numbers[1]}.`;
-    }
+    let operatorSymbol = place1 < place2 ? '<' : '>';
+    let operatorText = t(operatorSymbol === '<' ? 'operator_less_than' : 'operator_greater_than');
+    
+    // Use the existing key from ComparisonFeedback
+    return t('compare_feedback_explanation_different', { 
+      placeName: placeName, 
+      placeLabel: placeLabel, 
+      val1: place1, 
+      operator: operatorText, 
+      val2: place2, 
+      num1: numbers[0], 
+      correctOperator: operatorText, // Use the same operator text for consistency
+      num2: numbers[1] 
+    });
+  };
+
+  // Map operator symbols to translation keys
+  const operatorTranslationKeys = {
+    '<': 'operator_less_than',
+    '>': 'operator_greater_than',
+    '=': 'operator_equal_to'
   };
 
   // Handle selecting an operator
@@ -132,12 +152,13 @@ const ComparisonControls = (props) => {
       {highlightedPlaceValue ? (
         // Show the step-by-step analysis interface
         <div className="place-value-analysis">
-          <h3>Compară {getPlaceValueName(highlightedPlaceValue)} ({getPlaceValueLabel(highlightedPlaceValue)})</h3>
+          <h3>{t('compare_controls_analysis_title', { placeName: getPlaceValueName(highlightedPlaceValue), placeLabel: getPlaceValueLabel(highlightedPlaceValue) })}</h3>
           
           <div className="place-value-comparison">
             <div className="comparison-value">
               {abacusStates[0][highlightedPlaceValue]} 
-              {abacusStates[0][highlightedPlaceValue] === 1 ? ' mărgea' : ' mărgele'}
+              {' '}
+              {t(abacusStates[0][highlightedPlaceValue] === 1 ? 'compare_controls_bead_singular' : 'compare_controls_bead_plural')}
             </div>
             
             {placeValueComparisons[highlightedPlaceValue] && (
@@ -148,18 +169,19 @@ const ComparisonControls = (props) => {
             
             <div className="comparison-value">
               {abacusStates[1][highlightedPlaceValue]} 
-              {abacusStates[1][highlightedPlaceValue] === 1 ? ' mărgea' : ' mărgele'}
+              {' '}
+              {t(abacusStates[1][highlightedPlaceValue] === 1 ? 'compare_controls_bead_singular' : 'compare_controls_bead_plural')}
             </div>
           </div>
           
           {placeValueComparisons[highlightedPlaceValue] && (
             placeValueComparisons[highlightedPlaceValue].result === '=' ? (
               <div className="comparison-note">
-                <p>Valorile sunt egale! Trebuie să verificăm următoarea poziție.</p>
+                <p>{t('compare_controls_values_equal')}</p>
               </div>
             ) : (
               <div className="comparison-note">
-                <p>Am găsit o diferență! Putem opri compararea.</p>
+                <p>{t('compare_controls_difference_found')}</p>
               </div>
             )
           )}
@@ -168,13 +190,13 @@ const ComparisonControls = (props) => {
             className="continue-button"
             onClick={handleContinueAnalysis}
           >
-            Continuă
+            {t('compare_controls_continue_button')}
           </button>
         </div>
       ) : analysisFinished ? (
         // Show the operator selection interface
         <div className="operator-selection">
-          <h3>Alege simbolul de comparare:</h3>
+          <h3>{t('compare_controls_select_operator_title')}</h3>
           
           <div className="operator-buttons">
             {Object.values(COMPARISON_OPERATORS).map(operator => (
@@ -185,7 +207,7 @@ const ComparisonControls = (props) => {
                 disabled={!!selectedOperator}
               >
                 <span className="operator-symbol">{operator.symbol}</span>
-                <span className="operator-text">{operator.text}</span>
+                <span className="operator-text">{t(operatorTranslationKeys[operator.symbol])}</span>
               </button>
             ))}
           </div>
@@ -195,7 +217,7 @@ const ComparisonControls = (props) => {
               className="hint-button"
               onClick={() => setShowExplanation(!showExplanation)}
             >
-              {showExplanation ? 'Ascunde explicația' : 'Arată explicația'}
+              {showExplanation ? t('compare_controls_hide_explanation') : t('compare_controls_show_explanation')}
             </button>
           )}
           
@@ -207,7 +229,7 @@ const ComparisonControls = (props) => {
         </div>
       ) : (
         // Loading or error state
-        <div className="loading-comparison">Comparăm numerele...</div>
+        <div className="loading-comparison">{t('compare_controls_loading')}</div>
       )}
     </div>
   );

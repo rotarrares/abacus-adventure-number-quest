@@ -1,4 +1,5 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { useGameContext } from '../../context/GameContext';
 import SimpleAbacus from '../abacus/SimpleAbacus';
 import Numpad from '../ui/Numpad';
@@ -9,6 +10,7 @@ import '../../styles/GameModes.css';
 
 const WriteNumberMode = () => {
   const { gameState } = useGameContext();
+  const { t } = useTranslation();
   const { 
     userAnswer, 
     handleDigitClick, 
@@ -21,19 +23,19 @@ const WriteNumberMode = () => {
   // Determine difficulty label based on level
   const getDifficultyLabel = () => {
     if (gameState.level <= 2) {
-      return 'Ușor';
+      return t('difficulty_easy');
     } else if (gameState.level <= 4) {
-      return 'Mediu';
+      return t('difficulty_medium');
     } else {
-      return 'Greu';
+      return t('difficulty_hard');
     }
   };
   
   return (
     <div className="game-mode-container">
       <Instructions 
-        title="Scrie Numărul"
-        description="Care număr este reprezentat pe abac?"
+        title={t('write_number_mode')}
+        description={t('write_number_mode_description')}
         level={gameState.level}
         difficultyLabel={getDifficultyLabel()}
       />
@@ -62,7 +64,7 @@ const WriteNumberMode = () => {
         className="check-button"
         onClick={checkAnswer}
       >
-        Verifică
+        {t('check_button')}
       </button>
     </div>
   );

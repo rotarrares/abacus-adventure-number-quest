@@ -3,10 +3,14 @@ import { useGameContext } from '../../context/GameContext';
 import { numberToRomanianWord, getRandomNumber } from '../../utils/numberUtils';
 import { playSound, speakText } from '../../utils/audioUtils';
 import SimpleAbacus from '../abacus/SimpleAbacus';
+import { useTranslation } from 'react-i18next';
+import numberToWords from 'number-to-words'; // Import the English converter
+import i18n from '../../i18n'; // Import i18n instance to check language
 import '../../styles/GameModes.css';
 
 const ReadBuildMode = () => {
   const { gameState, dispatch, actions } = useGameContext();
+  const { t } = useTranslation(); // Get translation function
   const [correctAnswerCount, setCorrectAnswerCount] = useState(0);
   
   // Generate a random number when the component mounts or level changes
@@ -52,7 +56,15 @@ const ReadBuildMode = () => {
   const generateNumber = () => {
     const { min, max } = gameState.difficulty;
     const number = getRandomNumber(min, max);
-    const word = numberToRomanianWord(number);
+    
+    // Generate word based on current language
+    let word;
+    const currentLang = i18n.language;
+    if (currentLang === 'en') {
+      word = numberToWords.toWords(number);
+    } else { // Default to Romanian or handle other languages if added
+      word = numberToRomanianWord(number);
+    }
     
     dispatch({
       type: actions.SET_NUMBER,
@@ -142,22 +154,23 @@ const ReadBuildMode = () => {
   
   return (
     <div className="game-mode-container">
-      <h2 className="mode-title">Citește și Construiește</h2>
+      <h2 className="mode-title">{t('read_build_mode_title')}</h2>
       
       {/* Added scrollable container */}
       <div className="game-content-scrollable"> 
         <p className="instructions">
-          Construiește numărul pe care îl auzi pe abac. (Nivel {gameState.level})
+          {t('read_build_mode_instructions', { level: gameState.level })}
         </p>
         
         <div className="target-word">
-          <p>{gameState.numberWord}</p>
+          {/* NOTE: gameState.numberWord is still generated only in Romanian */}
+          <p>{gameState.numberWord}</p> 
           <button 
             className="speak-button"
-          onClick={handleSpeak}
-          aria-label="Citește cu voce tare"
-        >
-          🔊
+            onClick={handleSpeak}
+            aria-label={t('read_aloud_aria_label')} 
+          >
+            🔊
           </button>
         </div>
         
@@ -166,18 +179,19 @@ const ReadBuildMode = () => {
         <div className="feedback-container">
           {gameState.feedback === 'correct' && (
             <div className="feedback correct">
-            Corect! Excelent!
-          </div>
-        )}
-        
-        {gameState.feedback === 'incorrect' && (
-          <div className="feedback incorrect">
-            Hmm, nu este corect. Încearcă din nou!
-            
-            {gameState.showHint && (
-              <div className="hint">
-                Indiciu: "{gameState.numberWord}" reprezintă numărul {gameState.currentNumber}
-              </div>
+              {t('feedback_correct')}
+            </div>
+          )}
+          
+          {gameState.feedback === 'incorrect' && (
+            <div className="feedback incorrect">
+              {t('feedback_incorrect')}
+              
+              {gameState.showHint && (
+                <div className="hint">
+                  {/* NOTE: gameState.numberWord is still generated only in Romanian */}
+                  {t('feedback_hint', { number: gameState.currentNumber })} 
+                </div>
               )}
             </div>
           )}
@@ -188,7 +202,7 @@ const ReadBuildMode = () => {
         className="check-button"
         onClick={checkAnswer}
       >
-        Verifică
+        {t('check_button')}
       </button>
     </div>
   );

@@ -1,7 +1,8 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import CompareAbacus from './CompareAbacus';
 import { numberToPlaceValues, getPlaceValueName, getPlaceValueLabel } from '../../utils/compareNumbersUtils';
-import { PLACE_VALUES, BEAD_COLORS, FEEDBACK_MESSAGES } from '../../constants/compareNumbersConstants';
+import { PLACE_VALUES, BEAD_COLORS } from '../../constants/compareNumbersConstants'; // Removed FEEDBACK_MESSAGES
 import '../../styles/DualAbacusSection.css';
 
 /**
@@ -23,6 +24,8 @@ const DualAbacusSection = ({
   isAbacusComplete,
   showHints
 }) => {
+  const { t } = useTranslation();
+
   // Helper function to check if a hint should be shown for a specific place value
   const shouldShowHint = (abacusIndex, placeValue) => {
     if (!showHints || !numbers[abacusIndex]) return false;
@@ -36,12 +39,14 @@ const DualAbacusSection = ({
     if (!numbers[abacusIndex]) return '';
     
     const correctValues = numberToPlaceValues(numbers[abacusIndex]);
-    const placeValueName = getPlaceValueName(placeValue);
+    const placeValueName = getPlaceValueName(placeValue, t); // Pass t here
     
-    return FEEDBACK_MESSAGES.HINT
-      .replace('{column}', placeValueName.toLowerCase())
-      .replace('{number}', numbers[abacusIndex])
-      .replace('{count}', correctValues[placeValue]);
+    // Use the translation key
+    return t('compare_hint_message', {
+      column: placeValueName.toLowerCase(), // Keep lowercase for context
+      number: numbers[abacusIndex],
+      count: correctValues[placeValue]
+    });
   };
 
   return (
@@ -49,16 +54,16 @@ const DualAbacusSection = ({
       <div className="abacus-labels">
         <div className="place-value-labels">
           <div className={`place-value-label ${highlightedPlaceValue === PLACE_VALUES.THOUSANDS ? 'highlighted' : ''}`}>
-            {getPlaceValueName(PLACE_VALUES.THOUSANDS)} ({getPlaceValueLabel(PLACE_VALUES.THOUSANDS)})
+            {getPlaceValueName(PLACE_VALUES.THOUSANDS, t)} ({getPlaceValueLabel(PLACE_VALUES.THOUSANDS, t)})
           </div>
           <div className={`place-value-label ${highlightedPlaceValue === PLACE_VALUES.HUNDREDS ? 'highlighted' : ''}`}>
-            {getPlaceValueName(PLACE_VALUES.HUNDREDS)} ({getPlaceValueLabel(PLACE_VALUES.HUNDREDS)})
+            {getPlaceValueName(PLACE_VALUES.HUNDREDS, t)} ({getPlaceValueLabel(PLACE_VALUES.HUNDREDS, t)})
           </div>
           <div className={`place-value-label ${highlightedPlaceValue === PLACE_VALUES.TENS ? 'highlighted' : ''}`}>
-            {getPlaceValueName(PLACE_VALUES.TENS)} ({getPlaceValueLabel(PLACE_VALUES.TENS)})
+            {getPlaceValueName(PLACE_VALUES.TENS, t)} ({getPlaceValueLabel(PLACE_VALUES.TENS, t)})
           </div>
           <div className={`place-value-label ${highlightedPlaceValue === PLACE_VALUES.UNITS ? 'highlighted' : ''}`}>
-            {getPlaceValueName(PLACE_VALUES.UNITS)} ({getPlaceValueLabel(PLACE_VALUES.UNITS)})
+            {getPlaceValueName(PLACE_VALUES.UNITS, t)} ({getPlaceValueLabel(PLACE_VALUES.UNITS, t)})
           </div>
         </div>
       </div>
@@ -105,7 +110,7 @@ const DualAbacusSection = ({
       
       {/* Color legend for place values */}
       <div className="bead-color-legend">
-        <div className="legend-title">Culori mărgele:</div>
+        <div className="legend-title">{t('dual_abacus_legend_title')}</div>
         <div className="legend-items">
           {Object.entries(BEAD_COLORS).map(([placeValue, color]) => (
             <div key={placeValue} className="legend-item">
@@ -113,7 +118,7 @@ const DualAbacusSection = ({
                 className="color-sample" 
                 style={{ backgroundColor: color }}
               ></div>
-              <span>{getPlaceValueName(placeValue)} ({getPlaceValueLabel(placeValue)})</span>
+              <span>{getPlaceValueName(placeValue, t)} ({getPlaceValueLabel(placeValue, t)})</span>
             </div>
           ))}
         </div>

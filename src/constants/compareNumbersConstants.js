@@ -6,45 +6,45 @@ export const PLACE_VALUES = {
   UNITS: 'units'          // Unități
 };
 
-// Display labels for place values
+// Display labels for place values - These are now handled by getPlaceValueLabel(placeValue, t) using translation keys
 export const PLACE_VALUE_LABELS = {
-  [PLACE_VALUES.THOUSANDS]: 'M',
-  [PLACE_VALUES.HUNDREDS]: 'S',
-  [PLACE_VALUES.TENS]: 'Z',
-  [PLACE_VALUES.UNITS]: 'U'
+  [PLACE_VALUES.THOUSANDS]: 'M', // Fallback/Internal ID
+  [PLACE_VALUES.HUNDREDS]: 'S', // Fallback/Internal ID
+  [PLACE_VALUES.TENS]: 'Z', // Fallback/Internal ID
+  [PLACE_VALUES.UNITS]: 'U'  // Fallback/Internal ID
 };
 
-// Romanian terms for comparison operators
+// Comparison operators - Symbols are universal, text is handled via translation keys in components
 export const COMPARISON_OPERATORS = {
   LESS_THAN: {
     symbol: '<',
-    text: 'mai mic decât'
+    translationKey: 'operator_less_than' 
   },
   GREATER_THAN: {
     symbol: '>',
-    text: 'mai mare decât'
+    translationKey: 'operator_greater_than'
   },
   EQUAL_TO: {
     symbol: '=',
-    text: 'egal cu'
+    translationKey: 'operator_equal_to'
   }
 };
 
-// Difficulty levels
+// Difficulty levels - Names are now handled via translation keys
 export const DIFFICULTY_LEVELS = {
   LEVEL_1: {
-    name: 'Nivel 1',
+    nameKey: 'difficulty_level_1', // Use translation key
     range: { min: 0, max: 99 },
     usedPlaceValues: [PLACE_VALUES.TENS, PLACE_VALUES.UNITS]
   },
   LEVEL_2: {
-    name: 'Nivel 2',
+    nameKey: 'difficulty_level_2', // Use translation key
     range: { min: 100, max: 999 },
     usedPlaceValues: [PLACE_VALUES.HUNDREDS, PLACE_VALUES.TENS, PLACE_VALUES.UNITS]
   },
   LEVEL_3: {
-    name: 'Nivel 3',
-    range: { min: 1000, max: 10000 },
+    nameKey: 'difficulty_level_3', // Use translation key
+    range: { min: 1000, max: 10000 }, // Note: Max was 10000, likely intended 9999? Keeping 10000 for now.
     usedPlaceValues: [PLACE_VALUES.THOUSANDS, PLACE_VALUES.HUNDREDS, PLACE_VALUES.TENS, PLACE_VALUES.UNITS]
   }
 };
@@ -57,15 +57,15 @@ export const BEAD_COLORS = {
   [PLACE_VALUES.UNITS]: '#9b59b6'      // Purple
 };
 
-// Romanian feedback messages
+// Feedback messages - Text is now handled via translation keys
 export const FEEDBACK_MESSAGES = {
   CORRECT: {
-    text: 'Comparare excelentă!',
-    character: 'Robi'
+    translationKey: 'compare_feedback_correct_specific', // Use translation key
+    character: 'Robi' // Character name might need translation if displayed
   },
   INCORRECT: {
-    text: 'Hai să verificăm din nou!',
-    character: 'Ana'
+    translationKey: 'compare_feedback_incorrect_specific', // Use translation key
+    character: 'Ana' // Character name might need translation if displayed
   },
-  HINT: 'Verifică coloana {column} pentru {number}—ar trebui să aibă {count} mărgele!'
+  HINT_KEY: 'compare_hint_message' // Key for the hint message format
 };

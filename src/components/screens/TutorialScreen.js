@@ -1,10 +1,14 @@
 import React, { useState, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useGameContext } from '../../context/GameContext';
 import { playSound } from '../../utils/audioUtils';
+import { PLACE_VALUES } from '../../constants/compareNumbersConstants'; // For place value keys
+import { getPlaceValueName, getPlaceValueLabel } from '../../utils/compareNumbersUtils'; // For place value names/labels
 import '../../styles/TutorialScreen.css';
 
 const TutorialScreen = () => {
   const { gameState, dispatch, actions } = useGameContext();
+  const { t } = useTranslation();
   const [abacusImageLoaded, setAbacusImageLoaded] = useState(false);
 
   // Check if the abacus example image exists
@@ -23,75 +27,75 @@ const TutorialScreen = () => {
   return (
     <div className="tutorial-screen">
       <div className="tutorial-content">
-        <h2>Cum se joacă Abacus Adventure</h2>
+        <h2>{t('tutorial_main_title')}</h2>
         
         <div className="tutorial-section">
-          <h3>Ce este abacul?</h3>
-          <p>Abacul este un instrument de calcul format din coloane de mărgele. În jocul nostru, avem patru coloane:</p>
+          <h3>{t('tutorial_what_is_abacus_title')}</h3>
+          <p>{t('tutorial_what_is_abacus_p1')}</p>
           <ul className="column-labels">
-            <li><span className="column-label m-label">M</span> - Mii (Thousands)</li>
-            <li><span className="column-label s-label">S</span> - Sute (Hundreds)</li>
-            <li><span className="column-label z-label">Z</span> - Zeci (Tens)</li>
-            <li><span className="column-label u-label">U</span> - Unități (Units)</li>
+            <li><span className="column-label m-label">{getPlaceValueLabel(PLACE_VALUES.THOUSANDS, t)}</span> - {getPlaceValueName(PLACE_VALUES.THOUSANDS, t)}</li>
+            <li><span className="column-label s-label">{getPlaceValueLabel(PLACE_VALUES.HUNDREDS, t)}</span> - {getPlaceValueName(PLACE_VALUES.HUNDREDS, t)}</li>
+            <li><span className="column-label z-label">{getPlaceValueLabel(PLACE_VALUES.TENS, t)}</span> - {getPlaceValueName(PLACE_VALUES.TENS, t)}</li>
+            <li><span className="column-label u-label">{getPlaceValueLabel(PLACE_VALUES.UNITS, t)}</span> - {getPlaceValueName(PLACE_VALUES.UNITS, t)}</li>
           </ul>
           <div className="abacus-example">
             {abacusImageLoaded ? (
-              <img src="/assets/images/abacus_example.png" alt="Exemplu de abac" />
+              <img src="/assets/images/abacus_example.png" alt={t('tutorial_abacus_example_alt')} />
             ) : (
               <div className="abacus-placeholder">
-                Exemplu de Abac
+                {t('tutorial_abacus_example_placeholder')}
               </div>
             )}
           </div>
         </div>
         
         <div className="tutorial-section">
-          <h3>Moduri de joc:</h3>
+          <h3>{t('tutorial_game_modes_title')}</h3>
           
           <div className="game-mode">
-            <h4>1. Potrivește Numărul</h4>
-            <p>Un număr va fi afișat pe ecran (de exemplu, "2456"). Trebuie să plasezi:</p>
+            <h4>{t('tutorial_mode1_title')}</h4>
+            <p>{t('tutorial_mode1_p1')}</p>
             <ul>
-              <li>2 mărgele în coloana "M" (mii)</li>
-              <li>4 mărgele în coloana "S" (sute)</li>
-              <li>5 mărgele în coloana "Z" (zeci)</li>
-              <li>6 mărgele în coloana "U" (unități)</li>
+              <li>{t('tutorial_mode1_li', { count: 2, label: getPlaceValueLabel(PLACE_VALUES.THOUSANDS, t), name: getPlaceValueName(PLACE_VALUES.THOUSANDS, t) })}</li>
+              <li>{t('tutorial_mode1_li', { count: 4, label: getPlaceValueLabel(PLACE_VALUES.HUNDREDS, t), name: getPlaceValueName(PLACE_VALUES.HUNDREDS, t) })}</li>
+              <li>{t('tutorial_mode1_li', { count: 5, label: getPlaceValueLabel(PLACE_VALUES.TENS, t), name: getPlaceValueName(PLACE_VALUES.TENS, t) })}</li>
+              <li>{t('tutorial_mode1_li', { count: 6, label: getPlaceValueLabel(PLACE_VALUES.UNITS, t), name: getPlaceValueName(PLACE_VALUES.UNITS, t) })}</li>
             </ul>
           </div>
           
           <div className="game-mode">
-            <h4>2. Citește și Construiește</h4>
-            <p>Numărul va fi scris în cuvinte (de exemplu, "două mii patru sute cincizeci și șase").</p>
-            <p>Trebuie să interpretezi numărul și să plasezi mărgelele corespunzătoare pe abac.</p>
+            <h4>{t('tutorial_mode2_title')}</h4>
+            <p>{t('tutorial_mode2_p1')}</p>
+            <p>{t('tutorial_mode2_p2')}</p>
           </div>
           
           <div className="game-mode">
-            <h4>3. Scrie Numărul</h4>
-            <p>Abacul va fi deja completat cu mărgele (de exemplu, 3 mărgele în M, 7 în S, 0 în Z, 8 în U).</p>
-            <p>Trebuie să scrii numărul în cifre (în acest caz, 3708).</p>
+            <h4>{t('tutorial_mode3_title')}</h4>
+            <p>{t('tutorial_mode3_p1')}</p>
+            <p>{t('tutorial_mode3_p2')}</p>
           </div>
         </div>
         
         <div className="tutorial-section">
-          <h3>Cum să plasezi mărgelele:</h3>
+          <h3>{t('tutorial_placing_beads_title')}</h3>
           <ul>
-            <li>Fă click sau atinge o coloană pentru a adăuga o mărgea</li>
-            <li>Fă click dreapta sau atinge lung pentru a elimina o mărgea</li>
-            <li>În modul mobil, poți folosi și butoanele + și - de lângă fiecare coloană</li>
+            <li>{t('tutorial_placing_beads_li1')}</li>
+            <li>{t('tutorial_placing_beads_li2')}</li>
+            <li>{t('tutorial_placing_beads_li3')}</li>
           </ul>
         </div>
         
         <div className="tutorial-section">
-          <h3>Punctaj și Recompense:</h3>
+          <h3>{t('tutorial_scoring_title')}</h3>
           <ul>
-            <li>Primești puncte pentru fiecare răspuns corect</li>
-            <li>După mai multe răspunsuri corecte, câștigi stele</li>
-            <li>Cufărul cu comori se deschide după fiecare 5 nivele</li>
+            <li>{t('tutorial_scoring_li1')}</li>
+            <li>{t('tutorial_scoring_li2')}</li>
+            <li>{t('tutorial_scoring_li3')}</li>
           </ul>
         </div>
         
         <button className="back-button" onClick={handleBack}>
-          Înapoi la Meniu
+          {t('back_to_menu')}
         </button>
       </div>
     </div>

@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { playSound } from '../../utils/audioUtils';
 import { createConfettiEffect } from '../../utils/effectsUtils';
 import '../../styles/TreasureReward.css';
@@ -14,6 +15,7 @@ import '../../styles/TreasureReward.css';
 const TreasureReward = ({ show, level, onClose, sound }) => {
   const containerRef = useRef(null);
   const [imageLoaded, setImageLoaded] = useState(false);
+  const { t } = useTranslation();
   
   // Play sound and animation when treasure is shown
   useEffect(() => {
@@ -30,33 +32,34 @@ const TreasureReward = ({ show, level, onClose, sound }) => {
     // Every 5 levels gives a different reward
     const rewardLevel = Math.floor(level / 5);
     
+    // Return keys instead of hardcoded strings
     switch (rewardLevel) {
       case 1:
         return {
-          name: 'Curcubeu',
-          description: 'Un abac cu mărgele colorate în culorile curcubeului!',
+          nameKey: 'reward_name_rainbow',
+          descriptionKey: 'reward_desc_rainbow',
           image: '/assets/images/rewards/rainbow.png',
           color: 'linear-gradient(45deg, #ff0000, #ff7f00, #ffff00, #00ff00, #0000ff, #4b0082, #8b00ff)'
         };
       case 2:
         return {
-          name: 'Spațiu',
-          description: 'Un abac cu mărgele în formă de stele și planete!',
+          nameKey: 'reward_name_space',
+          descriptionKey: 'reward_desc_space',
           image: '/assets/images/rewards/space.png',
           color: 'linear-gradient(135deg, #000033, #0033cc, #000033)'
         };
       case 3:
         return {
-          name: 'Flori',
-          description: 'Un abac cu mărgele în formă de flori colorate!',
+          nameKey: 'reward_name_flowers',
+          descriptionKey: 'reward_desc_flowers',
           image: '/assets/images/rewards/flowers.png',
           color: 'linear-gradient(135deg, #ff9a9e, #fecfef, #ff9a9e)'
         };
-      default:
+      default: // Includes level 0 or any other case
         return {
-          name: 'Comoară',
-          description: 'Ai găsit o comoară! Continuă să înveți pentru mai multe recompense.',
-          image: '/assets/images/treasure.png',
+          nameKey: 'reward_name_treasure',
+          descriptionKey: 'reward_desc_treasure',
+          image: '/assets/images/treasure.png', // Default treasure image
           color: 'linear-gradient(135deg, #ffd700, #ffcc00, #ff9900)'
         };
     }
@@ -72,12 +75,15 @@ const TreasureReward = ({ show, level, onClose, sound }) => {
     img.src = reward.image;
   }, [reward.image]);
 
+  const rewardName = t(reward.nameKey);
+  const rewardDescription = t(reward.descriptionKey);
+
   return (
     <div className="treasure-overlay" ref={containerRef}>
       <div className="treasure-modal">
         <div className="treasure-header">
-          <h2>Felicitări!</h2>
-          <p>Ai terminat nivelul {level} și ai deblocat o recompensă!</p>
+          <h2>{t('treasure_congratulations')}</h2>
+          <p>{t('treasure_level_complete', { level: level })}</p>
         </div>
         
         <div className="treasure-content">
@@ -85,7 +91,7 @@ const TreasureReward = ({ show, level, onClose, sound }) => {
             {imageLoaded ? (
               <img 
                 src={reward.image} 
-                alt={reward.name} 
+                alt={rewardName} 
                 className="treasure-image pulse"
               />
             ) : (
@@ -99,8 +105,8 @@ const TreasureReward = ({ show, level, onClose, sound }) => {
           </div>
           
           <div className="reward-details">
-            <h3>{reward.name}</h3>
-            <p>{reward.description}</p>
+            <h3>{rewardName}</h3>
+            <p>{rewardDescription}</p>
           </div>
         </div>
         
@@ -108,7 +114,7 @@ const TreasureReward = ({ show, level, onClose, sound }) => {
           className="continue-button"
           onClick={onClose}
         >
-          Continuă Aventura
+          {t('treasure_continue_button')}
         </button>
       </div>
     </div>
