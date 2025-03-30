@@ -1,5 +1,5 @@
 import React, { Suspense, lazy } from 'react';
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from 'react-i18next'; // Kept from game2 branch
 import { useGameContext } from './context/GameContext';
 import './styles/App.css'; // Moved CSS import to the top with other imports
 
@@ -9,12 +9,12 @@ const GameScreen = lazy(() => import('./components/screens/GameScreen'));
 const TutorialScreen = lazy(() => import('./components/screens/TutorialScreen'));
 const BackgroundContainer = lazy(() => import('./components/screens/BackgroundContainer')); // Also lazy load container if possible
 
-// Simple loading fallback component
+// Simple loading fallback component using translation
 const LoadingFallback = () => {
-  const { t } = useTranslation();
+  const { t } = useTranslation(); // Kept from game2 branch
   return (
     <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh', fontSize: '1.5rem' }}>
-      {t('loading_text')}
+      {t('loading_text')} {/* Use translation key */}
     </div>
   );
 };

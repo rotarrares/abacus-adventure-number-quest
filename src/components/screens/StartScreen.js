@@ -1,4 +1,4 @@
-import React, { useState } from 'react'; // Removed useEffect as it wasn't used after removing characterImageLoaded
+import React, { useState } from 'react'; // Removed useEffect as it wasn't used
 import { useGameContext } from '../../context/GameContext';
 import { playSound } from '../../utils/audioUtils';
 import { useTranslation } from 'react-i18next'; // Import useTranslation
@@ -11,15 +11,15 @@ const StartScreen = () => {
 
   const handleStartGame = (mode) => {
     playSound('click', gameState.sound);
-    
+
     dispatch({ type: actions.SET_GAME_MODE, payload: mode });
     dispatch({ type: actions.SET_SCREEN, payload: 'game' });
     dispatch({ type: actions.SET_LEVEL, payload: 1 });
-    
+
     // Set initial difficulty based on level
-    dispatch({ 
-      type: actions.SET_DIFFICULTY, 
-      payload: { min: 8, max: 99 } 
+    dispatch({
+      type: actions.SET_DIFFICULTY,
+      payload: { min: 8, max: 99 }
     });
   };
 
@@ -66,16 +66,12 @@ const StartScreen = () => {
 
         <div className="character">
           {/* Use loading="lazy" attribute */}
-          <img 
-            src="/assets/images/ana.png" 
-            alt="Ana character" 
-            className="float" 
+          <img
+            src="/assets/images/ana.png"
+            alt="Ana character"
+            className="float"
             loading="lazy" // Add lazy loading attribute
-            // Optional: Add placeholder handling if needed, e.g., via CSS background or a simple placeholder element
-            // The browser handles the loading, so the explicit placeholder logic is removed.
-            // You might want CSS to style the image container while loading.
           />
-          {/* Removed the conditional rendering based on characterImageLoaded */}
         </div>
 
         {!selectedGame && (
@@ -140,12 +136,12 @@ const StartScreen = () => {
             {/* Placeholder for the second game's options or start button */}
           </div>
         )}
-        
+
         <div className="stars-display">
           <span className="star-icon">⭐</span>
           <span className="star-count">{gameState.stars}</span>
         </div>
-        
+
         <div className="bottom-buttons">
           {/* Conditionally render Tutorial button only when a game is selected */}
           {selectedGame && (
