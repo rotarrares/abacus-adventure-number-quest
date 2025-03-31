@@ -1,7 +1,8 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { useGameContext } from '../../context/GameContext';
-import SimpleAbacus from '../abacus/SimpleAbacus';
+// import SimpleAbacus from '../abacus/SimpleAbacus'; // Replaced with Abacus3D
+import Abacus3D from '../abacus/Abacus3D'; // Import the 3D Abacus
 import Numpad from '../ui/Numpad';
 import FeedbackDisplay from '../ui/FeedbackDisplay';
 import Instructions from '../ui/Instructions';
@@ -40,9 +41,14 @@ const WriteNumberMode = () => {
         difficultyLabel={getDifficultyLabel()}
       />
       
-      <SimpleAbacus 
+      {/* Use the 3D Abacus component */}
+      {/* Note: The showControls prop might not be applicable to Abacus3D */}
+      {/* If Abacus3D internally handles its controls or doesn't need them here, */}
+      {/* Pass the abacusState from context and hide controls */}
+      <Abacus3D 
+        abacusState={gameState.abacusState} // Pass the state from context
         onBeadChange={handleBeadChange} 
-        showControls={false} 
+        showControls={false} // Hide controls in this mode
       />
       
       <div className="answer-container">

@@ -19,7 +19,7 @@ const ComparisonInstructions = ({ level, difficultyLevel }) => {
     const usedPlaceValues = difficultyLevel.usedPlaceValues;
     // Get both the full name and shorthand label for each place value
     const placeValueDetails = usedPlaceValues.map(pv => 
-      `${getPlaceValueName(pv)} (${getPlaceValueLabel(pv)})`
+      `${getPlaceValueName(pv, t)} (${getPlaceValueLabel(pv, t)})` // Pass t here
     );
     
     // For level 1 (most basic)
@@ -54,9 +54,9 @@ const ComparisonInstructions = ({ level, difficultyLevel }) => {
   
   // Show comprehensive step-by-step guide
   const renderComparisonGuide = () => {
-    const firstPlaceValueDetail = `${getPlaceValueName(difficultyLevel.usedPlaceValues[0])} (${getPlaceValueLabel(difficultyLevel.usedPlaceValues[0])})`;
+    const firstPlaceValueDetail = `${getPlaceValueName(difficultyLevel.usedPlaceValues[0], t)} (${getPlaceValueLabel(difficultyLevel.usedPlaceValues[0], t)})`; // Pass t here
     const secondPlaceValueDetail = difficultyLevel.usedPlaceValues.length > 1 
-      ? `${getPlaceValueName(difficultyLevel.usedPlaceValues[1])} (${getPlaceValueLabel(difficultyLevel.usedPlaceValues[1])})` 
+      ? `${getPlaceValueName(difficultyLevel.usedPlaceValues[1], t)} (${getPlaceValueLabel(difficultyLevel.usedPlaceValues[1], t)})` // Pass t here
       : '';
 
     return (

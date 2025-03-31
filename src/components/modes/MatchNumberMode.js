@@ -5,7 +5,8 @@ import { numberToRomanianWord, getRandomNumber } from '../../utils/numberUtils';
 import { getPlaceValueName } from '../../utils/compareNumbersUtils'; // Import for hint
 import { PLACE_VALUES } from '../../constants/compareNumbersConstants'; // Import for hint
 import { playSound, speakText } from '../../utils/audioUtils';
-import SimpleAbacus from '../abacus/SimpleAbacus';
+// import SimpleAbacus from '../abacus/SimpleAbacus'; // Replaced with Abacus3D
+import Abacus3D from '../abacus/Abacus3D'; // Import the 3D Abacus
 import '../../styles/GameModes.css';
 
 const MatchNumberMode = () => {
@@ -145,10 +146,11 @@ const MatchNumberMode = () => {
     const tens = Math.floor((num % 100) / 10);
     const units = num % 10;
 
-    if (thousands > 0) hintParts.push(`${thousands} ${getPlaceValueName(PLACE_VALUES.THOUSANDS, t).toLowerCase()}`);
-    if (hundreds > 0) hintParts.push(`${hundreds} ${getPlaceValueName(PLACE_VALUES.HUNDREDS, t).toLowerCase()}`);
-    if (tens > 0) hintParts.push(`${tens} ${getPlaceValueName(PLACE_VALUES.TENS, t).toLowerCase()}`);
-    if (units > 0) hintParts.push(`${units} ${getPlaceValueName(PLACE_VALUES.UNITS, t).toLowerCase()}`);
+    // FIX: Remove 't' argument as it's unused by the (mocked) function
+    if (thousands > 0) hintParts.push(`${thousands} ${getPlaceValueName(PLACE_VALUES.THOUSANDS).toLowerCase()}`);
+    if (hundreds > 0) hintParts.push(`${hundreds} ${getPlaceValueName(PLACE_VALUES.HUNDREDS).toLowerCase()}`);
+    if (tens > 0) hintParts.push(`${tens} ${getPlaceValueName(PLACE_VALUES.TENS).toLowerCase()}`);
+    if (units > 0) hintParts.push(`${units} ${getPlaceValueName(PLACE_VALUES.UNITS).toLowerCase()}`);
     
     return `${t('match_number_mode_hint_prefix', { number: num })} ${hintParts.join(', ')}`;
   };
@@ -165,7 +167,11 @@ const MatchNumberMode = () => {
         <span>{gameState.currentNumber}</span>
       </div>
       
-      <SimpleAbacus onBeadChange={handleBeadChange} />
+      {/* Use the 3D Abacus component, passing the state from context */}
+      <Abacus3D 
+        abacusState={gameState.abacusState} 
+        onBeadChange={handleBeadChange} 
+      />
       
       <div className="feedback-container">
         {gameState.feedback === 'correct' && (

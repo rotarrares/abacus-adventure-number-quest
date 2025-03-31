@@ -2,7 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { useGameContext } from '../../context/GameContext';
 import { numberToRomanianWord, getRandomNumber } from '../../utils/numberUtils';
 import { playSound, speakText } from '../../utils/audioUtils';
-import SimpleAbacus from '../abacus/SimpleAbacus';
+// import SimpleAbacus from '../abacus/SimpleAbacus'; // Replaced with Abacus3D
+import Abacus3D from '../abacus/Abacus3D'; // Import the 3D Abacus
 import { useTranslation } from 'react-i18next';
 import numberToWords from 'number-to-words'; // Import the English converter
 import i18n from '../../i18n'; // Import i18n instance to check language
@@ -174,7 +175,11 @@ const ReadBuildMode = () => {
           </button>
         </div>
         
-        <SimpleAbacus onBeadChange={handleBeadChange} />
+        {/* Use the 3D Abacus component, passing the state from context */}
+        <Abacus3D 
+          abacusState={gameState.abacusState} 
+          onBeadChange={handleBeadChange} 
+        /> 
         
         <div className="feedback-container">
           {gameState.feedback === 'correct' && (
