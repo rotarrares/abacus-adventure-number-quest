@@ -156,49 +156,54 @@ const MatchNumberMode = () => {
   };
 
   return (
-    <div className="game-mode-container">
-      <h2 className="mode-title">{t('match_number_mode')}</h2>
-      
-      <p className="instructions">
-        {t('match_number_mode_instructions', { number: gameState.currentNumber, level: gameState.level })}
-      </p>
-      
-      <div className="target-number">
-        <span>{gameState.currentNumber}</span>
+    <div className="game-mode-container match-number-mode"> {/* Added specific class */}
+      {/* Column 1: Abacus */}
+      <div className="abacus-column">
+        <Abacus3D 
+          abacusState={gameState.abacusState} 
+          onBeadChange={handleBeadChange} 
+        />
       </div>
-      
-      {/* Use the 3D Abacus component, passing the state from context */}
-      <Abacus3D 
-        abacusState={gameState.abacusState} 
-        onBeadChange={handleBeadChange} 
-      />
-      
-      <div className="feedback-container">
-        {gameState.feedback === 'correct' && (
-          <div className="feedback correct">
-            {t('feedback_correct')}
-          </div>
-        )}
+
+      {/* Column 2: Controls, Feedback, etc. */}
+      <div className="controls-column">
+        <h2 className="mode-title">{t('match_number_mode')}</h2>
         
-        {gameState.feedback === 'incorrect' && (
-          <div className="feedback incorrect">
-            {t('feedback_incorrect')}
-            
-            {gameState.showHint && (
-              <div className="hint">
-                {getHintText()}
-              </div>
-            )}
-          </div>
-        )}
+        <p className="instructions">
+          {t('match_number_mode_instructions', { number: gameState.currentNumber, level: gameState.level })}
+        </p>
+        
+        <div className="target-number">
+          <span>{gameState.currentNumber}</span>
+        </div>
+        
+        <div className="feedback-container">
+          {gameState.feedback === 'correct' && (
+            <div className="feedback correct">
+              {t('feedback_correct')}
+            </div>
+          )}
+          
+          {gameState.feedback === 'incorrect' && (
+            <div className="feedback incorrect">
+              {t('feedback_incorrect')}
+              
+              {gameState.showHint && (
+                <div className="hint">
+                  {getHintText()}
+                </div>
+              )}
+            </div>
+          )}
+        </div>
+        
+        <button 
+          className="check-button"
+          onClick={checkAnswer}
+        >
+          {t('check_button')}
+        </button>
       </div>
-      
-      <button 
-        className="check-button"
-        onClick={checkAnswer}
-      >
-        {t('check_button')}
-      </button>
     </div>
   );
 };

@@ -56,6 +56,15 @@ const AbacusModel = ({ abacusState, onBeadChange }) => {
     units: '#9b59b6'      // Purple
   }), []);
 
+  // Define paler versions of the bead colors for inactive beads
+  const paleBeadColors = useMemo(() => ({
+    thousands: '#a9cce3', // Lighter Blue
+    hundreds: '#f5b7b1',  // Lighter Red
+    tens: '#a3e4d7',      // Lighter Green
+    units: '#d7bde2'      // Lighter Purple
+  }), []);
+
+
   return (
     <>
       {/* Lighting */}
@@ -138,15 +147,18 @@ const AbacusModel = ({ abacusState, onBeadChange }) => {
     const startY = rodYPosition - ROD_HEIGHT / 2 + BEAD_SPACING / 2; // Start from bottom
     for (let i = 0; i < 9; i++) { // Always render 9 bead slots for animation
       const isActive = i < count;
-      const targetY = isActive 
+      const targetY = isActive
         ? startY + i * BEAD_SPACING // Active beads at the bottom
         : rodYPosition + ROD_HEIGHT / 2 - (9 - 1 - i) * BEAD_SPACING - BEAD_SPACING / 2; // Inactive beads at the top
+
+      // Determine the color based on active state
+      const beadColor = isActive ? color : paleBeadColors[columnName];
 
       columnElements.push(
         <Bead
           key={`bead-${columnName}-${i}`}
           position={[x, targetY, 0]} // Initial position (will be animated)
-          color={color}
+          color={beadColor} // Use the determined color
           onClick={() => {
             playSound(isActive ? 'beadRemove' : 'beadPlace', gameState.sound);
             // If clicking an active bead (i < count), remove it (set count to i)
@@ -166,7 +178,7 @@ const AbacusModel = ({ abacusState, onBeadChange }) => {
     // Using Drei's Text component for better rendering
     return (
       <Text
-        position={[x, -ROD_HEIGHT / 2 - FRAME_HEIGHT * 1.5, 0]} // Position below the bottom frame
+        position={[x, -ROD_HEIGHT / 2 - FRAME_HEIGHT * 1.5, FRAME_DEPTH / 2 + 0.1]} // Position below bottom frame, slightly in front
         fontSize={0.5}
         color="black" // Keep text color consistent or use label color
         anchorX="center"

@@ -33,45 +33,48 @@ const WriteNumberMode = () => {
   };
   
   return (
-    <div className="game-mode-container">
-      <Instructions 
-        title={t('write_number_mode')}
-        description={t('write_number_mode_description')}
-        level={gameState.level}
-        difficultyLabel={getDifficultyLabel()}
-      />
-      
-      {/* Use the 3D Abacus component */}
-      {/* Note: The showControls prop might not be applicable to Abacus3D */}
-      {/* If Abacus3D internally handles its controls or doesn't need them here, */}
-      {/* Pass the abacusState from context and hide controls */}
-      <Abacus3D 
-        abacusState={gameState.abacusState} // Pass the state from context
-        onBeadChange={handleBeadChange} 
-        showControls={false} // Hide controls in this mode
-      />
-      
-      <div className="answer-container">
-        <Numpad 
-          userAnswer={userAnswer}
-          onDigitClick={handleDigitClick}
-          onBackspace={handleBackspace}
-          onClear={handleClear}
+    <div className="game-mode-container write-number-mode"> {/* Added specific class */}
+      {/* Column 1: Abacus */}
+      <div className="abacus-column">
+        <Abacus3D 
+          abacusState={gameState.abacusState} // Pass the state from context
+          onBeadChange={handleBeadChange} 
+          showControls={false} // Hide controls in this mode
+          cameraPosition={[0, 1, 14]} // Set specific camera distance for this mode
         />
       </div>
-      
-      <FeedbackDisplay 
-        feedback={gameState.feedback}
-        showHint={gameState.showHint}
-        abacusState={gameState.abacusState}
-      />
-      
-      <button 
-        className="check-button"
-        onClick={checkAnswer}
-      >
-        {t('check_button')}
-      </button>
+
+      {/* Column 2: Controls, Feedback, etc. */}
+      <div className="controls-column">
+        <Instructions 
+          title={t('write_number_mode')}
+          description={t('write_number_mode_description')}
+        level={gameState.level}
+        difficultyLabel={getDifficultyLabel()}
+        />
+        
+        <div className="answer-container">
+          <Numpad 
+            userAnswer={userAnswer}
+          onDigitClick={handleDigitClick}
+          onBackspace={handleBackspace}
+            onClear={handleClear}
+          />
+        </div>
+        
+        <FeedbackDisplay 
+          feedback={gameState.feedback}
+          showHint={gameState.showHint}
+          abacusState={gameState.abacusState}
+        />
+        
+        <button 
+          className="check-button"
+          onClick={checkAnswer}
+        >
+          {t('check_button')}
+        </button>
+      </div>
     </div>
   );
 };

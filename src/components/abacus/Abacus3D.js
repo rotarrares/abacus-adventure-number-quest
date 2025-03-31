@@ -7,7 +7,8 @@ import '../../styles/Abacus.css';
 // Removed useGameContext import as abacusState will now be a prop
 
 // Added showControls prop, defaulting to true
-const Abacus3D = ({ abacusState, onBeadChange, showControls = true }) => { 
+// Added optional cameraPosition prop, changed default Z from 8 to 6
+const Abacus3D = ({ abacusState, onBeadChange, showControls = true, cameraPosition = [0, 1, 10] }) => { 
   // Removed context fetching, abacusState is now a prop
 
   // Basic validation or default state if needed
@@ -15,9 +16,11 @@ const Abacus3D = ({ abacusState, onBeadChange, showControls = true }) => {
 
   return (
     <div className="abacus-container">
+      {/* HTML Labels Removed */}
+      
       <div className="abacus-canvas-container">
         <Canvas
-          camera={{ position: [0, 1, 8], fov: 50 }}
+          camera={{ position: cameraPosition, fov: 50 }} /* Use cameraPosition prop */
           shadows
         >
           <AbacusModel 

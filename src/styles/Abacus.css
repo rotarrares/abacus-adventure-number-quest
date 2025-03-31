@@ -1,14 +1,20 @@
 .abacus-container {
   width: 100%;
+  height: 100%; /* Make container fill parent height */
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin: 15px 0;
+  margin: 15px 0; /* Restore original margin */
+  /* position: relative; no longer needed */
 }
+
+/* HTML Label Styles Removed */
+
 
 .abacus-canvas-container {
   width: 100%;
-  height: 280px;
+  height: 100%; /* Make canvas container fill parent height */
+  flex-grow: 1; /* Allow it to grow to fill space */
   border-radius: 12px;
   overflow: hidden;
   box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
@@ -180,18 +186,21 @@
 }
 
 /* Responsive adjustments */
-@media (max-width: 768px) {
+@media (max-width: 767px) { /* Adjusted breakpoint to match GameModes.css */
   .abacus-container {
     margin: 10px 0;
-    transform: scale(0.9);
-    transform-origin: center top;
+    height: auto; /* Reset height for mobile */
+    /* Removed transform: scale(0.9); */
   }
 
-  .abacus-canvas-container,
-  .simple-abacus {
-    height: 220px;
+  .abacus-canvas-container {
+     height: 250px; /* Set a specific height for mobile canvas */
+     flex-grow: 0; /* Don't allow grow on mobile */
   }
-  
+  .simple-abacus { /* Keep simple abacus height adjustment */
+    height: 220px; 
+  }
+
   .abacus-column-control {
     width: 70px;
     padding: 8px;
@@ -229,13 +238,15 @@
 /* Extremely small screens */
 @media (max-width: 375px) {
   .abacus-container {
-    transform: scale(0.8);
+    /* Removed transform: scale(0.8); */
     margin: 5px 0;
   }
   
-  .abacus-canvas-container,
-  .simple-abacus {
-    height: 200px;
+  .abacus-canvas-container {
+     height: 200px; /* Further reduce height for very small screens */
+  }
+   .simple-abacus { /* Keep simple abacus height adjustment */
+     height: 200px;
   }
   
   .abacus-column-control {

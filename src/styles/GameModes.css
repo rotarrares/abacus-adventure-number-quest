@@ -240,14 +240,88 @@
   transform: translateY(-1px);
 }
 
-/* Responsive adjustments */
-@media (max-width: 768px) {
+/* --- Desktop/Tablet Layout (Two Columns) --- */
+@media (min-width: 768px) {
   .game-mode-container {
-    padding: 8px; /* Further reduced from 10px */
-    min-height: 100vh; /* Use min-height instead of fixed height */
-    justify-content: flex-start; /* Align items to the top */
-    gap: 10px; /* Add gap between elements */
+    flex-direction: row; /* Switch to horizontal layout */
+    align-items: stretch; /* Make columns equal height */
+    justify-content: space-between; /* Space out columns */
+    padding: 20px;
+    gap: 20px; /* Add gap between columns */
+    max-width: 1200px; /* Allow wider container */
   }
+
+  .abacus-column {
+    flex: 0 0 70%; /* Abacus takes 70% of the width (increased from 60%) */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* Ensure the Abacus3D container inside scales */
+     & > div { /* Assuming Abacus3D renders in a div */
+        width: 100%;
+        height: 100%; 
+        max-height: 80vh; /* Limit max height (Increased from 70vh) */
+     }
+   }
+ 
+  .controls-column {
+    flex: 1; /* Takes remaining space */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center; /* Center content vertically */
+    padding: 15px;
+    gap: 15px; /* Space out elements within the column */
+  }
+
+  /* Adjust specific elements within controls column if needed */
+  .instructions-container {
+    width: 100%; /* Take full width of the column */
+  }
+  .answer-container {
+     width: 100%; /* Take full width of the column */
+     max-width: 350px; /* Slightly larger max-width */
+  }
+   .feedback-container {
+     width: 100%; /* Take full width of the column */
+   }
+  .check-button {
+    margin-top: 15px; /* Add some top margin */
+  }
+}
+
+
+/* --- Mobile Layout (Single Column - adjustments from original) --- */
+/* Changed max-width to min-width for desktop first approach */
+@media (max-width: 767px) { /* Apply original mobile styles below 768px */
+  /* Keep original mobile styles, but ensure they are within this block */
+  .game-mode-container {
+    padding: 8px; 
+    min-height: 100vh; 
+    justify-content: flex-start; 
+    gap: 10px; 
+  }
+
+  /* Ensure columns stack vertically on mobile */
+  .abacus-column, .controls-column {
+      width: 100%;
+      flex-basis: auto; /* Reset flex basis */
+  }
+
+  .abacus-column {
+     order: 2; /* Abacus below instructions */
+     /* Adjust abacus size for mobile */
+     /* This might need tweaking depending on Abacus3D's internal structure */
+     transform: scale(0.9); 
+     transform-origin: top center;
+     margin-bottom: -20px; /* Compensate for scale */
+     min-height: 300px; /* Give it some minimum height */
+  }
+
+   .controls-column {
+     order: 1; /* Instructions, numpad etc. first */
+     padding: 0; /* Remove padding for tighter fit */
+   }
   
   .mode-title {
     font-size: 1.3rem; /* Reduced from 1.5rem */

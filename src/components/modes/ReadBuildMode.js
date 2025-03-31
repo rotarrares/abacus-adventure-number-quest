@@ -154,11 +154,19 @@ const ReadBuildMode = () => {
   };
   
   return (
-    <div className="game-mode-container">
-      <h2 className="mode-title">{t('read_build_mode_title')}</h2>
-      
-      {/* Added scrollable container */}
-      <div className="game-content-scrollable"> 
+    <div className="game-mode-container read-build-mode"> {/* Added specific class */}
+      {/* Column 1: Abacus */}
+      <div className="abacus-column">
+        <Abacus3D 
+          abacusState={gameState.abacusState} 
+          onBeadChange={handleBeadChange} 
+        /> 
+      </div>
+
+      {/* Column 2: Controls, Feedback, etc. */}
+      <div className="controls-column">
+        <h2 className="mode-title">{t('read_build_mode_title')}</h2>
+        
         <p className="instructions">
           {t('read_build_mode_instructions', { level: gameState.level })}
         </p>
@@ -174,12 +182,6 @@ const ReadBuildMode = () => {
             🔊
           </button>
         </div>
-        
-        {/* Use the 3D Abacus component, passing the state from context */}
-        <Abacus3D 
-          abacusState={gameState.abacusState} 
-          onBeadChange={handleBeadChange} 
-        /> 
         
         <div className="feedback-container">
           {gameState.feedback === 'correct' && (
@@ -201,14 +203,14 @@ const ReadBuildMode = () => {
             </div>
           )}
         </div>
-      </div> {/* End scrollable container */}
-      
-      <button 
-        className="check-button"
-        onClick={checkAnswer}
-      >
-        {t('check_button')}
-      </button>
+        
+        <button 
+          className="check-button"
+          onClick={checkAnswer}
+        >
+          {t('check_button')}
+        </button>
+      </div>
     </div>
   );
 };
