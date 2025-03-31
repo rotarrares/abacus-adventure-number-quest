@@ -1,0 +1,44 @@
+.number-card {
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 15px 25px;
+  margin: 10px;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+.number-display {
+  font-size: 2.5em; /* Larger font size for the number */
+  font-weight: bold;
+  letter-spacing: 2px; /* Space out digits slightly */
+}
+
+.digit {
+  padding: 0 2px; /* Small padding around each digit */
+  transition: transform 0.2s ease-in-out, background-color 0.2s ease-in-out;
+}
+
+/* Color coding based on place value */
+.digit-units { color: #007bff; } /* Blue */
+.digit-tens { color: #28a745; } /* Green */
+.digit-hundreds { color: #fd7e14; } /* Orange */
+.digit-thousands { color: #dc3545; } /* Red */
+
+/* Highlighting the digit relevant for rounding */
+.digit.highlight {
+  background-color: yellow;
+  border-radius: 3px;
+  padding: 0 4px;
+  box-shadow: 0 0 5px yellow;
+  transform: scale(1.1); /* Slightly enlarge highlighted digit */
+}
+
+.formatted-number {
+  display: block;
+  font-size: 0.8em;
+  color: #6c757d; /* Gray color */
+  margin-top: 5px;
+}
+
+/* TODO: Add styles for hover/click hint interaction */

@@ -74,8 +74,22 @@ const TutorialScreen = () => {
             <p>{t('tutorial_mode3_p1')}</p>
             <p>{t('tutorial_mode3_p2')}</p>
           </div>
+
+          {/* Add new section for Rounding Game */}
+          <div className="game-mode">
+            <h4>{t('tutorial_mode4_title')}</h4>
+            <p>{t('tutorial_mode4_p1')}</p>
+            <ul>
+              <li>{t('tutorial_mode4_l1')}</li>
+              <li>{t('tutorial_mode4_l2')}</li>
+              <li>{t('tutorial_mode4_l3')}</li>
+              <li>{t('tutorial_mode4_l4')}</li>
+              <li>{t('tutorial_mode4_l5')}</li>
+            </ul>
+            <p>{t('tutorial_mode4_p2')}</p>
+          </div>
         </div>
-        
+
         <div className="tutorial-section">
           <h3>{t('tutorial_placing_beads_title')}</h3>
           <ul>

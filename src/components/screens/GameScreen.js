@@ -6,6 +6,7 @@ import MatchNumberMode from '../modes/MatchNumberMode';
 import ReadBuildMode from '../modes/ReadBuildMode';
 import WriteNumberMode from '../modes/WriteNumberMode';
 import CompareNumbersMode from '../modes/CompareNumbersMode';
+import RoundingNumbersMode from '../modes/RoundingNumbersMode'; // Import the new mode
 import GameHeader from '../ui/GameHeader';
 import '../../styles/GameScreen.css';
 
@@ -30,8 +31,10 @@ const GameScreen = () => {
         return <WriteNumberMode />;
       case 'compare':
         return <CompareNumbersMode />;
+      case 'rounding': // Add case for the new mode
+        return <RoundingNumbersMode />;
       default:
-        return <div>{t('unknown_game_mode')}</div>;
+        return <div>{t('unknown_game_mode')}: {gameState.gameMode}</div>; // Include mode in error
     }
   };
   

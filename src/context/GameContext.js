@@ -24,7 +24,8 @@ const initialState = {
     min: 8,
     max: 99
   },
-  sound: true
+  sound: true,
+  highestRoundingLevelUnlocked: 1 // Add state for rounding game levels
 };
 
 // Action types
@@ -42,7 +43,8 @@ export const actions = {
   TOGGLE_HINT: 'TOGGLE_HINT',
   RESET_GAME: 'RESET_GAME',
   TOGGLE_SOUND: 'TOGGLE_SOUND',
-  SET_DIFFICULTY: 'SET_DIFFICULTY'
+  SET_DIFFICULTY: 'SET_DIFFICULTY',
+  UNLOCK_ROUNDING_LEVEL: 'UNLOCK_ROUNDING_LEVEL' // Add action type
 };
 
 // Reducer function
@@ -87,6 +89,12 @@ const gameReducer = (state, action) => {
       return { ...state, sound: !state.sound };
     case actions.SET_DIFFICULTY:
       return { ...state, difficulty: action.payload };
+    case actions.UNLOCK_ROUNDING_LEVEL:
+      // Only update if the payload (level unlocked) is higher than the current highest
+      return {
+        ...state,
+        highestRoundingLevelUnlocked: Math.max(state.highestRoundingLevelUnlocked, action.payload)
+      };
     default:
       return state;
   }
@@ -105,10 +113,15 @@ export const GameProvider = ({ children }) => {
     if (savedState) {
       try {
         const parsedState = JSON.parse(savedState);
-        // Only restore certain properties
-        dispatch({ 
-          type: actions.ADD_STARS, 
-          payload: parsedState.stars || 0 
+        // Restore properties
+        dispatch({
+          type: actions.ADD_STARS,
+          payload: parsedState.stars || 0
+        });
+        // Restore highest unlocked rounding level
+        dispatch({
+            type: actions.UNLOCK_ROUNDING_LEVEL,
+            payload: parsedState.highestRoundingLevelUnlocked || 1 // Default to 1 if not found
         });
       } catch (error) {
         console.error('Error parsing saved game state:', error);
@@ -116,12 +129,13 @@ export const GameProvider = ({ children }) => {
     }
   }, []);
 
-  // Save state to localStorage when it changes
+  // Save relevant state to localStorage when it changes
   useEffect(() => {
     localStorage.setItem('abacusAdventureState', JSON.stringify({
-      stars: gameState.stars
+      stars: gameState.stars,
+      highestRoundingLevelUnlocked: gameState.highestRoundingLevelUnlocked // Save rounding level
     }));
-  }, [gameState.stars]);
+  }, [gameState.stars, gameState.highestRoundingLevelUnlocked]); // Add dependency
 
   // Context value
   const contextValue = {

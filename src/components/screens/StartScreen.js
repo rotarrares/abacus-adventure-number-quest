@@ -2,26 +2,33 @@ import React, { useState } from 'react'; // Removed useEffect as it wasn't used
 import { useGameContext } from '../../context/GameContext';
 import { playSound } from '../../utils/audioUtils';
 import { useTranslation } from 'react-i18next'; // Import useTranslation
+import { LEVELS as roundingLevels } from '../../constants/roundingConstants'; // Import named export LEVELS
 import '../../styles/StartScreen.css';
 
 const StartScreen = () => {
   const { gameState, dispatch, actions } = useGameContext();
+  const { highestRoundingLevelUnlocked } = gameState; // Get unlocked level
   const { t, i18n } = useTranslation(); // Get translation function and i18n instance
   const [selectedGame, setSelectedGame] = useState(null); // null, 'abacus', 'other'
 
-  const handleStartGame = (mode) => {
+  // Generic handler for Abacus modes
+  const handleStartAbacusGame = (mode) => {
     playSound('click', gameState.sound);
-
     dispatch({ type: actions.SET_GAME_MODE, payload: mode });
+    dispatch({ type: actions.SET_LEVEL, payload: 1 }); // Abacus games start at level 1
     dispatch({ type: actions.SET_SCREEN, payload: 'game' });
-    dispatch({ type: actions.SET_LEVEL, payload: 1 });
-
-    // Set initial difficulty based on level
-    dispatch({
-      type: actions.SET_DIFFICULTY,
-      payload: { min: 8, max: 99 }
-    });
+    // Set initial difficulty if needed for this mode
+    // dispatch({ type: actions.SET_DIFFICULTY, payload: { min: 8, max: 99 } });
   };
+
+  // Specific handler for starting Rounding game at a chosen level
+  const handleStartRoundingGame = (level) => {
+    playSound('click', gameState.sound);
+    dispatch({ type: actions.SET_GAME_MODE, payload: 'rounding' });
+    dispatch({ type: actions.SET_LEVEL, payload: level }); // Set the chosen level
+    dispatch({ type: actions.SET_SCREEN, payload: 'game' });
+  };
+
 
   const selectGame = (game) => {
     playSound('click', gameState.sound);
@@ -87,9 +94,9 @@ const StartScreen = () => {
               <button
                 className="game-button"
                 onClick={() => selectGame('other')}
-                disabled // Disable the second game for now
+                // disabled // Enable the second game
               >
-                {t('new_game_soon_button')}
+                {t('anas_number_garden_button')} {/* Update button text */}
               </button>
             </div>
           </div>
@@ -102,25 +109,25 @@ const StartScreen = () => {
             <div className="mode-buttons">
               <button
                 className="mode-button"
-                onClick={() => handleStartGame('match')}
+                onClick={() => handleStartAbacusGame('match')}
               >
                 {t('match_number_mode')}
               </button>
               <button
                 className="mode-button"
-                onClick={() => handleStartGame('read')}
+                onClick={() => handleStartAbacusGame('read')}
               >
                 {t('read_build_mode')}
               </button>
               <button
                 className="mode-button"
-                onClick={() => handleStartGame('write')}
+                onClick={() => handleStartAbacusGame('write')}
               >
                 {t('write_number_mode')}
               </button>
               <button
                 className="mode-button featured"
-                onClick={() => handleStartGame('compare')}
+                onClick={() => handleStartAbacusGame('compare')}
               >
                 {t('compare_numbers_mode')}
 
@@ -130,11 +137,27 @@ const StartScreen = () => {
         )}
 
         {selectedGame === 'other' && (
-          <div className="placeholder-selection">
+          <div className="mode-selection level-selection"> {/* Add level-selection class */}
              <button className="back-button" onClick={handleBack}>{t('back_button')}</button>
-            <h3>{t('new_game_title')}</h3>
-            <p>{t('new_game_soon_text')}</p>
-            {/* Placeholder for the second game's options or start button */}
+            <h3>{t('anas_number_garden_title')}</h3>
+            <p>{t('anas_number_garden_description')}</p>
+            <h4>{t('select_level')}</h4> {/* Add translation key */}
+            <div className="level-buttons">
+              {/* Generate buttons for ALL defined levels */}
+              {Object.keys(roundingLevels) // Get level numbers as strings ('1', '2', ...)
+                .map(Number) // Convert to numbers [1, 2, ...]
+                .sort((a, b) => a - b) // Ensure correct order
+                .map((levelNum) => (
+                <button
+                  key={levelNum}
+                  className="level-button mode-button" // Reuse mode-button style
+                  onClick={() => handleStartRoundingGame(levelNum)}
+                >
+                  {/* Use translation key for level label */}
+                  {t('level_label', { level: levelNum })}
+                </button>
+              ))}
+            </div>
           </div>
         )}
 

@@ -116,6 +116,11 @@
   transition: all 0.2s;
 }
 
+/* Add margin specifically to level buttons within their container */
+.level-buttons .level-button {
+  margin: 5px; /* Add spacing around each level button */
+}
+
 .mode-button:hover {
   background-color: #3a7bd5;
   transform: translateY(-3px);

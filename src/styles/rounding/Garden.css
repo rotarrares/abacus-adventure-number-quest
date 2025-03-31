@@ -1,0 +1,17 @@
+.garden-container {
+  /* Placeholder styles */
+  border: 2px dashed green;
+  padding: 20px;
+  margin: 10px;
+  min-height: 300px; /* Example height */
+  position: relative; /* For positioning elements like Ana */
+  background-color: #e8f5e9; /* Light green background */
+  border-radius: 10px;
+  display: flex; /* Example layout, might change to grid */
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+}
+
+/* TODO: Add styles for garden sections (tens row, hundreds patch, thousands field) */
+/* TODO: Add styles for flowers and animations */

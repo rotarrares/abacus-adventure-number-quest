@@ -1,0 +1,60 @@
+.rounding-numbers-mode {
+  padding: 20px;
+  /* Assuming a background is set by a higher-level container like GameScreen */
+  /* background-color: #f0f4f8; */
+  min-height: calc(100vh - 100px); /* Example: Adjust based on header height */
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Center scoreboard and garden */
+}
+
+.rounding-numbers-mode.loading {
+  font-size: 1.5em;
+  color: #6c757d;
+  text-align: center;
+  margin-top: 50px;
+}
+
+.game-area {
+    display: flex;
+    flex-direction: column; /* Stack Ana/NumberCard vertically */
+    align-items: center;
+    margin-bottom: 20px; /* Space below number card */
+    gap: 15px; /* Space between Ana and NumberCard */
+    width: 100%; /* Take full width within Garden */
+}
+
+/* Styles for the level completion message and button */
+.level-complete-message {
+  margin-top: 30px;
+  padding: 20px;
+  background-color: #dff0d8; /* Light green background */
+  border: 1px solid #c3e6cb; /* Green border */
+  border-radius: 8px;
+  text-align: center;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.level-complete-message p {
+  font-size: 1.2em;
+  color: #155724; /* Dark green text */
+  margin-bottom: 15px;
+}
+
+.advance-button {
+  padding: 10px 20px;
+  font-size: 1.1em;
+  font-weight: bold;
+  color: #fff;
+  background-color: #198754; /* Bootstrap success green */
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.advance-button:hover {
+  background-color: #157347; /* Darker green */
+}
+
+/* Add other general styles for the mode if needed */

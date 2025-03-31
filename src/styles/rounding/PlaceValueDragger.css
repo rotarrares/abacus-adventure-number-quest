@@ -1,0 +1,122 @@
+.place-value-dragger-container {
+  margin-top: 20px;
+  padding: 15px;
+  border: 1px dashed #ccc;
+  border-radius: 8px;
+  background-color: #f8f9fa;
+  text-align: center;
+}
+
+.instructions {
+  font-style: italic;
+  color: #6c757d;
+  margin-bottom: 15px;
+}
+
+.draggable-digits, .droppable-targets {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px; /* Space between boxes */
+  margin-bottom: 15px;
+  min-height: 60px; /* Ensure space even if empty */
+}
+
+.digit-box, .target-box {
+  border: 1px solid #adb5bd;
+  border-radius: 4px;
+  padding: 10px 15px;
+  min-width: 50px; /* Minimum width */
+  text-align: center;
+  font-weight: bold;
+}
+
+.digit-box {
+  background-color: #e9ecef;
+  font-size: 1.2em;
+}
+
+.digit-box.draggable {
+  cursor: grab;
+  user-select: none; /* Prevent text selection during drag */
+}
+
+/* Style for the digit currently being dragged */
+.digit-box.draggable.dragging {
+  cursor: grabbing;
+  opacity: 0.5;
+  border: 2px dashed #007bff; /* Add a visual cue */
+}
+
+.target-box {
+  background-color: #ffffff;
+  font-size: 0.9em;
+  color: #495057;
+  position: relative; /* For positioning the placed digit */
+  min-height: 50px; /* Ensure height for label and potential digit */
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* Center label vertically initially */
+  align-items: center;
+}
+
+.target-label {
+  font-size: 0.8em;
+  color: #6c757d;
+  margin-bottom: 5px; /* Space between label and potential digit */
+}
+
+.target-box.droppable {
+  border-style: dashed; /* Indicate it's a drop zone */
+}
+
+/* Style when a draggable item is hovering over the target */
+.target-box.droppable.drag-over {
+  background-color: #e0e0e0; /* Light gray highlight */
+  border-color: #007bff; /* Blue border */
+}
+
+/* Style for a target box that already has a digit placed */
+.target-box.droppable.filled {
+  border-style: solid;
+  background-color: #f8f9fa; /* Slightly different background */
+}
+
+/* Style for the digit shown inside the target box */
+.digit-box.placed {
+  background-color: #d1e7dd; /* Light green background for placed digit */
+  border: 1px solid #198754; /* Green border */
+  padding: 5px 10px;
+  font-size: 1.1em;
+  margin-top: 5px; /* Space from the label */
+  cursor: default; /* Not draggable anymore */
+}
+
+/* Placeholder text when no digits are left to drag */
+.placeholder-text {
+    color: #6c757d;
+    font-style: italic;
+}
+
+/* Feedback message styles */
+.feedback-message {
+  margin-top: 15px;
+  padding: 8px 12px;
+  border-radius: 4px;
+  font-weight: bold;
+}
+
+.feedback-message.correct {
+  background-color: #d1e7dd; /* Light green */
+  color: #0f5132; /* Dark green */
+  border: 1px solid #badbcc;
+}
+
+.feedback-message.incorrect {
+  background-color: #f8d7da; /* Light red */
+  color: #842029; /* Dark red */
+  border: 1px solid #f5c2c7;
+}
+
+/* TODO: Add styles for showing dropped digits in target boxes */
+/* TODO: Add styles for drag-and-drop library integration if used */

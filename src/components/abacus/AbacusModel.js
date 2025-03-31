@@ -3,6 +3,7 @@ import { useFrame } from '@react-three/fiber';
 import { OrbitControls, Environment, Text } from '@react-three/drei';
 import { animated, useSpring } from '@react-spring/three';
 import * as THREE from 'three';
+import { useTranslation } from 'react-i18next'; // Import useTranslation
 import { playSound } from '../../utils/audioUtils';
 import { useGameContext } from '../../context/GameContext';
 
@@ -45,6 +46,7 @@ const Bead = ({ position, color, onClick, columnName, index }) => {
 
 
 const AbacusModel = ({ abacusState, onBeadChange }) => {
+  const { t } = useTranslation(); // Get the translation function
   const { gameState } = useGameContext();
   const abacusRef = useRef();
 
@@ -126,7 +128,11 @@ const AbacusModel = ({ abacusState, onBeadChange }) => {
         {renderLabel(COLUMN_POSITIONS[0], 'M', beadColors.thousands)}
         {renderLabel(COLUMN_POSITIONS[1], 'S', beadColors.hundreds)}
         {renderLabel(COLUMN_POSITIONS[2], 'Z', beadColors.tens)}
-        {renderLabel(COLUMN_POSITIONS[3], 'U', beadColors.units)}
+        {/* Use translation keys for labels */}
+        {renderLabel(COLUMN_POSITIONS[0], t('place_value_label_thousands'), beadColors.thousands)}
+        {renderLabel(COLUMN_POSITIONS[1], t('place_value_label_hundreds'), beadColors.hundreds)}
+        {renderLabel(COLUMN_POSITIONS[2], t('place_value_label_tens'), beadColors.tens)}
+        {renderLabel(COLUMN_POSITIONS[3], t('place_value_label_units'), beadColors.units)}
       </group>
     </>
   );

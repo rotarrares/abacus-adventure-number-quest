@@ -1,0 +1,60 @@
+.ana-character-container {
+  position: relative; /* Or absolute if positioned within Garden */
+  display: flex;
+  align-items: flex-end; /* Align bubble near bottom of image */
+  margin: 10px;
+  /* Adjust width/height as needed */
+}
+
+.ana-image {
+  max-width: 100px; /* Example size */
+  height: auto;
+  display: block;
+  /* TODO: Add animation styles if using sprites or SVG */
+}
+
+.speech-bubble {
+  position: relative;
+  background: #ffffff;
+  border-radius: .4em;
+  padding: 10px 15px;
+  margin-left: 10px; /* Space between Ana and bubble */
+  max-width: 200px; /* Limit bubble width */
+  font-size: 0.9em;
+  box-shadow: 1px 1px 3px rgba(0,0,0,0.1);
+  border: 1px solid #ccc;
+}
+
+/* Speech bubble pointer */
+.speech-bubble:after {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  width: 0;
+  height: 0;
+  border: 10px solid transparent;
+  border-right-color: #ffffff;
+  border-left: 0;
+  margin-top: -10px;
+  margin-left: -10px;
+}
+
+/* Add a border triangle underneath the main one for the outline */
+.speech-bubble:before {
+    content: '';
+    position: absolute;
+    left: -1px; /* Position slightly left to create border effect */
+    top: 50%;
+    width: 0;
+    height: 0;
+    border: 11px solid transparent; /* Slightly larger */
+    border-right-color: #ccc; /* Border color */
+    border-left: 0;
+    margin-top: -11px;
+    margin-left: -11px;
+    z-index: -1; /* Place behind the white triangle */
+}
+
+
+/* TODO: Add animation for bubble appearing/disappearing */
