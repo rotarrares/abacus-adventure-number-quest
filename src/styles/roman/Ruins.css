@@ -1,0 +1,49 @@
+/* Styles for the Ruins component - Roman Treasure Hunt */
+
+.ruins-container {
+  position: relative; /* Needed for positioning children absolutely if required */
+  width: 100%;
+  min-height: 400px; /* Example height */
+  background-color: #d2b48c; /* Placeholder Tan background */
+  /* background-image is now handled by inline style in the component */
+  background-size: cover;
+  background-position: center;
+  padding: 20px;
+  box-sizing: border-box;
+  display: flex; /* Use flexbox for layout */
+  flex-direction: column; /* Stack elements vertically */
+  align-items: center; /* Center items horizontally */
+  justify-content: space-between; /* Space out elements vertically */
+  border: 2px solid #8b4513; /* Placeholder border */
+  border-radius: 10px;
+  overflow: hidden; /* Hide overflow if needed */
+}
+
+.ruins-content-area {
+  /* This area holds the characters and puzzle elements */
+  display: flex;
+  justify-content: space-around; /* Example layout */
+  align-items: flex-end; /* Align characters to bottom */
+  width: 100%;
+  flex-grow: 1; /* Allow content to take available space */
+}
+
+.robi-door {
+  /* Placeholder for Robi's entrance */
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  width: 50px;
+  height: 80px;
+  background-color: #a0522d; /* Sienna color */
+  border: 2px solid #654321;
+  /* Add transition for opening effect */
+  transition: transform 0.5s ease-in-out;
+  transform: translateX(100%); /* Start hidden off-screen */
+}
+
+.robi-door.open {
+  transform: translateX(0); /* Slide in when open class is added */
+}
+
+/* Add more specific styles for elements within the ruins */

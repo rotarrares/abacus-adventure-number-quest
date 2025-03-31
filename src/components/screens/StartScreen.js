@@ -7,9 +7,9 @@ import '../../styles/StartScreen.css';
 
 const StartScreen = () => {
   const { gameState, dispatch, actions } = useGameContext();
-  const { highestRoundingLevelUnlocked } = gameState; // Get unlocked level
+  // const { highestRoundingLevelUnlocked } = gameState; // Removed unused variable
   const { t, i18n } = useTranslation(); // Get translation function and i18n instance
-  const [selectedGame, setSelectedGame] = useState(null); // null, 'abacus', 'other'
+  const [selectedGame, setSelectedGame] = useState(null); // null, 'abacus', 'other', 'roman'
 
   // Generic handler for Abacus modes
   const handleStartAbacusGame = (mode) => {
@@ -26,6 +26,14 @@ const StartScreen = () => {
     playSound('click', gameState.sound);
     dispatch({ type: actions.SET_GAME_MODE, payload: 'rounding' });
     dispatch({ type: actions.SET_LEVEL, payload: level }); // Set the chosen level
+    dispatch({ type: actions.SET_SCREEN, payload: 'game' });
+  };
+
+  // Handler for starting Roman Treasure game
+  const handleStartRomanGame = () => {
+    playSound('click', gameState.sound);
+    dispatch({ type: actions.SET_GAME_MODE, payload: 'roman' });
+    dispatch({ type: actions.SET_LEVEL, payload: 1 }); // Roman game manages internal levels, start at 1
     dispatch({ type: actions.SET_SCREEN, payload: 'game' });
   };
 
@@ -94,9 +102,15 @@ const StartScreen = () => {
               <button
                 className="game-button"
                 onClick={() => selectGame('other')}
-                // disabled // Enable the second game
               >
-                {t('anas_number_garden_button')} {/* Update button text */}
+                {t('anas_number_garden_button')}
+              </button>
+              {/* Add button for Roman Treasure Hunt */}
+              <button
+                className="game-button"
+                onClick={() => selectGame('roman')}
+              >
+                {t('roman_treasure_button')} {/* Add translation key */}
               </button>
             </div>
           </div>
@@ -137,7 +151,7 @@ const StartScreen = () => {
         )}
 
         {selectedGame === 'other' && (
-          <div className="mode-selection level-selection"> {/* Add level-selection class */}
+          <div className="mode-selection level-selection">
              <button className="back-button" onClick={handleBack}>{t('back_button')}</button>
             <h3>{t('anas_number_garden_title')}</h3>
             <p>{t('anas_number_garden_description')}</p>
@@ -157,6 +171,23 @@ const StartScreen = () => {
                   {t('level_label', { level: levelNum })}
                 </button>
               ))}
+            </div>
+          </div>
+        )}
+
+        {/* Add section for Roman Treasure Hunt */}
+        {selectedGame === 'roman' && (
+          <div className="mode-selection">
+            <button className="back-button" onClick={handleBack}>{t('back_button')}</button>
+            <h3>{t('roman_treasure_title')}</h3> {/* Add translation key */}
+            <p>{t('roman_treasure_description')}</p> {/* Add translation key */}
+            <div className="mode-buttons"> {/* Reuse mode-buttons container */}
+              <button
+                className="mode-button" // Reuse mode-button style
+                onClick={handleStartRomanGame}
+              >
+                {t('start_roman_game_button')} {/* Add translation key */}
+              </button>
             </div>
           </div>
         )}

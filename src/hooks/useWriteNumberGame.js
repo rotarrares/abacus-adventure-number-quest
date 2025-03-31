@@ -1,9 +1,9 @@
 import { useState, useRef, useEffect } from 'react';
 import { useGameContext } from '../context/GameContext';
-import { getRandomNumber } from '../utils/numberUtils';
+import { getRandomInt } from '../utils/numberUtils';
 import { playSound, stopAllAudio } from '../utils/audioUtils';
 import { calculateDifficultyForLevel } from '../utils/difficultyUtils';
-import { numberToAbacusPositions, abacusPositionsToNumber } from '../utils/abacusUtils';
+import { numberToAbacusPositions } from '../utils/abacusUtils'; // Removed unused abacusPositionsToNumber
 import { calculateScore, shouldAwardStar, shouldLevelUp } from '../utils/gameLogicUtils';
 
 const useWriteNumberGame = () => {
@@ -59,7 +59,7 @@ const useWriteNumberGame = () => {
 
   const generateRandomAbacus = () => {
     const { min, max } = gameState.difficulty;
-    const randomNumber = getRandomNumber(min, max);
+    const randomNumber = getRandomInt(min, max);
     
     // Get abacus positions from number
     const abacusPositions = numberToAbacusPositions(randomNumber);

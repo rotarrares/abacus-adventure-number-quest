@@ -273,12 +273,12 @@ const useRoundingGame = (/* No initialLevel needed */) => { // Remove initialLev
          setTimeout(() => {
              setFeedback(null);
              setResetLevel1Signal(prev => prev + 1);
-         }, 2000);
+      }, 2000);
      }
      setAnaMessage(feedbackMessage);
 
-  // Dependencies include context `level` now - removed isLevelComplete
-  }, [correctAnswer, feedback, generateQuestion, level, progress, levelGoal, t, setScore, setProgress, setFeedback, setAnaMessage, setResetLevel1Signal]);
+  // Removed unnecessary 'level' dependency (comes from context)
+  }, [correctAnswer, feedback, generateQuestion, progress, levelGoal, t, setScore, setProgress, setFeedback, setAnaMessage, setResetLevel1Signal]);
 
 
   // Return context level - remove isLevelComplete

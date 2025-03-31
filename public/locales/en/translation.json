@@ -175,5 +175,32 @@
   "rounding_level_5_instruction": "Round {{number}} to the nearest {{place}}!",
   "select_level": "Select Level:",
   "level_label": "Level {{level}}",
-  "back_to_level_select": "Back to Level Select"
+  "back_to_level_select": "Back to Level Select",
+
+  "roman_treasure_button": "Ana's Roman Treasure Hunt",
+  "roman_treasure_title": "Ana's Roman Treasure Hunt",
+  "roman_treasure_description": "Help Ana and Robi solve Roman numeral puzzles to unlock ancient treasures!",
+  "start_roman_game_button": "Start Hunting!",
+
+  "roman_treasure.loading": "Loading treasure map...",
+  "roman_treasure.loading_task": "Getting next puzzle...",
+  "roman_treasure.error_loading": "Error loading the game. Please try again.",
+  "roman_treasure.ana_correct": "That's it! Well done!",
+  "roman_treasure.ana_incorrect": "Oops! Let's look closer.",
+  "roman_treasure.ana_level1": "This chest has a {{symbol}}. What number is that?",
+  "roman_treasure.ana_write": "How do we write the number {{number}} in Roman numerals?",
+  "roman_treasure.ana_read": "What number does the Roman numeral {{roman}} represent?",
+  "roman_treasure.ana_default": "Let's solve this puzzle!",
+  "roman_treasure.robi_greeting": "Beep-boop! I am Robi. Ready for the challenge?",
+  "roman_treasure.game_over_title": "Treasure Hunt Complete!",
+  "roman_treasure.game_over_message": "Amazing! You collected {{treasures}} treasures!",
+  "roman_treasure.play_again": "Play Again",
+
+  "roman_treasure.task_match_symbol": "Match the symbol: {{symbol}}",
+  "roman_treasure.task_write_number": "Write the number: {{number}}",
+  "roman_treasure.task_read_roman": "Read the Roman numeral: {{roman}}",
+  "roman_treasure.task_default": "Solve the puzzle:",
+
+  "roman_treasure.log_level": "Level",
+  "roman_treasure.log_treasures": "Treasures"
 }

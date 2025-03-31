@@ -1,0 +1,32 @@
+/* Styles for the PuzzleCard component - Roman Treasure Hunt */
+
+.puzzle-card {
+  background-color: #f5f5dc; /* Beige background, like parchment */
+  border: 3px solid #8b4513; /* SaddleBrown border */
+  border-radius: 8px;
+  padding: 15px 20px;
+  margin: 10px auto; /* Center the card */
+  max-width: 80%;
+  text-align: center;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+  font-family: 'Times New Roman', Times, serif; /* Thematic font */
+}
+
+.puzzle-card.loading {
+  font-style: italic;
+  color: #666;
+}
+
+.puzzle-instruction {
+  font-size: 1.4em; /* Larger font for the task */
+  color: #333;
+  margin: 0;
+}
+
+/* Optional style for displaying the question clearly */
+.puzzle-question-display {
+  font-size: 1.8em;
+  font-weight: bold;
+  color: #a0522d; /* Sienna color */
+  margin-top: 10px;
+}

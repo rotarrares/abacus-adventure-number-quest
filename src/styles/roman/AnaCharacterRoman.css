@@ -1,0 +1,64 @@
+/* Styles for the AnaCharacterRoman component - Roman Treasure Hunt */
+
+.ana-character-roman-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative; /* For speech bubble positioning */
+  margin: 10px;
+}
+
+.ana-roman-image {
+  width: 100px; /* Adjust size as needed */
+  height: auto;
+  margin-bottom: 5px;
+  /* Add animation if desired */
+  /* animation: float 3s ease-in-out infinite; */
+}
+
+/* Reusing general speech bubble styles, but scoped with .roman */
+.speech-bubble.roman {
+  background-color: white;
+  border: 2px solid #8b4513; /* SaddleBrown border */
+  border-radius: 10px;
+  padding: 10px 15px;
+  max-width: 180px; /* Adjust as needed */
+  text-align: center;
+  font-size: 0.9em;
+  position: relative; /* For the triangle */
+  box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
+  color: #333;
+}
+
+/* Speech bubble triangle */
+.speech-bubble.roman::before {
+  content: '';
+  position: absolute;
+  bottom: 100%; /* Position above the bubble */
+  left: 50%;
+  transform: translateX(-50%);
+  border-width: 8px;
+  border-style: solid;
+  border-color: transparent transparent #8b4513 transparent; /* Pointing down */
+}
+
+.speech-bubble.roman::after {
+  content: '';
+  position: absolute;
+  bottom: 100%; /* Position above the bubble */
+  left: 50%;
+  transform: translateX(-50%);
+  border-width: 6px; /* Slightly smaller */
+  border-style: solid;
+  border-color: transparent transparent white transparent; /* Match background */
+  margin-bottom: -2px; /* Overlap border slightly */
+}
+
+/* Optional floating animation */
+/*
+@keyframes float {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-8px); }
+  100% { transform: translateY(0px); }
+}
+*/

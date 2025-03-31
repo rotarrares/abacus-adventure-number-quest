@@ -100,8 +100,23 @@ export const placeValuesToNumber = (placeValues) => {
  * Generate a random number in the given range
  * @param {number} min - Minimum value (inclusive)
  * @param {number} max - Maximum value (inclusive)
- * @returns {number} Random number
+ * @returns {number} Random integer
  */
-export const getRandomNumber = (min, max) => {
+export const getRandomInt = (min, max) => {
+  min = Math.ceil(min);
+  max = Math.floor(max);
   return Math.floor(Math.random() * (max - min + 1)) + min;
+};
+
+/**
+ * Shuffles an array in place using the Fisher-Yates algorithm.
+ * @param {Array} array - The array to shuffle.
+ * @returns {Array} The shuffled array.
+ */
+export const shuffleArray = (array) => {
+  for (let i = array.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [array[i], array[j]] = [array[j], array[i]]; // Swap elements
+  }
+  return array;
 };

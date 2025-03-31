@@ -6,7 +6,8 @@ import MatchNumberMode from '../modes/MatchNumberMode';
 import ReadBuildMode from '../modes/ReadBuildMode';
 import WriteNumberMode from '../modes/WriteNumberMode';
 import CompareNumbersMode from '../modes/CompareNumbersMode';
-import RoundingNumbersMode from '../modes/RoundingNumbersMode'; // Import the new mode
+import RoundingNumbersMode from '../modes/RoundingNumbersMode';
+import RomanTreasureMode from '../modes/RomanTreasureMode'; // Import the new Roman mode
 import GameHeader from '../ui/GameHeader';
 import '../../styles/GameScreen.css';
 
@@ -31,10 +32,12 @@ const GameScreen = () => {
         return <WriteNumberMode />;
       case 'compare':
         return <CompareNumbersMode />;
-      case 'rounding': // Add case for the new mode
+      case 'rounding':
         return <RoundingNumbersMode />;
+      case 'roman': // Add case for the Roman Treasure mode
+        return <RomanTreasureMode />;
       default:
-        return <div>{t('unknown_game_mode')}: {gameState.gameMode}</div>; // Include mode in error
+        return <div>{t('unknown_game_mode')}: {gameState.gameMode}</div>;
     }
   };
   

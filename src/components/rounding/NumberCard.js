@@ -1,11 +1,6 @@
 import React from 'react';
 import '../../styles/rounding/NumberCard.css';
 
-// Helper function to add commas to numbers for readability
-const formatNumber = (num) => {
-  return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-};
-
 // Helper function to get digit color based on place value
 const getDigitColor = (index, length) => {
   const placeValueIndex = length - 1 - index; // 0: units, 1: tens, 2: hundreds, 3: thousands

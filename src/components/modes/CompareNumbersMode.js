@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react'; // Added useCallback
 import { useGameContext } from '../../context/GameContext';
 import { playSound } from '../../utils/audioUtils';
-import { numberToRomanianWord } from '../../utils/numberUtils';
+// import { numberToRomanianWord } from '../../utils/numberUtils'; // Removed unused import
 import { 
   generateRandomNumbers, 
   numberToPlaceValues, 
@@ -47,31 +47,8 @@ const CompareNumbersMode = () => {
   const [isAbacusComplete, setIsAbacusComplete] = useState([false, false]);
   const [showHints, setShowHints] = useState(false);
 
-  // Generate new random numbers when the level changes
-  useEffect(() => {
-    generateNewNumbers();
-  }, [gameState.level]);
-
-  // Effect to start comparison when both abacuses are complete
-  useEffect(() => {
-    if (isAbacusComplete[0] && isAbacusComplete[1] && !isComparingNow) {
-      startComparison();
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isAbacusComplete, isComparingNow]); // Dependency array includes the state variables
-
-  // Determine difficulty level based on game level
-  useEffect(() => {
-    if (gameState.level <= 5) {
-      setDifficultyLevel(DIFFICULTY_LEVELS.LEVEL_1);
-    } else if (gameState.level <= 10) {
-      setDifficultyLevel(DIFFICULTY_LEVELS.LEVEL_2);
-    } else {
-      setDifficultyLevel(DIFFICULTY_LEVELS.LEVEL_3);
-    }
-  }, [gameState.level]);
-
-  const generateNewNumbers = () => {
+  // Wrap generateNewNumbers in useCallback to stabilize its reference
+  const generateNewNumbers = useCallback(() => {
     const newNumbers = generateRandomNumbers(difficultyLevel.range);
     setNumbers(newNumbers);
     
@@ -100,7 +77,34 @@ const CompareNumbersMode = () => {
       type: actions.SET_FEEDBACK,
       payload: null
     });
-  };
+  // Include dependencies of generateNewNumbers here
+  }, [difficultyLevel, dispatch, actions]); 
+
+  // Generate new random numbers when the level changes or generateNewNumbers changes
+  useEffect(() => {
+    generateNewNumbers();
+  }, [gameState.level, generateNewNumbers]); // Added generateNewNumbers dependency
+
+  // Effect to start comparison when both abacuses are complete
+  useEffect(() => {
+    if (isAbacusComplete[0] && isAbacusComplete[1] && !isComparingNow) {
+      startComparison();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isAbacusComplete]); // Only trigger when completion status changes
+
+  // Determine difficulty level based on game level
+  useEffect(() => {
+    if (gameState.level <= 5) {
+      setDifficultyLevel(DIFFICULTY_LEVELS.LEVEL_1);
+    } else if (gameState.level <= 10) {
+      setDifficultyLevel(DIFFICULTY_LEVELS.LEVEL_2);
+    } else {
+      setDifficultyLevel(DIFFICULTY_LEVELS.LEVEL_3);
+    }
+  }, [gameState.level]); // Keep original level dependency for difficulty
+
+  // Removed the standalone generateNewNumbers function definition as it's now wrapped in useCallback above
 
   const handleAbacusChange = (index, placeValue, value) => {
     // Make sure value stays within limits (0-9)
@@ -114,9 +118,14 @@ const CompareNumbersMode = () => {
     // Check if abacus is correctly reflecting the number
     if (numbers[index] !== null) {
       const placeValues = numberToPlaceValues(numbers[index]);
-      const isCorrect = Object.keys(placeValues).every(
-        place => newStates[index][place] === placeValues[place]
-      );
+      let isCorrect = false; // Default to false
+
+      // Ensure placeValues is a valid object before checking keys
+      if (placeValues && typeof placeValues === 'object') {
+        isCorrect = Object.keys(placeValues).every(
+          place => newStates[index][place] === placeValues[place]
+        );
+      }
       
       // Update the completion status for this abacus
       const newIsComplete = [...isAbacusComplete];

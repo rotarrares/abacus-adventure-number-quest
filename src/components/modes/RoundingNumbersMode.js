@@ -1,6 +1,6 @@
 import React, { useContext } from 'react'; // Import useContext
 import { useTranslation } from 'react-i18next'; // Import useTranslation
-import { GameContext, actions } from '../../context/GameContext'; // Import context and actions
+import { GameContext } from '../../context/GameContext'; // Import context, removed unused actions
 import * as roundingConstants from '../../constants/roundingConstants';
 import useRoundingGame from '../../hooks/useRoundingGame';
 import Garden from '../rounding/Garden';
@@ -12,11 +12,11 @@ import PlaceValueDragger from '../rounding/PlaceValueDragger';
 import '../../styles/RoundingNumbersMode.css'; // Ensure this file exists or is created
 
 const RoundingNumbersMode = () => {
-  const { gameState, dispatch } = useContext(GameContext); // Get context
-  const { level: initialLevelFromContext } = gameState; // Get initial level from context
+  const { gameState } = useContext(GameContext); // Get context, removed unused dispatch
+  // const { level: initialLevelFromContext } = gameState; // Removed unused variable
   const { t } = useTranslation(); // Get translation function
 
-  // Pass the initial level from context to the hook
+  // The hook now reads the level directly from context
   const {
     level, // This will now reflect the level managed *within* the hook
     currentNumber,
@@ -26,7 +26,7 @@ const RoundingNumbersMode = () => {
     progress, // e.g., flowers grown in current level
     feedback, // { type: 'correct' | 'incorrect', message: '...', selectedOption: ... }
     anaMessage,
-    isLevelComplete,
+    // isLevelComplete, // Removed unused variable from hook destructuring
     levelGoal,
     handleOptionSelect, // For levels 2-5
     handleDragDrop, // For level 1

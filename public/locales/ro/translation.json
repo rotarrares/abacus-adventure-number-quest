@@ -176,5 +176,32 @@
   "rounding_level_5_instruction": "Rotunjește {{number}} la cea mai apropiată {{place}}!",
   "select_level": "Selectează Nivelul:",
   "level_label": "Nivelul {{level}}",
-  "back_to_level_select": "Înapoi la Selecția Nivelului"
+  "back_to_level_select": "Înapoi la Selecția Nivelului",
+
+  "roman_treasure_button": "Vânătoarea de Comori Romane a Anei",
+  "roman_treasure_title": "Vânătoarea de Comori Romane a Anei",
+  "roman_treasure_description": "Ajut-o pe Ana și pe Robi să rezolve puzzle-uri cu cifre romane pentru a debloca comori antice!",
+  "start_roman_game_button": "Începe Vânătoarea!",
+
+  "roman_treasure.loading": "Se încarcă harta comorii...",
+  "roman_treasure.loading_task": "Se pregătește următorul puzzle...",
+  "roman_treasure.error_loading": "Eroare la încărcarea jocului. Te rugăm să încerci din nou.",
+  "roman_treasure.ana_correct": "Exact! Bravo!",
+  "roman_treasure.ana_incorrect": "Oops! Hai să privim mai atent.",
+  "roman_treasure.ana_level1": "Acest cufăr are un {{symbol}}. Ce număr este?",
+  "roman_treasure.ana_write": "Cum scriem numărul {{number}} cu cifre romane?",
+  "roman_treasure.ana_read": "Ce număr reprezintă cifra romană {{roman}}?",
+  "roman_treasure.ana_default": "Hai să rezolvăm acest puzzle!",
+  "roman_treasure.robi_greeting": "Bip-bup! Eu sunt Robi. Ești gata pentru provocare?",
+  "roman_treasure.game_over_title": "Vânătoarea de Comori Termintă!",
+  "roman_treasure.game_over_message": "Uimitor! Ai colectat {{treasures}} comori!",
+  "roman_treasure.play_again": "Joacă Din Nou",
+
+  "roman_treasure.task_match_symbol": "Potrivește simbolul: {{symbol}}",
+  "roman_treasure.task_write_number": "Scrie numărul: {{number}}",
+  "roman_treasure.task_read_roman": "Citește cifra romană: {{roman}}",
+  "roman_treasure.task_default": "Rezolvă puzzle-ul:",
+
+  "roman_treasure.log_level": "Nivel",
+  "roman_treasure.log_treasures": "Comori"
 }

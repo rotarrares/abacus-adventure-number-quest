@@ -21,7 +21,7 @@ jest.mock('../../utils/audioUtils', () => ({
   speakText: jest.fn(),
 }));
 jest.mock('../../utils/numberUtils', () => ({
-  getRandomNumber: jest.fn((min, max) => min), // Predictable random number
+  getRandomInt: jest.fn((min, max) => min), // Predictable random number (use min)
   numberToRomanianWord: jest.fn((num) => `word_${num}`), // Simple mock word
 }));
 // Mock the module, but define implementation in beforeEach

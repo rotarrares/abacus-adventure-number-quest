@@ -1,15 +1,15 @@
 import React, { useRef, useMemo } from 'react';
-import { useFrame } from '@react-three/fiber';
+// import { useFrame } from '@react-three/fiber'; // Removed unused import
 import { OrbitControls, Environment, Text } from '@react-three/drei';
 import { animated, useSpring } from '@react-spring/three';
-import * as THREE from 'three';
+// import * as THREE from 'three'; // Removed unused import
 import { useTranslation } from 'react-i18next'; // Import useTranslation
 import { playSound } from '../../utils/audioUtils';
 import { useGameContext } from '../../context/GameContext';
 
 // Constants for geometry and layout
 const BEAD_RADIUS = 0.35;
-const BEAD_HEIGHT = 0.25; // Keep this for spacing logic if needed
+// const BEAD_HEIGHT = 0.25; // Removed unused constant
 const BEAD_SPACING = 0.5; // Vertical distance between bead centers
 const ROD_RADIUS = 0.08;
 const ROD_HEIGHT = 5;

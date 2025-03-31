@@ -42,7 +42,7 @@ const ComparisonFeedback = ({ feedback, numbers }) => {
     const placeName = getPlaceValueName(firstDifferingPlace, t); // Pass t
     const placeLabel = getPlaceValueLabel(firstDifferingPlace, t); // Pass t
     const correctOperatorResult = compareNumbers(numbers[0], numbers[1]);
-    const correctOperatorSymbol = correctOperatorResult.symbol;
+    // const correctOperatorSymbol = correctOperatorResult.symbol; // Removed unused variable
     // Get translated operator text for the explanation
     const correctOperatorText = t(correctOperatorResult.translationKey); 
     const comparisonOperatorSymbol = place1 < place2 ? '<' : '>';

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useGameContext } from '../../context/GameContext';
-import { numberToRomanianWord, getRandomNumber } from '../../utils/numberUtils';
+import { numberToRomanianWord, getRandomInt } from '../../utils/numberUtils';
 import { playSound, speakText } from '../../utils/audioUtils';
 // import SimpleAbacus from '../abacus/SimpleAbacus'; // Replaced with Abacus3D
 import Abacus3D from '../abacus/Abacus3D'; // Import the 3D Abacus
@@ -56,7 +56,7 @@ const ReadBuildMode = () => {
   
   const generateNumber = () => {
     const { min, max } = gameState.difficulty;
-    const number = getRandomNumber(min, max);
+    const number = getRandomInt(min, max);
     
     // Generate word based on current language
     let word;

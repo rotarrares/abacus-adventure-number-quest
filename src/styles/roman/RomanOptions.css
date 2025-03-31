@@ -1,0 +1,40 @@
+/* Styles for the RomanOptions component - Roman Treasure Hunt */
+
+.roman-options-container {
+  display: flex;
+  justify-content: center; /* Center buttons */
+  align-items: center;
+  flex-wrap: wrap; /* Allow buttons to wrap on smaller screens */
+  margin-top: 20px;
+  gap: 15px; /* Spacing between buttons */
+}
+
+.roman-option-button {
+  background-color: #cd853f; /* Peru color, like stone */
+  border: 2px solid #8b4513; /* SaddleBrown border */
+  color: white;
+  padding: 12px 25px;
+  font-size: 1.2em;
+  font-family: 'Times New Roman', Times, serif; /* Thematic font */
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.1s ease;
+  min-width: 80px; /* Ensure buttons have some minimum width */
+  text-align: center;
+}
+
+.roman-option-button:hover:not(:disabled) {
+  background-color: #a0522d; /* Sienna on hover */
+  transform: translateY(-2px); /* Slight lift effect */
+}
+
+.roman-option-button:active:not(:disabled) {
+  transform: translateY(0px); /* Press down effect */
+}
+
+.roman-option-button:disabled {
+  background-color: #a9a9a9; /* DarkGray when disabled */
+  border-color: #696969; /* DimGray border */
+  color: #d3d3d3; /* LightGray text */
+  cursor: not-allowed;
+}

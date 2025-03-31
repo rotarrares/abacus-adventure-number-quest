@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useGameContext } from '../../context/GameContext';
-import { numberToRomanianWord, getRandomNumber } from '../../utils/numberUtils'; // Keep Ro specific for now
+import { numberToRomanianWord, getRandomInt } from '../../utils/numberUtils'; // Keep Ro specific for now
 import { getPlaceValueName } from '../../utils/compareNumbersUtils'; // Import for hint
 import { PLACE_VALUES } from '../../constants/compareNumbersConstants'; // Import for hint
 import { playSound, speakText } from '../../utils/audioUtils';
@@ -49,7 +49,7 @@ const MatchNumberMode = () => {
   
   const generateNumber = () => {
     const { min, max } = gameState.difficulty;
-    const number = getRandomNumber(min, max);
+    const number = getRandomInt(min, max);
     // TODO: Use language-aware number-to-word library here instead of just Romanian
     const word = numberToRomanianWord(number); 
     

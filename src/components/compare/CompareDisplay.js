@@ -12,7 +12,7 @@ import '../../styles/CompareDisplay.css';
  * @param {Object} props.difficultyLevel - Current difficulty level settings
  */
 const CompareDisplay = ({ numbers, level, difficultyLevel }) => {
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation(); // Removed unused i18n
 
   // Format numbers as strings with leading zeros based on difficulty
   const formatNumber = (num) => {

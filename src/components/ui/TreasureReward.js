@@ -24,9 +24,7 @@ const TreasureReward = ({ show, level, onClose, sound }) => {
       createConfettiEffect(containerRef.current, 150, 4000);
     }
   }, [show, sound]);
-  
-  if (!show) return null;
-  
+
   // Determine reward based on level
   const getReward = () => {
     // Every 5 levels gives a different reward
@@ -64,16 +62,23 @@ const TreasureReward = ({ show, level, onClose, sound }) => {
         };
     }
   };
-  
   const reward = getReward();
-  
-  // Check if the image exists
+
+  // Check if the image exists - Moved before conditional return
   useEffect(() => {
-    const img = new Image();
-    img.onload = () => setImageLoaded(true);
-    img.onerror = () => setImageLoaded(false);
-    img.src = reward.image;
-  }, [reward.image]);
+    // Only run if showing and we have a reward image path
+    if (show && reward.image) {
+      const img = new Image();
+      img.onload = () => setImageLoaded(true);
+      img.onerror = () => setImageLoaded(false); // Handle potential errors
+      img.src = reward.image;
+    } else if (!show) {
+      // Reset image loaded state when not showing
+      setImageLoaded(false);
+    }
+  }, [show, reward.image]); // Depend on show and reward.image
+
+  if (!show) return null; // Conditional return is now after all hooks
 
   const rewardName = t(reward.nameKey);
   const rewardDescription = t(reward.descriptionKey);

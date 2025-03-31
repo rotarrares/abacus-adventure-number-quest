@@ -1,0 +1,56 @@
+/* Styles for the RobiCharacter component - Roman Treasure Hunt */
+
+.robi-character-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative; /* For speech bubble positioning */
+  margin: 10px;
+  /* Add styles for entrance animation if needed */
+}
+
+.robi-image {
+  width: 90px; /* Adjust size as needed, maybe slightly smaller than Ana */
+  height: auto;
+  margin-bottom: 5px;
+  /* TODO: Add glowing eyes effect? */
+}
+
+/* Style Robi's speech bubble differently */
+.speech-bubble.robi {
+  background-color: #e0e0e0; /* Light grey background */
+  border: 2px solid #666; /* Dark grey border */
+  border-radius: 8px;
+  padding: 10px 15px;
+  max-width: 180px;
+  text-align: center;
+  font-size: 0.9em;
+  position: relative;
+  box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
+  color: #222; /* Darker text */
+  font-family: 'Courier New', Courier, monospace; /* Monospace font for robotic feel */
+}
+
+/* Speech bubble triangle for Robi */
+.speech-bubble.robi::before {
+  content: '';
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border-width: 8px;
+  border-style: solid;
+  border-color: transparent transparent #666 transparent; /* Dark grey border */
+}
+
+.speech-bubble.robi::after {
+  content: '';
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border-width: 6px;
+  border-style: solid;
+  border-color: transparent transparent #e0e0e0 transparent; /* Match background */
+  margin-bottom: -2px;
+}

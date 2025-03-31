@@ -1,0 +1,41 @@
+/* Styles for the TreasureLog component - Roman Treasure Hunt */
+
+.treasure-log-container {
+  position: absolute; /* Position it relative to the screen or game container */
+  top: 80px; /* Adjust positioning as needed, below header */
+  right: 20px;
+  background-color: rgba(210, 180, 140, 0.8); /* Semi-transparent Tan */
+  border: 2px solid #8b4513; /* SaddleBrown */
+  border-radius: 8px;
+  padding: 8px 15px;
+  display: flex;
+  flex-direction: column; /* Stack items vertically */
+  gap: 5px; /* Space between log items */
+  box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.2);
+  font-family: sans-serif; /* Use a standard readable font */
+}
+
+.log-item {
+  display: flex;
+  align-items: center;
+  gap: 8px; /* Space between label and value */
+}
+
+.log-label {
+  font-weight: bold;
+  color: #5a3a1a; /* Darker brown */
+  font-size: 0.9em;
+}
+
+.log-value {
+  font-size: 1.1em;
+  color: #333;
+  font-weight: bold;
+}
+
+/* Style the gem emoji slightly */
+.log-value span {
+  display: inline-block;
+  margin-left: 3px;
+  font-size: 1.2em; /* Make emoji slightly larger */
+}

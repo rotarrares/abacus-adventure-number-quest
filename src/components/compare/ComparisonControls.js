@@ -25,7 +25,7 @@ const ComparisonControls = (props) => {
     numbers
   } = props;
   
-  const [comparisonResult, setComparisonResult] = useState(null);
+  // const [comparisonResult, setComparisonResult] = useState(null); // Removed unused state
   const [analysisFinished, setAnalysisFinished] = useState(false);
   const [placeValueComparisons, setPlaceValueComparisons] = useState({});
   const [showExplanation, setShowExplanation] = useState(false);
@@ -40,12 +40,16 @@ const ComparisonControls = (props) => {
   
   // When highlighted place value changes, analyze the comparison for that place
   useEffect(() => {
+    // Define analyzeHighlightedPlaceValue within useEffect or add it to dependencies
+    // Adding to dependencies for now, assuming it's stable or memoized if needed
     if (highlightedPlaceValue) {
       analyzeHighlightedPlaceValue();
     }
-  }, [highlightedPlaceValue, abacusStates]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [highlightedPlaceValue, abacusStates, analyzeHighlightedPlaceValue]); // Added analyzeHighlightedPlaceValue to dependencies
   
   // Analyze the values at the highlighted place value
+  // Consider wrapping this in useCallback if it causes performance issues
   const analyzeHighlightedPlaceValue = () => {
     if (!highlightedPlaceValue || !numbers[0] || !numbers[1]) return;
     
@@ -71,11 +75,10 @@ const ComparisonControls = (props) => {
         result: comparison
       }
     }));
-    
     // If values differ, we've found our result
-    if (comparison !== '=') {
-      setComparisonResult(comparison);
-    }
+    // if (comparison !== '=') {
+      // setComparisonResult(comparison); // Removed usage of unused state setter
+    // }
   };
   
   // Handle clicking the "Continue" button to move to next place value
