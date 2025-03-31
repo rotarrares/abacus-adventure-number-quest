@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@react-spring/three": "^9.7.5",
     "@react-three/drei": "^9.92.7",
     "@react-three/fiber": "^8.15.12",
     "express": "^4.18.2",
@@ -32,6 +33,9 @@
     ]
   },
   "devDependencies": {
+    "@testing-library/jest-dom": "^6.6.3",
+    "@testing-library/react": "^16.2.0",
+    "resize-observer-polyfill": "^1.5.1",
     "typescript": "^4.9.5"
   },
   "browserslist": {

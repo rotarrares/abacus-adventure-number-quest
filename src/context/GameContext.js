@@ -93,7 +93,7 @@ const gameReducer = (state, action) => {
 };
 
 // Create context
-const GameContext = createContext();
+export const GameContext = createContext(); // <-- Added export
 
 // Context provider component
 export const GameProvider = ({ children }) => {

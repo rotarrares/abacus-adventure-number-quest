@@ -105,8 +105,8 @@ const ComparisonControls = (props) => {
       numberToPlaceValues(numbers[1]),
       Object.values(PLACE_VALUES)
     );
-    const placeName = getPlaceValueName(firstDifferingPlace);
-    const placeLabel = getPlaceValueLabel(firstDifferingPlace);
+    const placeName = getPlaceValueName(firstDifferingPlace, t); // Pass t
+    const placeLabel = getPlaceValueLabel(firstDifferingPlace, t); // Pass t
 
     if (!firstDifferingPlace) {
       // Use the existing key from ComparisonFeedback
@@ -152,7 +152,7 @@ const ComparisonControls = (props) => {
       {highlightedPlaceValue ? (
         // Show the step-by-step analysis interface
         <div className="place-value-analysis">
-          <h3>{t('compare_controls_analysis_title', { placeName: getPlaceValueName(highlightedPlaceValue), placeLabel: getPlaceValueLabel(highlightedPlaceValue) })}</h3>
+          <h3>{t('compare_controls_analysis_title', { placeName: getPlaceValueName(highlightedPlaceValue, t), placeLabel: getPlaceValueLabel(highlightedPlaceValue, t) })}</h3> {/* Pass t */}
           
           <div className="place-value-comparison">
             <div className="comparison-value">

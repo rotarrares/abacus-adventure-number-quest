@@ -70,6 +70,7 @@
   "operator_less_than": "Mai mic decât",
   "operator_greater_than": "Mai mare decât",
   "operator_equal_to": "Egal cu",
+  "and_conjunction": " și ",
   "loading_text": "Se încarcă...",
   "compare_display_level": "Nivel: {{level}}",
   "compare_display_robi_speech": "Hai să comparăm {{num1}} și {{num2}}!",
