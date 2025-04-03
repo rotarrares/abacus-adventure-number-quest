@@ -20,12 +20,13 @@
 }
 
 .ruins-content-area {
-  /* This area holds the characters and puzzle elements */
+  /* This area now primarily holds the .game-area */
   display: flex;
-  justify-content: space-around; /* Example layout */
-  align-items: flex-end; /* Align characters to bottom */
+  justify-content: center; /* Center the game-area */
+  align-items: center; /* Vertically center game-area (adjust if needed) */
   width: 100%;
   flex-grow: 1; /* Allow content to take available space */
+  /* padding: 10px 0; Removed padding, added to game-area */
 }
 
 .robi-door {
@@ -42,8 +43,91 @@
   transform: translateX(100%); /* Start hidden off-screen */
 }
 
+/* Removed .treasure-chest-image rule (absolute positioning) */
+/* Styles are now applied to .treasure-chest */
+
 .robi-door.open {
   transform: translateX(0); /* Slide in when open class is added */
 }
 
 /* Add more specific styles for elements within the ruins */
+
+/* Removed .puzzle-options-group rule (absolute positioning) */
+/* PuzzleCard and RomanOptions are now part of the .game-area flex flow */
+
+/* New styles for the main game layout area */
+.game-area {
+  display: flex;
+  flex-direction: column; /* Mobile First: Stack vertically */
+  align-items: center;    /* Center items horizontally */
+  gap: 20px;              /* Spacing between elements */
+  width: 100%;
+  max-width: 90%; /* Prevent elements spreading too far on wide screens */
+  padding: 15px 0;        /* Vertical padding */
+}
+
+/* New styles for the group containing puzzle, options, and chest */
+.puzzle-treasure-group {
+  display: flex;
+  flex-direction: column; /* Stack these items vertically */
+  align-items: center;    /* Center them horizontally */
+  gap: 10px;              /* Space between puzzle, options, and chest */
+  margin-top: 150px;      /* Move the group up 50px (prev 200px) */
+  margin-left: 0;         /* No horizontal margin on mobile */
+  margin-right: 0;        /* No horizontal margin on mobile */
+}
+
+/* Styles for the treasure chest CONTAINER */
+.treasure-chest-container {
+  width: 200px; /* Fixed width */
+  height: 180px; /* Fixed height */
+  display: flex;
+  justify-content: flex-end; /* Align items (image) to the right */
+  align-items: flex-end; /* Align items (image) to the bottom */
+  /* overflow: hidden; Removed to allow taller open chest */
+}
+
+/* Styles for the treasure chest IMAGE */
+.treasure-chest {
+  width: 100%; /* Fill container width */
+  height: auto; /* Adjust height based on aspect ratio */
+  /* object-fit: contain; Removed */
+  /* Add transition for smooth opening? */
+}
+
+/* Specific style to move the open chest */
+.treasure-chest.treasure-chest-open {
+  transform: translateX(45px) translateY(30px); /* 45px right, 30px down */
+  /* transition: transform 0.3s ease; */
+}
+
+/* Utility class to hide elements */
+.hidden {
+  display: none;
+}
+
+/* Desktop Layout */
+@media (min-width: 768px) { /* Adjust breakpoint as needed */
+  .game-area {
+    flex-direction: row;        /* Arrange horizontally */
+    justify-content: space-around; /* Distribute space */
+    align-items: flex-end;      /* Align direct children (Ana, group, Robi) to the bottom */
+    max-width: 1200px; /* Optional: Max width for desktop */
+  }
+
+  /* Adjust CONTAINER size on desktop */
+  .treasure-chest-container {
+    width: 300px;
+    height: 270px;
+  }
+  /* Image inside scales automatically to 100% of container */
+
+  .puzzle-treasure-group {
+    /* Add horizontal margins for desktop layout */
+    margin-left: 20px;
+    margin-right: 20px;
+    /* Keep vertical margin if still needed, or adjust */
+    /* margin-top: 150px; /* This is already set outside the media query */
+  }
+
+}

@@ -1,9 +1,13 @@
 /* Styles for the TreasureLog component - Roman Treasure Hunt */
 
 .treasure-log-container {
-  position: absolute; /* Position it relative to the screen or game container */
-  top: 80px; /* Adjust positioning as needed, below header */
-  right: 20px;
+  position: absolute;     /* Re-added for overlay */
+  top: 10px;              /* Position from the top */
+  left: 50%;              /* Start at horizontal center */
+  transform: translateX(-50%); /* Shift left by half its width to truly center */
+  /* margin: 0 auto 20px auto; Removed margin */
+  max-width: fit-content; /* Adjust width to content */
+  z-index: 10;            /* Ensure it's above other elements */
   background-color: rgba(210, 180, 140, 0.8); /* Semi-transparent Tan */
   border: 2px solid #8b4513; /* SaddleBrown */
   border-radius: 8px;

@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react'; // Added useRef
 import { generateTask, toRoman } from '../utils/romanNumeralUtils'; // Removed unused fromRoman
 import { LEVEL_CONFIG } from '../constants/romanNumeralConstants';
 import { playSound } from '../utils/audioUtils'; // Assuming sound utility exists
@@ -17,29 +17,55 @@ export const useRomanTreasureGame = (soundEnabled = true) => {
   const [robiHint, setRobiHint] = useState('');
   const [gamePhase, setGamePhase] = useState('loading'); // loading, playing, level_complete, game_over
   const [showLevelComplete, setShowLevelComplete] = useState(false);
+  const usedTasksThisLevelRef = useRef(new Set()); // Use a ref to track used tasks within the level
 
-  // Function to generate and set a new task
+  // Function to generate and set a new, unique task for the level
   const loadNewTask = useCallback((currentLevel) => {
-    const task = generateTask(currentLevel);
-    if (task) {
-      setCurrentTask(task);
-      setFeedback('');
-      setIsCorrect(null);
-      setRobiHint(''); // Clear hint for new task
-      console.log(`New Task (Level ${currentLevel}):`, task);
-    } else {
-      console.error(`Failed to generate task for level ${currentLevel}`);
-      setGamePhase('error'); // Or handle appropriately
-    }
-  }, []);
+    let task;
+    let attempts = 0;
+    const maxAttempts = 20; // Safety break to prevent infinite loops
+  
+    do {
+      task = generateTask(currentLevel);
+      attempts++;
+      // Check if task generation failed or if we've exhausted attempts
+      if (!task || attempts > maxAttempts) {
+        console.error(`Failed to generate a unique task for level ${currentLevel} after ${attempts} attempts.`);
+        // Fallback: Reset used tasks and try one more time, or show error
+        if (attempts > maxAttempts) {
+            usedTasksThisLevelRef.current.clear(); // Allow repeats if necessary
+            task = generateTask(currentLevel);
+            if (!task) {
+                setGamePhase('error');
+                return; // Exit if still no task
+            }
+        } else {
+            setGamePhase('error');
+            return; // Exit if task generation failed initially
+        }
+      }
+      // Keep generating until we find a task whose question hasn't been used or we hit max attempts
+    } while (usedTasksThisLevelRef.current.has(task.question) && attempts <= maxAttempts);
+  
+    // Add the new task's question to the set of used tasks
+    usedTasksThisLevelRef.current.add(task.question);
+  
+    setCurrentTask(task);
+    setFeedback('');
+    setIsCorrect(null);
+    setRobiHint(''); // Clear hint for new task
+    console.log(`New Task (Level ${currentLevel}, Attempt ${attempts}):`, task);
+  
+  }, []); // Dependencies remain empty as it relies on the ref and level passed in
 
   // Initialize game or load task when level changes
   useEffect(() => {
     setGamePhase('playing');
     setTaskProgress(0); // Reset task progress for the new level
+    usedTasksThisLevelRef.current.clear(); // Clear used tasks for the new level
     setShowRobi(level === MAX_LEVELS); // Show Robi only on the final level
     loadNewTask(level);
-  }, [level, loadNewTask]);
+    }, [level, loadNewTask]); // loadNewTask is stable due to useCallback
 
   // Function to handle player's answer submission
   const handleAnswer = (selectedOption) => {

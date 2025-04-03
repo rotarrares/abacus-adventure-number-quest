@@ -57,7 +57,7 @@ const TreasureReward = ({ show, level, onClose, sound }) => {
         return {
           nameKey: 'reward_name_treasure',
           descriptionKey: 'reward_desc_treasure',
-          image: '/assets/images/treasure.png', // Default treasure image
+          image: '/assets/images/treasure-closed.png', // Default treasure image
           color: 'linear-gradient(135deg, #ffd700, #ffcc00, #ff9900)'
         };
     }
