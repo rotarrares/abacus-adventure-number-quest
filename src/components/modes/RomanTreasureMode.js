@@ -85,24 +85,45 @@ const RomanTreasureMode = () => {
       {/* Header/Log could go here */}
       <TreasureLog treasures={treasures} level={level} />
 
-      <Ruins>
-        {/* Characters */}
-        <AnaCharacterRoman message={getAnaMessage()} mood={getAnaMood()} />
-        {showRobi && <RobiCharacter message={t('roman_treasure.robi_greeting')} hint={robiHint} />}
+      <Ruins isAnswerCorrect={isCorrect}>
+        <div className="game-area">
+          {/* Characters & Interactive Elements */}
+          <AnaCharacterRoman message={getAnaMessage()} mood={getAnaMood()} />
 
-        {/* Puzzle Area */}
-        {currentTask && (
-          <>
-            <PuzzleCard task={currentTask} />
-            <RomanOptions
-              options={currentTask.options}
-              onSelect={handleAnswer}
-              disabled={isCorrect !== null} // Disable options after answer
-            />
-          </>
-        )}
+          {/* Grouping Puzzle, Options, and Treasure Chest */}
+          <div className="puzzle-treasure-group">
+            {currentTask && (
+              <>
+                <PuzzleCard task={currentTask} />
+                <RomanOptions
+                  options={currentTask.options}
+                  onSelect={handleAnswer}
+                  disabled={isCorrect !== null} // Disable options after answer
+                />
+              </>
+            )}
+            {/* Treasure Chest Container - For stable positioning */}
+            <div className="treasure-chest-container">
+              {/* Closed Chest Image */}
+              <img
+                className={`treasure-chest ${isCorrect ? 'hidden' : ''}`}
+                src={`${process.env.PUBLIC_URL}/assets/images/treasure-closed.png`}
+                alt={t('roman_treasure.treasure_chest_closed_alt', 'Closed Treasure Chest')}
+              />
+              {/* Open Chest Image */}
+              <img
+                className={`treasure-chest treasure-chest-open ${!isCorrect ? 'hidden' : ''}`}
+                src={`${process.env.PUBLIC_URL}/assets/images/treasure-open.png`}
+                alt={t('roman_treasure.treasure_chest_open_alt', 'Open Treasure Chest')}
+              />
+            </div>
+          </div>
 
-        {/* Feedback Display */}
+          {/* Robi Character (Conditional) */}
+          {showRobi && <RobiCharacter message={t('roman_treasure.robi_greeting')} hint={robiHint} />}
+        </div>
+
+        {/* Feedback Display (Outside game-area but inside Ruins) */}
         {feedback && (
           <div className={`feedback-display ${isCorrect ? 'correct' : 'incorrect'}`}>
             {feedback}

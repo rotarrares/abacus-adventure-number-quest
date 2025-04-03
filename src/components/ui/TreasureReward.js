@@ -32,32 +32,32 @@ const TreasureReward = ({ show, level, onClose, sound }) => {
     
     // Return keys instead of hardcoded strings
     switch (rewardLevel) {
-      case 1:
+      case 1: // Levels 5-9
         return {
           nameKey: 'reward_name_rainbow',
           descriptionKey: 'reward_desc_rainbow',
           image: '/assets/images/rewards/rainbow.png',
           color: 'linear-gradient(45deg, #ff0000, #ff7f00, #ffff00, #00ff00, #0000ff, #4b0082, #8b00ff)'
         };
-      case 2:
-        return {
-          nameKey: 'reward_name_space',
-          descriptionKey: 'reward_desc_space',
-          image: '/assets/images/rewards/space.png',
-          color: 'linear-gradient(135deg, #000033, #0033cc, #000033)'
-        };
-      case 3:
+      case 2: // Levels 10-14
         return {
           nameKey: 'reward_name_flowers',
           descriptionKey: 'reward_desc_flowers',
           image: '/assets/images/rewards/flowers.png',
           color: 'linear-gradient(135deg, #ff9a9e, #fecfef, #ff9a9e)'
         };
-      default: // Includes level 0 or any other case
+      case 3: // Levels 15-19
+        return {
+          nameKey: 'reward_name_space',
+          descriptionKey: 'reward_desc_space',
+          image: '/assets/images/rewards/space.png',
+          color: 'linear-gradient(135deg, #000033, #0033cc, #000033)'
+        };
+      default: // Levels 0-4 and 20+
         return {
           nameKey: 'reward_name_treasure',
           descriptionKey: 'reward_desc_treasure',
-          image: '/assets/images/treasure.png', // Default treasure image
+          image: '/assets/images/treasure-open.png', // Default treasure image
           color: 'linear-gradient(135deg, #ffd700, #ffcc00, #ff9900)'
         };
     }

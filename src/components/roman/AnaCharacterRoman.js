@@ -23,13 +23,17 @@ const AnaCharacterRoman = ({ message, mood = 'normal' }) => {
 
   return (
     <div className="ana-character-roman-container"> {/* Use a specific class name */}
-      <img src={imagePath} alt={altText} className="ana-roman-image" /> {/* Use a specific class name */}
-      {message && (
-        <div className="speech-bubble roman"> {/* Use a specific class name */}
-          {message}
+      <div className="ana-content-wrapper"> {/* New inner wrapper */}
+        <div className="ana-image-container"> {/* New container for centering */}
+          <img src={imagePath} alt={altText} className="ana-roman-image" /> {/* Use a specific class name */}
         </div>
-      )}
-      {/* TODO: Add animations specific to this game mode if needed */}
+        {message && (
+          <div className="speech-bubble roman"> {/* Use a specific class name */}
+            {message}
+          </div>
+        )}
+        {/* TODO: Add animations specific to this game mode if needed */}
+      </div>
     </div>
   );
 };
