@@ -10,7 +10,7 @@ const backgroundImageUrl = `${process.env.PUBLIC_URL}/assets/images/ruins_backgr
  * TODO: Implement actual visual representation (image, SVG, etc.)
  * TODO: Handle Robi's entrance animation based on level/state.
  */
-const Ruins = ({ children, level }) => {
+const Ruins = ({ children, level }) => { // Removed isAnswerCorrect prop
   // Add logic here later to change appearance based on level,
   // or trigger animations (like Robi's door opening in level 5).
 
@@ -19,12 +19,15 @@ const Ruins = ({ children, level }) => {
     backgroundImage: `url(${backgroundImageUrl})`,
   };
 
+  // Treasure chest logic moved to RomanTreasureMode
+
   return (
     <div className="ruins-container" style={containerStyle}>
       {/* Background is now applied via inline style */}
       <div className="ruins-content-area">
         {children}
       </div>
+      {/* Treasure Chest Image moved to RomanTreasureMode */}
       {/* Maybe a hidden door element for Robi */}
       {level === 5 && <div className="robi-door"></div>}
     </div>

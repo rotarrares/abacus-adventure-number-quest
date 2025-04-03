@@ -163,15 +163,25 @@ const generateLevel2Task = (config) => {
 const generateLevel3Task = (config) => {
   // Task: Read or write numbers involving subtraction (IV, IX, XL, XC)
   const readWrite = Math.random() < 0.5 ? 'read' : 'write';
+  const useSpecificNumbers = config.numbers && config.numbers.length > 0 && Math.random() < 0.7; // 70% chance to use specific numbers
   let number;
-  if (config.numbers && config.numbers.length > 0) {
-      // Focus on specific subtractive numbers first
-      number = config.numbers[getRandomInt(0, config.numbers.length - 1)];
+
+  if (useSpecificNumbers) {
+       // Focus on specific subtractive numbers first
+       number = config.numbers[getRandomInt(0, config.numbers.length - 1)];
   } else {
-      // Or generate a number within range that uses subtraction
-      do {
-          number = getRandomInt(config.range[0], config.range[1]);
-      } while (!/[IVXLCDM]/.test(toRoman(number).replace(/[IXCM](?=[XCLDM])|[IV](?=[VX])/, ''))); // Simple check if subtraction is likely used
+       // Or generate a number within range that uses subtraction
+       let attempts = 0; // Add attempt counter for this loop
+       do {
+           number = getRandomInt(config.range[0], config.range[1]);
+           attempts++;
+           // Ensure the generated number actually uses subtractive notation OR is one of the core subtractive numbers
+       } while (attempts < 20 && (number === 0 || toRoman(number) === toRomanSimpleAdditive(number)) && ![4, 9, 40, 90].includes(number));
+       // Add a fallback if the loop fails to find a suitable number
+       if (attempts >= 20 || number === 0 || (toRoman(number) === toRomanSimpleAdditive(number) && ![4, 9, 40, 90].includes(number))) {
+           console.warn("Level 3: Failed to find suitable subtractive number in range, falling back to specific list.");
+           number = config.numbers[getRandomInt(0, config.numbers.length - 1)]; // Fallback to specific numbers
+       }
   }
 
 
@@ -321,4 +331,20 @@ const generateRomanOptions = (correctAnswer, correctValue, range, count, allowSu
         }
     }
     return roman || toRoman(value); // Fallback to correct if generation fails
+};
+// Helper to generate a purely additive Roman numeral for comparison
+const toRomanSimpleAdditive = (num) => {
+    if (typeof num !== 'number' || num <= 0 || num > MAX_ROMAN_VALUE || !Number.isInteger(num)) {
+        return '';
+    }
+    let roman = '';
+    const simpleMap = { M: 1000, D: 500, C: 100, L: 50, X: 10, V: 5, I: 1 }; // No subtractive pairs
+    for (const numeral in simpleMap) {
+        const value = simpleMap[numeral];
+        while (num >= value) {
+            roman += numeral;
+            num -= value;
+        }
+    }
+    return roman;
 };

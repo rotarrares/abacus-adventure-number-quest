@@ -11,7 +11,6 @@
   flex: 1;
   display: flex;
   justify-content: center;
-  align-items: center; /* Added to center content vertically */
   overflow-y: auto; /* Changed from hidden to auto */
   padding: 10px; /* Reduced from 20px */
 }
@@ -67,10 +66,28 @@
   margin: 0;
 }
 
+/* Desktop specific styles */
+@media (min-width: 769px) {
+  .game-content {
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+    min-height: 85vh; /* Increase height on desktops */
+  }
+  .roman-treasure-mode { /* Make Roman game fill the content area */
+    width: 100%;
+  }
+  .ruins-container { /* Explicitly increase ruins height on desktop */
+    min-height: 75vh;
+  }
+}
+
 /* Responsive adjustments */
 @media (max-width: 768px) {
   .game-content {
     padding: 5px; /* Reduced from 10px */
+    display: block;
+    width: 99%;
   }
   
   .back-button {

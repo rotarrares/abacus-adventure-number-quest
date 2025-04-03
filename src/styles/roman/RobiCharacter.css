@@ -10,7 +10,7 @@
 }
 
 .robi-image {
-  width: 90px; /* Adjust size as needed, maybe slightly smaller than Ana */
+  width: 180px; /* Adjust size as needed, maybe slightly smaller than Ana (doubled) */
   height: auto;
   margin-bottom: 5px;
   /* TODO: Add glowing eyes effect? */

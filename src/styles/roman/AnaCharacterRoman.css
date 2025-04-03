@@ -4,14 +4,39 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  position: relative; /* For speech bubble positioning */
-  margin: 10px;
+  /* position: absolute; Removed absolute positioning */
+  /* bottom: 140px; Removed */
+  /* left: 10%; Removed */
+  /* margin: 0; Removed */
+  height: 250px; /* Fixed height to prevent layout shifts */
+  justify-content: flex-end; /* Align content (image, bubble) to bottom */
+  /* align-self: flex-end; /* Ensure alignment in parent flex row (desktop) */
+  transform: translateY(-50px); /* Move Ana up */
+}
+
+/* New wrapper for image and bubble to stabilize positioning */
+.ana-content-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%; /* Ensure wrapper takes available width for centering */
+}
+
+/* New container to hold the image and center it */
+.ana-image-container {
+  width: 170px; /* Slightly wider than max image width */
+  height: 170px; /* Fixed height to contain different poses */
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .ana-roman-image {
-  width: 100px; /* Adjust size as needed */
-  height: auto;
-  margin-bottom: 5px;
+  /* width: 150px; Removed fixed width */
+  height: auto; /* Maintain aspect ratio */
+  max-width: 100%; /* Ensure image fits container width */
+  max-height: 100%; /* Ensure image fits container height */
+  object-fit: contain; /* Prevent image distortion */
   /* Add animation if desired */
   /* animation: float 3s ease-in-out infinite; */
 }
@@ -22,29 +47,42 @@
   border: 2px solid #8b4513; /* SaddleBrown border */
   border-radius: 10px;
   padding: 10px 15px;
-  max-width: 180px; /* Adjust as needed */
+  width: 220px; /* Fixed width for consistency */
   text-align: center;
-  font-size: 0.9em;
-  position: relative; /* For the triangle */
+  font-size: 1.1em; /* Increased font size */
+  font-weight: bold; /* Make text bolder */
+  position: relative; /* For the triangle & stacking context */
+  /* z-index: 1; Removed */
   box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
   color: #333;
+  opacity: 0; /* Start hidden for animation */
+  animation: fadeInBubble 0.4s ease-out 0.3s forwards; /* name duration timing-function delay fill-mode */
+  min-height: 60px; /* Ensure minimum height to prevent vertical shifts */
+  display: flex; /* Added to help center text vertically if needed */
+  align-items: center; /* Center text vertically */
+  justify-content: center; /* Center text horizontally (already had text-align, but flex is more robust) */
 }
 
 /* Speech bubble triangle */
 .speech-bubble.roman::before {
   content: '';
+  display: none; /* Hide this element */
   position: absolute;
+  /* z-index: -1; Removed */
   bottom: 100%; /* Position above the bubble */
   left: 50%;
   transform: translateX(-50%);
   border-width: 8px;
   border-style: solid;
   border-color: transparent transparent #8b4513 transparent; /* Pointing down */
+  margin-bottom: -2px; /* Overlap bubble border */
 }
 
 .speech-bubble.roman::after {
   content: '';
+  display: none; /* Hide this element */
   position: absolute;
+  /* z-index: -1; Removed */
   bottom: 100%; /* Position above the bubble */
   left: 50%;
   transform: translateX(-50%);
@@ -52,6 +90,18 @@
   border-style: solid;
   border-color: transparent transparent white transparent; /* Match background */
   margin-bottom: -2px; /* Overlap border slightly */
+}
+
+/* Animation for the speech bubble appearing */
+@keyframes fadeInBubble {
+  from {
+    opacity: 0;
+    transform: translateY(10px); /* Start slightly lower */
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 /* Optional floating animation */
