@@ -36,6 +36,7 @@ const Spaceship = ({ isCorrect = null, upgrades = { wings: 'basic', color: 'defa
         src={shipImageSrc} // Use the imported image source
         alt="Robi's Spaceship"
         className={shipClasses}
+        loading="lazy" // Added lazy loading
       />
       {/* Re-add booster effect for fly-off */}
       {isCorrect === true && <div className="boost-effect"></div>}

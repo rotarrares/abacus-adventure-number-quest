@@ -78,9 +78,9 @@ export const ANIMATION_TIMINGS = {
 };
 
 // Place value names (for hints, etc.) - could also be i18n keys
-export const PLACE_VALUE_NAMES = {
-  0: 'units', // i18n key: cosmic_calculator.place_units
-  1: 'tens', // i18n key: cosmic_calculator.place_tens
-  2: 'hundreds', // i18n key: cosmic_calculator.place_hundreds
-  3: 'thousands', // i18n key: cosmic_calculator.place_thousands
-};
+export const PLACE_VALUE_NAMES = [
+  'units',    // Index 0, i18n key: cosmic_calculator.place_units
+  'tens',     // Index 1, i18n key: cosmic_calculator.place_tens
+  'hundreds', // Index 2, i18n key: cosmic_calculator.place_hundreds
+  'thousands' // Index 3, i18n key: cosmic_calculator.place_thousands
+];

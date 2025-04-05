@@ -58,10 +58,24 @@ const CalculatorDisplay = ({ num1, num2, animationState, numDigits }) => {
       <div className="animation-area">
         {isAnimating && currentStep && (
           <div className={`step-indicator step-${currentStep}`}>
-            {t('cosmic_calculator.calculating_step', { step: t(`place_value_${currentStep.toLowerCase()}`) })}
+            {t('cosmic_calculator.calculating_step', { step: t(`cosmic_calculator.place_${currentStep.toLowerCase()}`) })}
           </div>
         )}
-        {/* TODO: Add elements for flying/merging digits based on currentStep */}
+        {/* Placeholder for visualizing the current step's calculation */}
+        {isAnimating && currentStep && currentStep !== 'done' && (
+          <div className="step-calculation-placeholder">
+            {(() => {
+              // Use Array.indexOf directly
+              const placeIndex = PLACE_VALUE_NAMES.indexOf(currentStep);
+              if (placeIndex === -1) return null;
+              const digit1 = Math.floor(num1 / Math.pow(10, placeIndex)) % 10;
+              const digit2 = Math.floor(num2 / Math.pow(10, placeIndex)) % 10;
+              const sumDigit = partialSum[currentStep] ?? '?'; // Use calculated sum if available
+              return `${digit1} + ${digit2} = ${sumDigit}`;
+            })()}
+          </div>
+        )}
+        {/* End Placeholder */}
       </div>
 
       {/* Partial sum is now inside the grid above */}
@@ -73,7 +87,7 @@ CalculatorDisplay.propTypes = {
   num1: PropTypes.number.isRequired,
   num2: PropTypes.number.isRequired,
   animationState: PropTypes.shape({
-    step: PropTypes.oneOf([...Object.values(PLACE_VALUE_NAMES), 'done', null]),
+    step: PropTypes.oneOf([...PLACE_VALUE_NAMES, 'done', null]), // Use array directly
     partialSum: PropTypes.object, // e.g., { units: 5, tens: 3 }
     isActive: PropTypes.bool,
   }).isRequired,

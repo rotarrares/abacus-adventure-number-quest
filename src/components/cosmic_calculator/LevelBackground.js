@@ -34,6 +34,7 @@ const LevelBackground = ({ level, children }) => {
         src={backgroundImageUrl}
         alt={`${zoneName} background`} // More descriptive alt text
         className="level-background-image"
+        loading="lazy" // Added lazy loading
       />
       <div className="level-content"> {/* Container for actual game content */}
         {children}

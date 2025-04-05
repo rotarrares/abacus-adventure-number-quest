@@ -36,7 +36,7 @@ const AnaCharacter = ({ messageKey = null, messageParams = {}, mood = 'default' 
 
   return (
     <div className={characterClasses}>
-      <img src={anaImageSrc} alt="Ana Character" className="character-image" />
+      <img src={anaImageSrc} alt="Ana Character" className="character-image" loading="lazy" />
       {message && (
         <div className="speech-bubble ana-speech-bubble">
           {message}
