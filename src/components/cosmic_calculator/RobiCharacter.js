@@ -38,7 +38,7 @@ const RobiCharacter = ({ messageKey = null, messageParams = {}, mood = 'default'
 
   return (
     <div className={characterClasses}>
-      <img src={robiImageSrc} alt="Robi Character" className="character-image" />
+      <img src={robiImageSrc} alt="Robi Character" className="character-image" loading="lazy" />
       {message && (
         <div className="speech-bubble robi-speech-bubble">
           {message}
