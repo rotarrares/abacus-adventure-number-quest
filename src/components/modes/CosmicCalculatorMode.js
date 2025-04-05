@@ -61,7 +61,9 @@ const CosmicCalculatorMode = () => {
   let anaMood = 'default';
   let robiMessageKey = CHARACTER_MESSAGE_KEYS.ROBI_GREETING; // Default message
   let anaMessageKey = CHARACTER_MESSAGE_KEYS.ANA_GREETING; // Default message
-  let messageParams = { level: level, zoneName: t(LEVEL_CONFIG.find(l => l.level === level)?.zoneName || '') };
+  const currentLevelConfig = LEVEL_CONFIG.find(l => l.level === level);
+  const zoneNameKey = currentLevelConfig ? `cosmic_calculator.zone_${currentLevelConfig.zoneName.toLowerCase().replace(/ /g, '_')}` : '';
+  let messageParams = { level: level, zoneName: t(zoneNameKey) }; // Translate the constructed key
 
   if (gamePhase === 'showing_feedback' && feedback) {
     robiMood = feedback.isCorrect ? 'happy' : 'surprised';

@@ -80,3 +80,10 @@
 .spaceship-fly-off {
   animation: fly-off 1.5s ease-in forwards; /* 'forwards' keeps the final state */
 }
+
+/* Tablet and Desktop size adjustment */
+@media (min-width: 768px) {
+  .spaceship {
+    max-width: 300px; /* Double the size for larger screens */
+  }
+}

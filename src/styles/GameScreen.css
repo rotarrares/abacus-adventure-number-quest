@@ -94,22 +94,22 @@
     display: block;
     /* width: 99%; Removed */
   }
-  
+
   .back-button {
     bottom: 10px; /* Reduced from 15px */
     left: 10px; /* Reduced from 15px */
     padding: 6px 12px; /* Reduced from 8px 15px */
     font-size: 0.8rem; /* Reduced from 0.9rem */
   }
-  
+
   .treasure-box {
     padding: 15px; /* Reduced from 20px */
   }
-  
+
   .treasure-box img {
     width: 90px; /* Reduced from 100px */
   }
-  
+
   .treasure-box p {
     font-size: 1.1rem; /* Reduced from 1.2rem */
   }

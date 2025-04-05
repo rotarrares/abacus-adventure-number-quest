@@ -83,6 +83,12 @@
   font-style: italic;
 }
 
+/* Placeholder for the actual calculation step text */
+.step-calculation-placeholder {
+  /* Base styles for all screen sizes can go here if needed */
+  margin-top: 5px; /* Add some space above */
+}
+
 /* TODO: Add styles and keyframes for animating digits flying and merging */
 /* Example placeholder: */
 .animated-digit {
@@ -91,3 +97,13 @@
 }
 
 /* Ensure no old partial-sum rules remain */
+
+/* Increase font size for calculation steps on larger screens */
+@media (min-width: 768px) {
+  .step-calculation-placeholder {
+    font-size: 1.5em; /* Make text larger on desktop */
+    font-weight: bold; /* Make it stand out more */
+    color: #fefce8; /* Use a brighter color like the sum */
+    margin-top: 10px; /* Adjust spacing for larger text */
+  }
+}

@@ -27,6 +27,7 @@ export const useCosmicCalculatorGame = (soundEnabled = true) => {
   // Refs for managing timeouts to prevent issues with state updates in callbacks
   const animationTimeoutRef = useRef(null);
   const feedbackTimeoutRef = useRef(null);
+  const displayTimeoutRef = useRef(null); // Ref for the delay *between* steps
 
   // --- Helper Functions ---
 
@@ -34,6 +35,7 @@ export const useCosmicCalculatorGame = (soundEnabled = true) => {
   const clearTimeouts = useCallback(() => {
     if (animationTimeoutRef.current) clearTimeout(animationTimeoutRef.current);
     if (feedbackTimeoutRef.current) clearTimeout(feedbackTimeoutRef.current);
+    if (displayTimeoutRef.current) clearTimeout(displayTimeoutRef.current); // Clear display timeout too
   }, []);
 
   // Function to generate and set a new problem for the current level
@@ -71,33 +73,48 @@ export const useCosmicCalculatorGame = (soundEnabled = true) => {
   // --- Animation Logic ---
 
   // Function to advance the breakdown animation to the next step
+  // Function to advance the breakdown animation to the next step
+  // This function now calculates the *next* step, updates the state to display it,
+  // and then schedules itself to run again after the display duration.
   const advanceAnimationStep = useCallback(() => {
     setAnimationState(prevState => {
-      if (!prevState.isActive) return prevState; // Should not happen if called correctly
+      // Ensure animation is still active and problem exists before proceeding
+      if (!prevState.isActive || !currentProblem) {
+        // If animation was stopped externally or problem disappeared, clear timeout and return current state
+        clearTimeout(displayTimeoutRef.current);
+        return prevState;
+      }
 
       const { num1, num2 } = currentProblem;
-      const currentStepIndex = prevState.step === null ? -1 : Object.values(PLACE_VALUE_NAMES).indexOf(prevState.step);
+      const currentStepIndex = prevState.step === null ? -1 : PLACE_VALUE_NAMES.indexOf(prevState.step);
       const nextStepIndex = currentStepIndex + 1;
       const maxDigits = LEVEL_CONFIG.find(l => l.level === level)?.numDigits || 1;
 
+      // Check if this step calculation would exceed the number of digits
       if (nextStepIndex >= maxDigits) {
-        // Animation finished
+        // Animation finished - schedule this state update, but don't schedule next step
+        clearTimeout(displayTimeoutRef.current); // Clear any pending step advance timeout
         return { ...prevState, step: 'done', isActive: false };
       }
 
+      // Calculate details for the next step to display
       const nextStepName = PLACE_VALUE_NAMES[nextStepIndex];
       const digit1 = Math.floor(num1 / Math.pow(10, nextStepIndex)) % 10;
       const digit2 = Math.floor(num2 / Math.pow(10, nextStepIndex)) % 10;
-      const sumDigit = digit1 + digit2;
-
+      const sumDigit = digit1 + digit2; // Assuming no-carry
       const newPartialSum = { ...prevState.partialSum, [nextStepName]: sumDigit };
 
-      // Schedule the next step
-      animationTimeoutRef.current = setTimeout(advanceAnimationStep, ANIMATION_TIMINGS.STEP_DELAY + ANIMATION_TIMINGS.DIGIT_FLY + ANIMATION_TIMINGS.DIGIT_MERGE);
+      // Schedule the *next* call to advanceAnimationStep after the display duration for the *current* step
+      clearTimeout(displayTimeoutRef.current); // Clear previous display timeout before setting a new one
+      displayTimeoutRef.current = setTimeout(
+        advanceAnimationStep, // Call this function again to process the *next* place value
+        ANIMATION_TIMINGS.STEP_DELAY + ANIMATION_TIMINGS.DIGIT_FLY + ANIMATION_TIMINGS.DIGIT_MERGE
+      );
 
-      return { ...prevState, step: nextStepName, partialSum: newPartialSum, isActive: true };
+      // Return the new state to display for this step (e.g., show 'units' calculation)
+      return { step: nextStepName, partialSum: newPartialSum, isActive: true };
     });
-  }, [currentProblem, level]); // Dependencies needed for calculation
+  }, [currentProblem, level, setAnimationState]); // Dependencies: only need things stable across renders or state setters
 
   // Function to start the breakdown animation sequence
   const startBreakdownAnimation = useCallback(() => {
@@ -105,8 +122,9 @@ export const useCosmicCalculatorGame = (soundEnabled = true) => {
     clearTimeouts();
     setGamePhase('animating_breakdown');
     setAnimationState({ step: null, partialSum: {}, isActive: true }); // Start animation sequence
-    // Initial delay before the first step (units) starts
-    animationTimeoutRef.current = setTimeout(advanceAnimationStep, ANIMATION_TIMINGS.STEP_DELAY);
+    // Start the first step calculation almost immediately
+    clearTimeout(displayTimeoutRef.current); // Clear any pending display timeout
+    displayTimeoutRef.current = setTimeout(advanceAnimationStep, 10); // Small delay to ensure state is set
   }, [currentProblem, advanceAnimationStep, clearTimeouts]);
 
   // Effect to process answer after animation completes
