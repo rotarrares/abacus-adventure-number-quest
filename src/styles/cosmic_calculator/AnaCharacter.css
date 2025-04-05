@@ -1,0 +1,15 @@
+/* Ana-specific styles */
+
+.ana-character {
+  /* Positioning: Higher up, right */
+  top: 15%;
+  right: 20px;
+  /* Add any Ana-specific overrides or additional styles here */
+}
+
+.ana-speech-bubble {
+  /* Specific styles for Ana's bubble if needed */
+  /* background-color: #fef3c7; */ /* Example: Slightly different background */
+}
+
+/* Add Ana-specific mood animations if they differ from shared ones */

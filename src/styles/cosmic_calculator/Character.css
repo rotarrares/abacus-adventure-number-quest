@@ -1,0 +1,78 @@
+/* Shared styles for character components (Robi & Ana) */
+
+.character {
+  position: absolute; /* Position characters on the screen */
+  display: flex;
+  flex-direction: column; /* Image above speech bubble */
+  align-items: center;
+  transition: transform 0.3s ease-in-out; /* For movement animations */
+  max-width: 120px; /* Adjust as needed */
+}
+
+.character-image {
+  max-width: 100%;
+  height: auto;
+  margin-bottom: -10px; /* Overlap slightly with bubble */
+  z-index: 1; /* Image above bubble */
+}
+
+.speech-bubble {
+  background-color: rgba(255, 255, 255, 0.9); /* White, slightly transparent */
+  color: #1e293b; /* Dark text */
+  padding: 10px 15px;
+  border-radius: 15px;
+  border: 2px solid #cbd5e1; /* Light gray border */
+  position: relative;
+  text-align: center;
+  font-size: 0.9em;
+  min-width: 100px;
+  max-width: 180px; /* Limit bubble width */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  word-wrap: break-word; /* Prevent long words from overflowing */
+}
+
+/* Speech bubble pointer (triangle) */
+.speech-bubble::after {
+  content: '';
+  position: absolute;
+  top: -10px; /* Position above the bubble */
+  left: 50%;
+  transform: translateX(-50%);
+  border-width: 0 10px 10px 10px; /* Triangle shape */
+  border-style: solid;
+  border-color: transparent transparent rgba(255, 255, 255, 0.9) transparent; /* Match bubble background */
+  /* Add border matching bubble border */
+  border-bottom-color: #cbd5e1; /* Match border color */
+}
+.speech-bubble::before { /* Create inner triangle to cover border */
+    content: '';
+    position: absolute;
+    top: -8px; /* Slightly inside the outer triangle */
+    left: 50%;
+    transform: translateX(-50%);
+    border-width: 0 8px 8px 8px;
+    border-style: solid;
+    border-color: transparent transparent rgba(255, 255, 255, 0.9) transparent; /* Match bubble background */
+}
+
+
+/* --- Mood-based animations (examples) --- */
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+
+.mood-happy .character-image {
+  animation: bounce 0.6s ease-in-out;
+}
+
+/* Add more shared animations or styles as needed */
+
+/* Increase text size on larger screens */
+@media (min-width: 768px) {
+  .speech-bubble {
+    font-size: 1.1em; /* Larger font size for tablets and desktops */
+    padding: 12px 18px; /* Slightly larger padding */
+    max-width: 220px; /* Allow slightly wider bubbles */
+  }
+}

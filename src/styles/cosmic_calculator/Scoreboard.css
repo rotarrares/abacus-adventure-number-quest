@@ -1,0 +1,58 @@
+.scoreboard-container {
+  background-color: rgba(26, 32, 44, 0.7); /* Semi-transparent dark gray/blue */
+  border: 1px solid #4a5568; /* Gray border */
+  border-radius: 8px;
+  padding: 10px 15px;
+  margin: 10px 0;
+  display: flex;
+  justify-content: space-around; /* Space out items */
+  align-items: center;
+  flex-wrap: wrap; /* Allow wrapping on small screens */
+  gap: 15px;
+  color: #e2e8f0; /* Light gray text */
+  font-size: 1em;
+  position: absolute; /* Position it somewhere on the screen */
+  top: 10px;
+  right: 10px;
+  min-width: 250px; /* Ensure minimum width */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.scoreboard-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.scoreboard-item .label {
+  font-weight: bold;
+  color: #a0aec0; /* Lighter gray for labels */
+}
+
+.scoreboard-item .value {
+  font-weight: bold;
+  font-size: 1.1em;
+  color: #f7fafc; /* Brighter white for values */
+}
+
+.star-coins .value {
+  color: #facc15; /* Yellow for star coins */
+}
+
+/* Optional Progress Bar Styles */
+.progress-bar-container {
+  width: 100%; /* Take full width of its flex item space if wrapped */
+  height: 8px;
+  background-color: #4a5568; /* Dark background for the bar */
+  border-radius: 4px;
+  overflow: hidden;
+  margin-top: 5px; /* Add space if it wraps below */
+  flex-basis: 100%; /* Ensure it takes full width when wrapped */
+}
+
+.progress-bar-fill {
+  height: 100%;
+  background-color: #4ade80; /* Green fill */
+  border-radius: 4px;
+  transition: width 0.3s ease-in-out; /* Smooth transition for progress */
+}

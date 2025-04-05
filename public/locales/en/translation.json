@@ -182,6 +182,10 @@
   "roman_treasure_description": "Help Ana and Robi solve Roman numeral puzzles to unlock ancient treasures!",
   "start_roman_game_button": "Start Hunting!",
 
+  "cosmic_calculator_button": "Cosmic Calculator",
+  "cosmic_calculator_title": "Cosmic Calculator",
+  "cosmic_calculator_description": "Help Robi power his spaceship with calculations!",
+  "start_cosmic_game_button": "Start Calculation!",
   "roman_treasure.loading": "Loading treasure map...",
   "roman_treasure.loading_task": "Getting next puzzle...",
   "roman_treasure.error_loading": "Error loading the game. Please try again.",
@@ -202,5 +206,37 @@
   "roman_treasure.task_default": "Solve the puzzle:",
 
   "roman_treasure.log_level": "Level",
-  "roman_treasure.log_treasures": "Treasures"
+  "roman_treasure.log_treasures": "Treasures",
+
+  "cosmic_calculator": {
+    "zone_moon_market": "Moon Market",
+    "zone_asteroid_alley": "Asteroid Alley",
+    "zone_star_station": "Star Station",
+    "zone_nebula_nursery": "Nebula Nursery",
+    "zone_galaxy_gateway": "Galaxy Gateway",
+    "robi_greeting": "Hi! Let's charge the spaceship!",
+    "robi_correct": "Yes! Cosmic energy flowing!",
+    "robi_incorrect": "Oops! Wrong calculation!",
+    "robi_level_start": "Entering {{zoneName}}! Ready for Level {{level}}?",
+    "robi_hint": "Check the {{placeValue}} again!",
+    "ana_greeting": "Hey there! Ready for a space adventure?",
+    "ana_correct": "Awesome! You got it!",
+    "ana_incorrect": "Not quite, space cadet! Try again!",
+    "ana_level_start": "Welcome to {{zoneName}}! Let's solve Level {{level}}!",
+    "ana_hint": "Look carefully at the {{placeValue}}!",
+    "general_loading": "Powering up Cosmic Calculator...",
+    "general_game_over_title": "Mission Complete!",
+    "general_game_over_message": "Incredible! You collected {{starCoins}} star coins!",
+    "general_play_again": "New Mission",
+    "general_level_complete_title": "Level {{level}} Cleared!",
+    "general_level_complete_message": "You cleared the {{zoneName}} zone!",
+    "general_continue": "Continue Mission",
+    "place_units": "Units",
+    "place_tens": "Tens",
+    "place_hundreds": "Hundreds",
+    "place_thousands": "Thousands",
+    "general_error": "A cosmic anomaly occurred! Please try again.",
+    "correct": "Correct!",
+    "incorrect": "Try Again!"
+  }
 }

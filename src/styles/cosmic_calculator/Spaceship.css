@@ -1,0 +1,82 @@
+.spaceship-container {
+  position: relative; /* For positioning effects like boosters */
+  margin: 20px 0; /* Add some space around the ship */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.spaceship {
+  max-width: 150px; /* Adjust size as needed */
+  height: auto;
+  transition: transform 0.3s ease-in-out; /* Smooth transitions for animations */
+}
+
+/* --- Animation States --- */
+
+/* Example: Simple wobble animation for incorrect answer */
+@keyframes wobble {
+  0%, 100% { transform: translateX(0) rotate(0); }
+  25% { transform: translateX(-5px) rotate(-3deg); }
+  50% { transform: translateX(5px) rotate(3deg); }
+  75% { transform: translateX(-3px) rotate(-2deg); }
+}
+
+.spaceship-incorrect-wobble {
+  animation: wobble 0.5s ease-in-out;
+}
+
+/* Example: Simple boost animation for correct answer */
+@keyframes boost {
+  0%, 100% { transform: translateY(0) scale(1); }
+  50% { transform: translateY(-10px) scale(1.05); }
+}
+
+.spaceship-correct-boost {
+  animation: boost 0.4s ease-out;
+}
+
+/* Example: Placeholder for booster effect */
+.boost-effect {
+  position: absolute;
+  bottom: -10px; /* Position below the ship */
+  left: 50%;
+  transform: translateX(-50%);
+  width: 20px;
+  height: 40px;
+  background: linear-gradient(to top, orange, yellow);
+  border-radius: 50% 50% 0 0 / 100% 100% 0 0;
+  opacity: 0;
+  /* Match fly-off duration and adjust timing */
+  animation: boost-flame 1.5s ease-in-out forwards;
+}
+
+@keyframes boost-flame {
+  0% { opacity: 0; transform: translateX(-50%) scaleY(0); } /* Start hidden */
+  10% { opacity: 1; transform: translateX(-50%) scaleY(1); } /* Quickly appear */
+  90% { opacity: 1; transform: translateX(-50%) scaleY(1); } /* Stay visible */
+  100% { opacity: 0; transform: translateX(-50%) scaleY(0); } /* Fade out at the end */
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .spaceship-container {
+    margin-top: 70px; /* Increase top margin on mobile to move ship down */
+  }
+}
+
+/* --- Fly Off Animation --- */
+@keyframes fly-off {
+  0% {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-100vh) scale(0.5); /* Fly up off the screen */
+    opacity: 0;
+  }
+}
+
+.spaceship-fly-off {
+  animation: fly-off 1.5s ease-in forwards; /* 'forwards' keeps the final state */
+}
