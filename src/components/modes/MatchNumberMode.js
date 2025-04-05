@@ -13,10 +13,13 @@ const MatchNumberMode = () => {
   const { gameState, dispatch, actions } = useGameContext();
   const { t } = useTranslation();
   const [correctAnswerCount, setCorrectAnswerCount] = useState(0);
+  const [usedNumbersInRound, setUsedNumbersInRound] = useState([]); // Track used numbers
   
   // Generate a random number when the component mounts or level changes
   useEffect(() => {
+    // console.log(`[MatchNumberMode] New round/level started. Level: ${gameState.level}`); // Removed log
     // Update difficulty based on level
+    setUsedNumbersInRound([]); // Reset used numbers for the new round
     updateDifficultyForLevel(gameState.level);
     generateNumber();
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -49,7 +52,24 @@ const MatchNumberMode = () => {
   
   const generateNumber = () => {
     const { min, max } = gameState.difficulty;
-    const number = getRandomInt(min, max);
+    let number;
+    let attempts = 0; // Safety break for potential infinite loops
+    const maxAttempts = (max - min + 1) * 2; // Allow some retries
+
+    do {
+      number = getRandomInt(min, max);
+      attempts++;
+      // Prevent infinite loop if all numbers in a small range are used quickly
+      if (attempts > maxAttempts) {
+        console.warn("[MatchNumberMode] Could not find a unique number after multiple attempts. Resetting used numbers for safety.");
+        setUsedNumbersInRound([]); // Reset the list to allow generation
+        // Optionally, just reuse a number if resetting is undesirable
+        // break;
+      }
+    } while (usedNumbersInRound.includes(number) && attempts <= maxAttempts);
+
+    // console.log(`[MatchNumberMode] Generated number: ${number}`); // Removed log
+    setUsedNumbersInRound(prevUsed => [...prevUsed, number]); // Add the new number to the list
     // TODO: Use language-aware number-to-word library here instead of just Romanian
     const word = numberToRomanianWord(number); 
     
@@ -108,6 +128,7 @@ const MatchNumberMode = () => {
       
       // Check if we should level up (every 5 correct answers)
       if (newCorrectCount >= 5) {
+        // console.log(`[MatchNumberMode] Leveling up to ${gameState.level + 1}. Resetting round.`); // Removed log
         dispatch({ type: actions.SET_LEVEL, payload: gameState.level + 1 });
         setCorrectAnswerCount(0); // Reset count after leveling up
       }
