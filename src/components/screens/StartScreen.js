@@ -36,6 +36,14 @@ const StartScreen = () => {
     dispatch({ type: actions.SET_LEVEL, payload: 1 }); // Roman game manages internal levels, start at 1
     dispatch({ type: actions.SET_SCREEN, payload: 'game' });
   };
+  // Handler for starting Cosmic Calculator game
+  const handleStartCosmicGame = () => {
+    playSound('click', gameState.sound);
+    dispatch({ type: actions.SET_GAME_MODE, payload: 'cosmic_calculator' }); // Use 'cosmic_calculator' mode key
+    dispatch({ type: actions.SET_LEVEL, payload: 1 }); // Cosmic Calculator starts at level 1
+    dispatch({ type: actions.SET_SCREEN, payload: 'game' });
+  };
+
 
 
   const selectGame = (game) => {
@@ -111,6 +119,13 @@ const StartScreen = () => {
                 onClick={() => selectGame('roman')}
               >
                 {t('roman_treasure_button')} {/* Add translation key */}
+              </button>
+              {/* Add button for Cosmic Calculator */}
+              <button
+                className="game-button"
+                onClick={() => selectGame('cosmic')}
+              >
+                {t('cosmic_calculator_button')} {/* Use new translation key */}
               </button>
             </div>
           </div>
@@ -192,6 +207,22 @@ const StartScreen = () => {
           </div>
         )}
 
+        {/* Add section for Cosmic Calculator */}
+        {selectedGame === 'cosmic' && (
+          <div className="mode-selection">
+            <button className="back-button" onClick={handleBack}>{t('back_button')}</button>
+            <h3>{t('cosmic_calculator_title')}</h3> {/* Use new translation key */}
+            <p>{t('cosmic_calculator_description')}</p> {/* Use new translation key */}
+            <div className="mode-buttons"> {/* Reuse mode-buttons container */}
+              <button
+                className="mode-button" // Reuse mode-button style
+                onClick={handleStartCosmicGame}
+              >
+                {t('start_cosmic_game_button')} {/* Use new translation key */}
+              </button>
+            </div>
+          </div>
+        )}
 
         <div className="stars-display">
           <span className="star-icon">⭐</span>

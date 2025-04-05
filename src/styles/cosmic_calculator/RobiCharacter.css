@@ -1,0 +1,15 @@
+/* Robi-specific styles */
+
+.robi-character {
+  /* Positioning: Higher up, left */
+  top: 15%;
+  left: 20px;
+  /* Add any Robi-specific overrides or additional styles here */
+}
+
+.robi-speech-bubble {
+  /* Specific styles for Robi's bubble if needed */
+  /* background-color: #e0f2fe; */ /* Example: Slightly different background */
+}
+
+/* Add Robi-specific mood animations if they differ from shared ones */

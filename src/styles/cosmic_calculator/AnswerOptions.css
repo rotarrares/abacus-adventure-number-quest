@@ -1,0 +1,58 @@
+.answer-options-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap; /* Allow buttons to wrap on smaller screens */
+  gap: 15px; /* Space between buttons */
+  margin-top: 25px;
+}
+
+.option-button {
+  background-color: #1e3a8a; /* Dark blue */
+  border: 2px solid #60a5fa; /* Light blue border */
+  color: #e0f2fe; /* Light blue text */
+  padding: 12px 25px;
+  border-radius: 8px;
+  font-size: 1.4em;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.1s ease;
+  min-width: 100px; /* Ensure buttons have a minimum width */
+  text-align: center;
+}
+
+.option-button:hover:not(:disabled) {
+  background-color: #1d4ed8; /* Slightly lighter blue on hover */
+  transform: translateY(-2px); /* Slight lift effect */
+}
+
+.option-button:active:not(:disabled) {
+  transform: translateY(0); /* Press down effect */
+}
+
+.option-button:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+/* Styling for feedback states */
+.option-button.incorrect {
+  background-color: #b91c1c; /* Red for incorrect selection */
+  border-color: #f87171; /* Lighter red border */
+  color: #fecaca; /* Light red text */
+  animation: shake 0.5s ease-in-out; /* Add a shake animation */
+}
+
+/* Optional: Highlight the correct answer when the player chose incorrectly */
+.option-button.correct-highlight {
+  background-color: #065f46; /* Green for correct answer highlight */
+  border-color: #6ee7b7; /* Lighter green border */
+  color: #d1fae5; /* Light green text */
+}
+
+/* Shake animation for incorrect button */
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+  20%, 40%, 60%, 80% { transform: translateX(5px); }
+}

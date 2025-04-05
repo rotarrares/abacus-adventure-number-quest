@@ -1,0 +1,35 @@
+.level-background {
+  width: 100%;
+  min-height: 100%; /* Stretch to fill the container (.game-content) */
+  position: relative; /* Needed for absolute positioning of the image */
+  overflow: hidden; /* Prevent image overflow if aspect ratio mismatches significantly */
+  box-sizing: border-box;
+  background-color: black; /* Add black background color */
+}
+
+.level-background-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Scale image like background-size: cover */
+  z-index: 0; /* Place the image within the parent's stacking context, below content */
+  user-select: none; /* Prevent image selection */
+  -webkit-user-drag: none; /* Prevent image dragging */
+}
+
+.level-content {
+  position: relative; /* Ensure content is above the background image */
+  z-index: 1; /* Explicitly set stacking context above image */
+  width: 100%;
+  height: 100%;
+  display: flex; /* Use flexbox for centering content */
+  flex-direction: column;
+  align-items: center; /* Center children horizontally */
+  justify-content: space-between; /* Distribute space vertically */
+  padding: 20px; /* Add padding back for content spacing */
+  box-sizing: border-box;
+}
+
+/* Add more specific styles if needed, e.g., for transitions */

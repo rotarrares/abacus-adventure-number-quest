@@ -1,0 +1,93 @@
+.calculator-display {
+  background-color: rgba(0, 0, 50, 0.6); /* Semi-transparent dark blue */
+  border: 2px solid #60a5fa; /* Light blue border */
+  border-radius: 10px;
+  padding: 20px;
+  margin: 20px auto;
+  max-width: 400px; /* Keep max-width constraint */
+  width: 400px;      /* Fixed width */
+  color: #e0f2fe; /* Light blue text */
+  font-family: 'Courier New', Courier, monospace; /* Monospace for alignment */
+  text-align: right; /* Align numbers to the right */
+}
+
+/* Grid container for the problem numbers and sum */
+.problem-numbers-grid {
+  display: grid;
+  grid-template-columns: 1fr auto; /* Numbers/Sum column takes space, operator column fits content */
+  justify-items: end; /* Align items to the right within their grid cells */
+  align-items: baseline; /* Align text baselines */
+  gap: 0 0.5em; /* Gap between columns (numbers/sum and operator) */
+  margin-bottom: 15px;
+  font-size: 2em;
+  line-height: 1.2;
+}
+
+/* Style for the number elements within the grid */
+.problem-numbers-grid .number {
+  grid-column: 1 / 2; /* Place numbers in the first column */
+  letter-spacing: 0.1em;
+  /* text-align: right; is handled by justify-items: end on the grid container */
+}
+
+/* Style for the operator within the grid */
+.problem-numbers-grid .operator {
+  grid-column: 2 / 3; /* Place operator in the second column */
+  grid-row: 1 / 2; /* Operator is on the first row (with num1) */
+  font-weight: bold;
+  /* padding-left is replaced by grid gap */
+}
+
+/* Ensure num2 is also in the first column */
+.problem-numbers-grid .num2 {
+  grid-row: 2 / 3;
+}
+
+/* Style for the equals line, spanning both columns */
+.problem-numbers-grid .equals-line {
+  grid-column: 1 / 3; /* Span across both columns */
+  grid-row: 3 / 4;
+  height: 2px;
+  background-color: #60a5fa;
+  margin-top: 5px;
+  margin-bottom: 10px;
+  width: 100%; /* Make line span the full grid width */
+  justify-self: stretch; /* Ensure it stretches */
+}
+
+/* Style for the partial sum within the grid */
+.problem-numbers-grid .partial-sum {
+  grid-column: 1 / 2; /* Place in the first column (aligned with numbers) */
+  grid-row: 4 / 5;    /* Place in the fourth row */
+  font-weight: bold;
+  letter-spacing: 0.1em;
+  min-height: 1.2em; /* Ensure space even when empty */
+  color: #fefce8; /* Bright yellow/white for result */
+  /* font-size is inherited from the grid container */
+  /* text-align is handled by justify-items on the grid container */
+}
+
+
+.animation-area {
+  min-height: 50px; /* Space for animations */
+  margin-bottom: 10px;
+  position: relative; /* For positioning animated digits */
+  border-bottom: 1px dashed rgba(96, 165, 250, 0.5); /* Faint separator */
+  padding-bottom: 10px;
+  text-align: center; /* Center step indicator */
+  font-size: 0.9em;
+  color: #cbd5e1; /* Lighter text for indicator */
+}
+
+.step-indicator {
+  font-style: italic;
+}
+
+/* TODO: Add styles and keyframes for animating digits flying and merging */
+/* Example placeholder: */
+.animated-digit {
+  position: absolute;
+  /* Add animation properties */
+}
+
+/* Ensure no old partial-sum rules remain */
