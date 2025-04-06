@@ -186,6 +186,11 @@
   "cosmic_calculator_title": "Cosmic Calculator",
   "cosmic_calculator_description": "Help Robi power his spaceship with calculations!",
   "start_cosmic_game_button": "Start Calculation!",
+
+  "magic_bakery_button": "Robi & Ana's Magic Bakery",
+  "magic_bakery_title": "Robi & Ana's Magic Bakery",
+  "magic_bakery_description": "Help Robi and Ana bake treats by adding ingredients with carrying over!",
+  "start_magic_bakery_button": "Start Baking!",
   "roman_treasure.loading": "Loading treasure map...",
   "roman_treasure.loading_task": "Getting next puzzle...",
   "roman_treasure.error_loading": "Error loading the game. Please try again.",

@@ -210,6 +210,11 @@
   "cosmic_calculator_title": "Calculator Cosmic",
   "cosmic_calculator_description": "Ajută-l pe Robi să-și alimenteze nava spațială cu calcule!",
   "start_cosmic_game_button": "Începe Calculul!",
+
+  "magic_bakery_button": "Brutăria Magică a lui Robi și Ana",
+  "magic_bakery_title": "Brutăria Magică a lui Robi și Ana",
+  "magic_bakery_description": "Ajută-i pe Robi și Ana să coacă bunătăți adunând ingrediente cu trecere peste ordin!",
+  "start_magic_bakery_button": "Începe Coptul!",
   "cosmic_calculator": {
     "zone_moon_market": "Piața Lunară",
     "zone_asteroid_alley": "Aleea Asteroizilor",

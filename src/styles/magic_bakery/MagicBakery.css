@@ -1,0 +1,45 @@
+/* Styles for the main Magic Bakery game mode container */
+.magic-bakery-mode {
+  padding: 20px;
+  background-color: #fff0f5; /* Light pink background, like frosting */
+  border-radius: 10px;
+  text-align: center;
+  font-family: 'Comic Sans MS', cursive, sans-serif; /* Whimsical font */
+  position: relative; /* For potential absolute positioning of elements */
+  min-height: 400px; /* Ensure some minimum height */
+  overflow: hidden; /* Prevent elements from spilling out */
+}
+
+.magic-bakery-mode h2 {
+  color: #d147a3; /* Bright pink */
+  margin-bottom: 20px;
+}
+
+/* Add more styles for layout, background images, etc. later */
+
+/* Placeholder for Bakery container styles */
+.bakery-container {
+  position: relative; /* Needed for absolute positioning of image/content */
+  padding: 0; /* Remove padding, handle in content */
+  border-radius: 8px; /* Keep rounding */
+  overflow: hidden; /* Ensure image doesn't overflow rounded corners */
+  min-height: 300px; /* Example minimum height */
+}
+
+.bakery-background-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Cover the container */
+  z-index: 0; /* Place behind content */
+  border-radius: 8px; /* Match container rounding */
+}
+
+.bakery-content {
+  position: relative; /* Place above background */
+  z-index: 1;
+  padding: 15px; /* Add padding back to content area */
+  /* Add other styles needed for content layout */
+}

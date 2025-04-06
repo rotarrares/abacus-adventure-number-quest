@@ -1,0 +1,52 @@
+/* Styles for the Ingredient Jars component */
+.ingredient-jars-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 30px 0;
+  gap: 20px; /* Space between jars and plus sign */
+}
+
+.jar {
+  position: relative; /* Needed for absolute positioning of number */
+  width: 120px; /* Match image width (adjust if needed) */
+  height: 150px; /* Match image height (adjust if needed) */
+  /* Remove background styles */
+  border: none;
+  background-color: transparent;
+  box-shadow: none;
+  display: flex; /* Keep flex for alignment if needed, though image handles size */
+  align-items: center;
+  justify-content: center;
+}
+
+.jar-image {
+  display: block; /* Ensure it behaves like a block element */
+  width: 130%;
+  height: 130%;
+  object-fit: contain; /* Ensure image fits */
+}
+
+.number-on-jar {
+  position: absolute;
+  top: 64%; /* Adjust vertical position */
+  left: 50%;
+  transform: translate(-50%, -50%); /* Center precisely */
+  z-index: 1; /* Ensure number is above image */
+  font-size: 2.5em;
+  font-weight: bold;
+  color: #4a2c1a; /* Dark brown */
+  /* display: block; */
+}
+
+/* Styles for color-coded digits (to be implemented in JS) */
+.digit-units { color: blue; }
+.digit-tens { color: green; }
+.digit-hundreds { color: orange; }
+.digit-thousands { color: red; }
+
+.plus-sign {
+  font-size: 3em;
+  color: #d147a3; /* Bright pink */
+  font-weight: bold;
+}

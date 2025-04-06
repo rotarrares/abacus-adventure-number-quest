@@ -1,0 +1,91 @@
+/* Styles for the Mixing Bowl component */
+.mixing-bowl-area {
+  margin: 30px auto;
+  padding: 20px;
+  background-color: rgba(211, 211, 211, 0.5); /* Light grey, semi-transparent */
+  border-radius: 10px;
+  width: 80%;
+  max-width: 400px;
+  text-align: center;
+}
+
+.mixing-bowl-visual {
+  width: 200px; /* Match image width (adjust if needed) */
+  height: 120px; /* Match image height (adjust if needed) */
+  margin: 0 auto 15px auto;
+  position: relative; /* For carry-over indicator */
+  border: none;
+  background-color: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.mixing-bowl-image {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.carry-over-indicator {
+  /* Container for image and number */
+  position: absolute;
+  top: -40px; /* Position above bowl */
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100px; /* Match image size */
+  height: 100px; /* Match image size */
+  /* Remove background styles */
+  background-color: transparent;
+  box-shadow: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* Add animation for 'flying' in later */
+}
+
+.carry-over-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  z-index: 0;
+}
+
+.carry-over-number {
+  position: relative; /* Place above image */
+  z-index: 1;
+  color: #4a2c1a;
+  font-size: 3em;
+  font-weight: bold;
+}
+
+.result-display {
+  margin-bottom: 15px;
+  font-size: 1.5em;
+  font-weight: bold;
+  color: #4a2c1a; /* Dark brown */
+}
+
+.mixing-bowl-area button {
+  padding: 10px 20px;
+  font-size: 1.1em;
+  background-color: #8b4513; /* Saddle brown */
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.mixing-bowl-area button:hover:not(:disabled) {
+  background-color: #a0522d; /* Lighter brown on hover */
+}
+
+.mixing-bowl-area button:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+}
