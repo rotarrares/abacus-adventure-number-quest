@@ -1,0 +1,129 @@
+/* Styles for the Robi and Ana Characters component */
+.character-area {
+  display: flex;
+  justify-content: space-around; /* Position characters apart */
+  align-items: flex-end; /* Align at the bottom */
+  /* Responsive margin and height */
+  margin-top: clamp(10px, 2vh, 20px); /* Reduced top margin as grid handles spacing */
+  min-height: clamp(120px, 18vh, 150px); /* Keep min-height */
+  position: relative; /* Keep for speech bubble positioning */
+  /* top: 300px; REMOVED - Grid handles vertical positioning */
+  padding: 0 10px; /* Add some horizontal padding */
+  box-sizing: border-box;
+  /* align-items: flex-end; is already present, ensuring characters sit at bottom */
+}
+
+.character {
+  position: relative; /* Needed for speech bubble absolute positioning */
+  text-align: center;
+  transition: transform 0.3s ease; /* For potential bounce/active effect */
+}
+
+.character img {
+  /* Responsive height: min 80px, preferred 12vh, max 120px */
+  height: clamp(160px, 24vh, 240px); /* Doubled size */
+  width: auto; /* Maintain aspect ratio */
+  display: block;
+  margin: 0 auto;
+}
+
+.character.active {
+  transform: scale(1.1); /* Make the active character slightly larger */
+}
+
+.speech-bubble {
+  position: absolute;
+  bottom: calc(100% + 5px); /* Position just above the character */
+  left: 50%;
+  transform: translateX(-50%);
+  width: max-content; /* Adjust width based on content */
+  background-color: white;
+  border: 2px solid #d147a3; /* Pink border */
+  border-radius: 10px;
+  /* Responsive padding, font-size, and max-width */
+  padding: clamp(8px, 1.5vw, 10px) clamp(10px, 2vw, 15px);
+  font-size: clamp(0.75em, 2vw, 0.9em);
+  min-width: 80px; /* Slightly smaller min-width */
+  max-width: clamp(120px, 30vw, 180px);
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+  z-index: 10; /* Ensure it's above other elements */
+}
+
+/* Speech bubble pointer */
+.speech-bubble::after {
+  content: '';
+  position: absolute;
+  bottom: -10px; /* Pointing down */
+  left: 50%;
+  transform: translateX(-50%);
+  border-width: 10px 10px 0;
+  border-style: solid;
+  border-color: #d147a3 transparent transparent transparent; /* Pink triangle */
+}
+
+.speech-bubble::before { /* White triangle inside border */
+  content: '';
+  position: absolute;
+  bottom: -7px;
+  left: 50%;
+  transform: translateX(-50%);
+  border-width: 7px 7px 0;
+  border-style: solid;
+  border-color: white transparent transparent transparent;
+  z-index: 1; /* Above the border triangle */
+}
+
+/* --- Responsive Adjustments --- */
+
+/* Tablet and Large Phones (Portrait) */
+@media (max-width: 768px) {
+  .character-area {
+    justify-content: space-between; /* Push characters further apart */
+    margin-top: clamp(10px, 2vh, 15px); /* Reduced top margin */
+    min-height: clamp(100px, 15vh, 120px);
+    /* top: 300px; REMOVED */
+  }
+
+  .character img {
+     height: clamp(140px, 20vh, 200px); /* Doubled size */
+  }
+
+  .speech-bubble {
+    max-width: clamp(110px, 25vw, 160px);
+    font-size: clamp(0.7em, 1.8vw, 0.85em);
+  }
+}
+
+/* Smaller Phones (Portrait) */
+@media (max-width: 480px) {
+  .character-area {
+    margin-top: clamp(5px, 1vh, 10px); /* Reduced top margin */
+    min-height: clamp(80px, 12vh, 100px);
+    justify-content: center; /* Center characters instead of space-between */
+    gap: 15px; /* Adjust gap as needed for centering */
+    /* top: auto; REMOVED */
+    padding: 0 5px; /* Reduce padding slightly if needed */
+  }
+
+  .character img {
+     /* Slightly reduce max height */
+     height: clamp(100px, 16vh, 140px);
+  }
+
+  .speech-bubble {
+    max-width: clamp(100px, 40vw, 140px); /* Allow more width relative to viewport */
+    font-size: clamp(0.65em, 2.5vw, 0.8em);
+    padding: clamp(6px, 1.2vw, 8px) clamp(8px, 1.8vw, 12px);
+    bottom: calc(100% + 2px); /* Reduce gap slightly */
+  }
+
+   /* Optional: Adjust bubble pointer size */
+  .speech-bubble::after {
+    bottom: -8px;
+    border-width: 8px 8px 0;
+  }
+  .speech-bubble::before {
+    bottom: -6px; /* Adjust inner triangle */
+    border-width: 6px 6px 0;
+  }
+}

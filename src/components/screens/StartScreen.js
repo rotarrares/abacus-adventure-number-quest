@@ -44,6 +44,14 @@ const StartScreen = () => {
     dispatch({ type: actions.SET_SCREEN, payload: 'game' });
   };
 
+  // Handler for starting Magic Bakery game
+  const handleStartMagicBakeryGame = () => {
+    playSound('click', gameState.sound);
+    dispatch({ type: actions.SET_GAME_MODE, payload: 'magic_bakery' }); // Use 'magic_bakery' mode key
+    dispatch({ type: actions.SET_LEVEL, payload: 1 }); // Magic Bakery starts at level 1
+    dispatch({ type: actions.SET_SCREEN, payload: 'game' });
+  };
+
 
 
   const selectGame = (game) => {
@@ -127,6 +135,13 @@ const StartScreen = () => {
               >
                 {t('cosmic_calculator_button')} {/* Use new translation key */}
               </button>
+              {/* Add button for Magic Bakery */}
+              <button
+                className="game-button"
+                onClick={() => selectGame('magic_bakery')}
+              >
+                {t('magic_bakery_button')} {/* Use new translation key */}
+              </button>
             </div>
           </div>
         )}
@@ -202,6 +217,23 @@ const StartScreen = () => {
                 onClick={handleStartRomanGame}
               >
                 {t('start_roman_game_button')} {/* Add translation key */}
+              </button>
+            </div>
+          </div>
+        )}
+
+        {/* Add section for Magic Bakery */}
+        {selectedGame === 'magic_bakery' && (
+          <div className="mode-selection">
+            <button className="back-button" onClick={handleBack}>{t('back_button')}</button>
+            <h3>{t('magic_bakery_title')}</h3>
+            <p>{t('magic_bakery_description')}</p>
+            <div className="mode-buttons"> {/* Reuse mode-buttons container */}
+              <button
+                className="mode-button" // Reuse mode-button style
+                onClick={handleStartMagicBakeryGame}
+              >
+                {t('start_magic_bakery_button')}
               </button>
             </div>
           </div>

@@ -9,6 +9,7 @@ import CompareNumbersMode from '../modes/CompareNumbersMode';
 import RoundingNumbersMode from '../modes/RoundingNumbersMode';
 import RomanTreasureMode from '../modes/RomanTreasureMode'; // Import the new Roman mode
 import CosmicCalculatorMode from '../modes/CosmicCalculatorMode'; // Import the Cosmic Calculator mode
+import MagicBakeryMode from '../modes/magic_bakery/MagicBakeryMode'; // Import the Magic Bakery mode
 import GameHeader from '../ui/GameHeader';
 import '../../styles/GameScreen.css';
 
@@ -39,6 +40,8 @@ const GameScreen = () => {
         return <RomanTreasureMode />;
       case 'cosmic_calculator': // Add case for the Cosmic Calculator mode
         return <CosmicCalculatorMode />;
+      case 'magic_bakery': // Add case for the Magic Bakery mode
+        return <MagicBakeryMode />;
       default:
         return <div>{t('unknown_game_mode')}: {gameState.gameMode}</div>;
     }

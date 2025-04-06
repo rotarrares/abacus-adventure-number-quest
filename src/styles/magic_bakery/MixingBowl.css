@@ -1,0 +1,100 @@
+/* Styles for the Mixing Bowl component */
+.mixing-bowl-area {
+  margin: 30px auto;
+  padding: 20px;
+  background-color: rgba(211, 211, 211, 0.5); /* Light grey, semi-transparent */
+  border-radius: 10px;
+  width: 80%;
+  max-width: 400px;
+  text-align: center;
+  position: relative; /* Keep for carry-over indicator positioning */
+  /* bottom: 200px; REMOVED - Grid handles vertical positioning */
+  margin: 10px auto; /* Adjust margin as needed */
+}
+
+.mixing-bowl-visual {
+  /* Responsive width: min 120px, preferred 30vw, max 200px */
+  width: clamp(120px, 30vw, 200px);
+  height: auto; /* Let aspect ratio determine height */
+  aspect-ratio: 200 / 120; /* Maintain original proportions */
+  margin: 0 auto 15px auto;
+  position: relative; /* For carry-over indicator */
+  border: none;
+  background-color: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.mixing-bowl-image {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.carry-over-indicator {
+  /* Container for image and number */
+  position: absolute;
+  top: -25%; /* Position relative to bowl height */
+  left: 50%;
+  transform: translateX(-50%);
+  /* Responsive size: min 60px, preferred 15vw, max 100px */
+  width: clamp(60px, 15vw, 100px);
+  height: clamp(60px, 15vw, 100px);
+  /* Remove background styles */
+  background-color: transparent;
+  box-shadow: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* Add animation for 'flying' in later */
+}
+
+.carry-over-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  z-index: 0;
+}
+
+.carry-over-number {
+  position: relative; /* Place above image */
+  z-index: 1;
+  color: #4a2c1a;
+  /* Responsive font size: min 1.8em, preferred 5vw, max 3em */
+  font-size: clamp(1.8em, 5vw, 3em);
+  font-weight: bold;
+}
+
+.result-display {
+  margin-bottom: 15px;
+  /* Responsive font size: min 1em, preferred 3vw, max 1.5em */
+  font-size: clamp(1em, 3vw, 1.5em);
+  font-weight: bold;
+  color: #4a2c1a; /* Dark brown */
+}
+
+.mixing-bowl-area button {
+  /* Responsive padding and font size */
+  padding: clamp(6px, 1.5vw, 10px) clamp(12px, 3vw, 20px);
+  font-size: clamp(0.9em, 2.5vw, 1.1em);
+  background-color: #8b4513; /* Saddle brown */
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.mixing-bowl-area button:hover:not(:disabled) {
+  background-color: #a0522d; /* Lighter brown on hover */
+}
+
+.mixing-bowl-area button:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+}

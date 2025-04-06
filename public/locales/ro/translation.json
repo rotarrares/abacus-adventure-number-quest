@@ -210,6 +210,11 @@
   "cosmic_calculator_title": "Calculator Cosmic",
   "cosmic_calculator_description": "Ajută-l pe Robi să-și alimenteze nava spațială cu calcule!",
   "start_cosmic_game_button": "Începe Calculul!",
+
+  "magic_bakery_button": "Brutăria Magică a lui Robi și Ana",
+  "magic_bakery_title": "Brutăria Magică a lui Robi și Ana",
+  "magic_bakery_description": "Ajută-i pe Robi și Ana să coacă bunătăți adunând ingrediente cu trecere peste ordin!",
+  "start_magic_bakery_button": "Începe Coptul!",
   "cosmic_calculator": {
     "zone_moon_market": "Piața Lunară",
     "zone_asteroid_alley": "Aleea Asteroizilor",
@@ -243,6 +248,31 @@
     "calculating_step": "Se calculează {{step}}...",
     "scoreboard_star_coins": "Monede Stea"
   },
+  "magic_bakery": {
+    "initial_prompt": "Hai să adunăm {{num1}} și {{num2}}! Începe cu unitățile.",
+    "step_units": "Unități: {{n1u}} + {{n2u}} = {{sum}}. Scrie {{result}}, transportă {{carry}}.",
+    "step_tens": "Zeci: {{n1t}} + {{n2t}} + {{carryIn}} (transport) = {{sum}}. Scrie {{result}}, transportă {{carryOut}}.",
+    "step_hundreds": "Sute: {{n1h}} + {{n2h}} + {{carryIn}} (transport) = {{sum}}. Scrie {{result}}, transportă {{carryOut}}.",
+    "step_thousands": "Mii: {{n1th}} + {{n2th}} + {{carryIn}} (transport) = {{sum}}. Scrie {{result}}, transportă {{carryOut}}.",
+    "mixing_hundreds": "Amestecăm sutele...",
+    "mixing_thousands": "Amestecăm miile...",
+    "prompt_final_sum": "Super! Acum, care este suma finală?",
+    "treat_cupcake": "brioșă",
+    "treat_cookie": "fursec",
+    "treat_pie": "plăcintă",
+    "treat_donut": "gogoașă",
+    "treat_cake": "tort",
+    "success_message": "Mmm! Ai copt {{treatName}}! {{num1}} + {{num2}} = {{correctSum}}.",
+    "incorrect_message": "Nu chiar! Încearcă să amesteci pașii din nou.",
+    "mixing_bowl_alt": "Bol de amestecat",
+    "carry_over_alt": "Transport (Trecere peste ordin)",
+    "result_label": "Rezultat: ",
+    "mix_button_prefix": "Amestecă ",
+    "feedback_correct_short": "Corect! 🎉",
+    "feedback_incorrect_short": "Încearcă din nou! 🤔",
+    "baked_treat_reward_alt": "Recompensă Prăjitură Coaptă",
+    "result_placeholder": "..."
+  }
   "number_word_0": "zero",
   "number_word_1": "unu",
   "number_word_2": "doi",
