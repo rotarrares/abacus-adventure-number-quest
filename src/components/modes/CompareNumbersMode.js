@@ -71,7 +71,12 @@ const CompareNumbersMode = () => {
     setSelectedComparisonOperator(null);
     setHighlightedPlaceValue(null);
     setIsComparingNow(false);
-    setIsAbacusComplete([false, false]);
+    // Check if numbers are 0 and set completion status immediately
+    const initialCompleteStatus = [
+      newNumbers[0] === 0,
+      newNumbers[1] === 0
+    ];
+    setIsAbacusComplete(initialCompleteStatus);
     
     dispatch({
       type: actions.SET_FEEDBACK,
