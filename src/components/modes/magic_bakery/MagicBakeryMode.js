@@ -26,7 +26,7 @@ const MagicBakeryMode = () => {
       gameLogic.resultDigits.hundreds,
       gameLogic.resultDigits.tens,
       gameLogic.resultDigits.units
-  ].filter(d => d !== null).join('') || '...';
+  ].filter(d => d !== null).join('') || t('magic_bakery.result_placeholder');
 
   // Placeholder answer options (replace with logic later)
   const answerOptions = gameLogic.currentStep === 'done' && gameLogic.feedback !== 'correct'
@@ -35,7 +35,6 @@ const MagicBakeryMode = () => {
 
   return (
     <div className="magic-bakery-mode">
-      <h2>{t('magic_bakery_title')} - Level {gameState.level}</h2>
 
       <Bakery> {/* Wrap content in Bakery theme */}
         <RobiAnaCharacters
@@ -62,13 +61,13 @@ const MagicBakeryMode = () => {
         )}
 
         {/* Feedback Indicator */}
-        {gameLogic.feedback === 'correct' && <div className="feedback correct">Correct! 🎉</div>}
-        {gameLogic.feedback === 'incorrect' && <div className="feedback incorrect">Try again! 🤔</div>}
+        {gameLogic.feedback === 'correct' && <div className="feedback correct">{t('magic_bakery.feedback_correct_short')}</div>}
+        {gameLogic.feedback === 'incorrect' && <div className="feedback incorrect">{t('magic_bakery.feedback_incorrect_short')}</div>}
 
         {/* Display Baked Treat Reward */}
         {gameLogic.bakedTreatImage && (
           <div className="baked-treat-container">
-            <img src={gameLogic.bakedTreatImage} alt="Baked Treat Reward" className="baked-treat" loading="lazy" />
+            <img src={gameLogic.bakedTreatImage} alt={t('magic_bakery.baked_treat_reward_alt')} className="baked-treat" loading="lazy" />
           </div>
         )}
 

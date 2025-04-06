@@ -1,9 +1,11 @@
 import { useState, useEffect, useCallback } from 'react';
+import { useTranslation } from 'react-i18next'; // Import useTranslation
 import { useGameContext } from '../context/GameContext';
 // Import utility functions if needed (e.g., for number generation)
 // import { generateAdditionProblem } from '../utils/magicBakeryUtils'; // To be created
 
 const useMagicBakeryGame = () => {
+  const { t } = useTranslation(); // Get the translation function
   const { gameState, dispatch, actions } = useGameContext();
   const { level, sound } = gameState;
 
@@ -49,9 +51,9 @@ const useMagicBakeryGame = () => {
     setUserInput('');
     setFeedback('');
     setBakedTreatImage(null); // Reset treat image on new problem
-    setMessage(`Let's add ${n1} and ${n2}! Start with the units.`); // Initial message
+    setMessage(t('magic_bakery.initial_prompt', { num1: n1, num2: n2 })); // Use translation
     setRobiSpeaking(Math.random() < 0.5); // Randomly choose who speaks first
-  }, [level]);
+  }, [level, t]); // Add t to dependency array
 
   // Effect to generate a new problem when the level changes
   useEffect(() => {
@@ -81,7 +83,7 @@ const useMagicBakeryGame = () => {
         setCarryOver(Math.floor(digitSum / 10));
         newResultDigits.units = placeResult;
         nextStep = 'tens';
-        setMessage(`Units: ${n1Str[3]} + ${n2Str[3]} = ${digitSum}. Write ${placeResult}, carry ${Math.floor(digitSum / 10)}.`);
+        setMessage(t('magic_bakery.step_units', { n1u: n1Str[3], n2u: n2Str[3], sum: digitSum, result: placeResult, carry: Math.floor(digitSum / 10) }));
         break;
       case 'tens':
          digitSum = parseInt(n1Str[2]) + parseInt(n2Str[2]) + currentCarry;
@@ -89,18 +91,20 @@ const useMagicBakeryGame = () => {
          setCarryOver(Math.floor(digitSum / 10));
          newResultDigits.tens = placeResult;
          nextStep = 'hundreds';
-         setMessage(`Tens: ${n1Str[2]} + ${n2Str[2]} + ${currentCarry} (carry) = ${digitSum}. Write ${placeResult}, carry ${Math.floor(digitSum / 10)}.`);
+         setMessage(t('magic_bakery.step_tens', { n1t: n1Str[2], n2t: n2Str[2], carryIn: currentCarry, sum: digitSum, result: placeResult, carryOut: Math.floor(digitSum / 10) }));
          break;
       // TODO: Add cases for 'hundreds', 'thousands'
       case 'hundreds':
          // Placeholder
          nextStep = 'thousands';
-         setMessage('Mixing hundreds...');
+         // TODO: Implement actual hundreds logic and translation
+         setMessage(t('magic_bakery.mixing_hundreds')); // Placeholder message
          break;
       case 'thousands':
          // Placeholder
          nextStep = 'done';
-         setMessage('Mixing thousands...');
+          // TODO: Implement actual thousands logic and translation
+         setMessage(t('magic_bakery.mixing_thousands')); // Placeholder message
          break;
       default:
         break;
@@ -110,11 +114,11 @@ const useMagicBakeryGame = () => {
     setRobiSpeaking(prev => !prev); // Switch speaker
 
     if (nextStep === 'done') {
-        setMessage('Great! Now, what is the final sum?');
+        setMessage(t('magic_bakery.prompt_final_sum'));
         // Enable answer input/options here
     }
 
-  }, [currentStep, carryOver, num1, num2, resultDigits, feedback]);
+  }, [currentStep, carryOver, num1, num2, resultDigits, feedback, t]); // Add t to dependency array
 
   // Function to check the final answer (if using direct input or options)
   const checkFinalAnswer = useCallback((answer) => {
@@ -123,16 +127,17 @@ const useMagicBakeryGame = () => {
       setFeedback('correct');
       // Determine the treat based on the level
       let treatImage = null;
+      let treatKey = 'magic_bakery.treat_cookie'; // Default fallback key
       switch (level) {
-        case 1: treatImage = '/assets/images/magic_bakery/treat_cupcake.png'; break;
-        case 2: treatImage = '/assets/images/magic_bakery/treat_cookie.png'; break;
-        case 3: treatImage = '/assets/images/magic_bakery/treat_pie.png'; break;
-        case 4: treatImage = '/assets/images/magic_bakery/treat_donut.png'; break;
-        case 5: treatImage = '/assets/images/magic_bakery/treat_cake.png'; break;
-        default: treatImage = '/assets/images/magic_bakery/treat_cookie.png'; // Default fallback
+        case 1: treatImage = '/assets/images/magic_bakery/treat_cupcake.png'; treatKey = 'magic_bakery.treat_cupcake'; break;
+        case 2: treatImage = '/assets/images/magic_bakery/treat_cookie.png'; treatKey = 'magic_bakery.treat_cookie'; break;
+        case 3: treatImage = '/assets/images/magic_bakery/treat_pie.png'; treatKey = 'magic_bakery.treat_pie'; break;
+        case 4: treatImage = '/assets/images/magic_bakery/treat_donut.png'; treatKey = 'magic_bakery.treat_donut'; break;
+        case 5: treatImage = '/assets/images/magic_bakery/treat_cake.png'; treatKey = 'magic_bakery.treat_cake'; break;
+        default: treatImage = '/assets/images/magic_bakery/treat_cookie.png';
       }
       setBakedTreatImage(treatImage);
-      setMessage(`Yum! You baked a ${level === 1 ? 'cupcake' : level === 2 ? 'cookie' : level === 3 ? 'pie' : level === 4 ? 'donut' : 'cake'}! ${num1} + ${num2} = ${correctSum}.`);
+      setMessage(t('magic_bakery.success_message', { treatName: t(treatKey), num1: num1, num2: num2, correctSum: correctSum }));
       // playSound('correct', sound); // Assuming playSound utility exists
       dispatch({ type: actions.ADD_STARS, payload: 10 }); // Award stars
       // Potentially trigger level advance after a delay
@@ -142,11 +147,11 @@ const useMagicBakeryGame = () => {
       }, 2000);
     } else {
       setFeedback('incorrect');
-      setMessage(`Not quite! Try mixing the steps again.`);
+      setMessage(t('magic_bakery.incorrect_message'));
       // playSound('incorrect', sound);
     }
     setRobiSpeaking(prev => !prev);
-  }, [correctSum, num1, num2, dispatch, actions, level, sound]);
+  }, [correctSum, num1, num2, dispatch, actions, level, sound, t]); // Add t to dependency array
 
 
   return {

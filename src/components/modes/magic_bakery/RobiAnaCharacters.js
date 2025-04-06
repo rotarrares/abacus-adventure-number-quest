@@ -1,6 +1,6 @@
 import React from 'react';
 // Import relevant styles, e.g.,
-// import '../../../styles/magic_bakery/Characters.css';
+import '../../../styles/magic_bakery/Characters.css';
 
 const RobiAnaCharacters = ({ message, robiSpeaking, robiMood = 'neutral', anaMood = 'neutral' }) => {
   // TODO: Implement logic to select image based on mood (e.g., happy, thinking)

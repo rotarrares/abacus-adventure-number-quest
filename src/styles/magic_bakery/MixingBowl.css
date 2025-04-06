@@ -7,11 +7,16 @@
   width: 80%;
   max-width: 400px;
   text-align: center;
+  position: relative; /* Keep for carry-over indicator positioning */
+  /* bottom: 200px; REMOVED - Grid handles vertical positioning */
+  margin: 10px auto; /* Adjust margin as needed */
 }
 
 .mixing-bowl-visual {
-  width: 200px; /* Match image width (adjust if needed) */
-  height: 120px; /* Match image height (adjust if needed) */
+  /* Responsive width: min 120px, preferred 30vw, max 200px */
+  width: clamp(120px, 30vw, 200px);
+  height: auto; /* Let aspect ratio determine height */
+  aspect-ratio: 200 / 120; /* Maintain original proportions */
   margin: 0 auto 15px auto;
   position: relative; /* For carry-over indicator */
   border: none;
@@ -31,11 +36,12 @@
 .carry-over-indicator {
   /* Container for image and number */
   position: absolute;
-  top: -40px; /* Position above bowl */
+  top: -25%; /* Position relative to bowl height */
   left: 50%;
   transform: translateX(-50%);
-  width: 100px; /* Match image size */
-  height: 100px; /* Match image size */
+  /* Responsive size: min 60px, preferred 15vw, max 100px */
+  width: clamp(60px, 15vw, 100px);
+  height: clamp(60px, 15vw, 100px);
   /* Remove background styles */
   background-color: transparent;
   box-shadow: none;
@@ -59,20 +65,23 @@
   position: relative; /* Place above image */
   z-index: 1;
   color: #4a2c1a;
-  font-size: 3em;
+  /* Responsive font size: min 1.8em, preferred 5vw, max 3em */
+  font-size: clamp(1.8em, 5vw, 3em);
   font-weight: bold;
 }
 
 .result-display {
   margin-bottom: 15px;
-  font-size: 1.5em;
+  /* Responsive font size: min 1em, preferred 3vw, max 1.5em */
+  font-size: clamp(1em, 3vw, 1.5em);
   font-weight: bold;
   color: #4a2c1a; /* Dark brown */
 }
 
 .mixing-bowl-area button {
-  padding: 10px 20px;
-  font-size: 1.1em;
+  /* Responsive padding and font size */
+  padding: clamp(6px, 1.5vw, 10px) clamp(12px, 3vw, 20px);
+  font-size: clamp(0.9em, 2.5vw, 1.1em);
   background-color: #8b4513; /* Saddle brown */
   color: white;
   border: none;

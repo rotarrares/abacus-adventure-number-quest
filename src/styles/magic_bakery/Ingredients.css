@@ -5,12 +5,19 @@
   align-items: center;
   margin: 30px 0;
   gap: 20px; /* Space between jars and plus sign */
+  position: relative; /* Keep for potential future use, but grid handles placement */
+  /* bottom: 200px; REMOVED - Grid handles vertical positioning */
+  margin: 10px 0; /* Adjust margin as needed */
 }
 
 .jar {
   position: relative; /* Needed for absolute positioning of number */
-  width: 120px; /* Match image width (adjust if needed) */
-  height: 150px; /* Match image height (adjust if needed) */
+  /* Use clamp for responsive width: min 80px, preferred 15vw, max 120px */
+  /* Adjusted width: min ~160px, preferred ~30vw, max ~240px */
+  /* Increased width further: min 200px, preferred 40vw, max 300px */
+  width: clamp(200px, 40vw, 300px);
+  /* Set explicit height slightly larger than original ~150px */
+  height: clamp(100px, 20vw, 160px);
   /* Remove background styles */
   border: none;
   background-color: transparent;
@@ -22,18 +29,19 @@
 
 .jar-image {
   display: block; /* Ensure it behaves like a block element */
-  width: 130%;
-  height: 130%;
-  object-fit: contain; /* Ensure image fits */
+  width: 100%; /* Fit container width */
+  height: 100%; /* Fit container height */
+  object-fit: fill; /* Stretch image to fill container */
 }
 
 .number-on-jar {
   position: absolute;
-  top: 64%; /* Adjust vertical position */
+  top: 60%; /* Slightly adjust vertical position for scaling */
   left: 50%;
   transform: translate(-50%, -50%); /* Center precisely */
   z-index: 1; /* Ensure number is above image */
-  font-size: 2.5em;
+  /* Responsive font size: min 1.5em, preferred 4vw, max 2.5em */
+  font-size: clamp(1.5em, 4vw, 2.5em);
   font-weight: bold;
   color: #4a2c1a; /* Dark brown */
   /* display: block; */
@@ -46,7 +54,8 @@
 .digit-thousands { color: red; }
 
 .plus-sign {
-  font-size: 3em;
+  /* Responsive font size: min 2em, preferred 5vw, max 3em */
+  font-size: clamp(2em, 5vw, 3em);
   color: #d147a3; /* Bright pink */
   font-weight: bold;
 }
