@@ -40,46 +40,50 @@ const ComparisonControls = (props) => {
   
   // When highlighted place value changes, analyze the comparison for that place
   useEffect(() => {
-    // Define analyzeHighlightedPlaceValue within useEffect or add it to dependencies
-    // Adding to dependencies for now, assuming it's stable or memoized if needed
+    console.log('[Effect] Running for highlightedPlaceValue:', highlightedPlaceValue);
+
+    // Define analyzeHighlightedPlaceValue *inside* the effect
+    const analyzeHighlightedPlaceValueInternal = () => {
+      console.log('[Effect] Analyzing highlightedPlaceValue:', highlightedPlaceValue);
+      // Added checks for numbers and abacusStates existence
+      if (!highlightedPlaceValue || !numbers || !numbers[0] || !numbers[1] || !abacusStates || !abacusStates[0] || !abacusStates[1]) {
+        console.log('[Effect] Skipping analysis - missing data.');
+        return;
+      }
+
+      const place1 = abacusStates[0][highlightedPlaceValue];
+      const place2 = abacusStates[1][highlightedPlaceValue];
+
+      console.log(`[Effect] Comparing values at ${highlightedPlaceValue}: ${place1} vs ${place2}`);
+
+      // Compare the place values
+      let comparison = null;
+      if (place1 < place2) {
+        comparison = '<';
+      } else if (place1 > place2) {
+        comparison = '>';
+      } else {
+        comparison = '=';
+      }
+
+      // Store the comparison result for this place value
+      setPlaceValueComparisons(prev => ({
+        ...prev,
+        [highlightedPlaceValue]: {
+          value1: place1,
+          value2: place2,
+          result: comparison
+        }
+      }));
+    };
+
     if (highlightedPlaceValue) {
-      analyzeHighlightedPlaceValue();
+      analyzeHighlightedPlaceValueInternal();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [highlightedPlaceValue, abacusStates, analyzeHighlightedPlaceValue]); // Added analyzeHighlightedPlaceValue to dependencies
+  }, [highlightedPlaceValue, abacusStates, numbers]); // Removed analyzeHighlightedPlaceValue from dependencies, added numbers
   
-  // Analyze the values at the highlighted place value
-  // Consider wrapping this in useCallback if it causes performance issues
-  const analyzeHighlightedPlaceValue = () => {
-    if (!highlightedPlaceValue || !numbers[0] || !numbers[1]) return;
-    
-    const place1 = abacusStates[0][highlightedPlaceValue];
-    const place2 = abacusStates[1][highlightedPlaceValue];
-    
-    // Compare the place values
-    let comparison = null;
-    if (place1 < place2) {
-      comparison = '<';
-    } else if (place1 > place2) {
-      comparison = '>';
-    } else {
-      comparison = '=';
-    }
-    
-    // Store the comparison result for this place value
-    setPlaceValueComparisons(prev => ({
-      ...prev,
-      [highlightedPlaceValue]: {
-        value1: place1,
-        value2: place2,
-        result: comparison
-      }
-    }));
-    // If values differ, we've found our result
-    // if (comparison !== '=') {
-      // setComparisonResult(comparison); // Removed usage of unused state setter
-    // }
-  };
+  // Original analyzeHighlightedPlaceValue function removed as its logic is now inside useEffect
   
   // Handle clicking the "Continue" button to move to next place value
   const handleContinueAnalysis = () => {
