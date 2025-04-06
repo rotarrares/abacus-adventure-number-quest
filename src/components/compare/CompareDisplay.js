@@ -1,6 +1,6 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { numberToRomanianWord } from '../../utils/numberUtils'; // Keep for now
+// Removed import of numberToRomanianWord
 import '../../styles/CompareDisplay.css';
 
 /**
@@ -20,10 +20,13 @@ const CompareDisplay = ({ numbers, level, difficultyLevel }) => {
     return num.toString();
   };
 
-  // Get Romanian word representation of the numbers
+  // Get localized word representation of the numbers using i18n
   const getNumberWord = (num) => {
-    if (num === null) return '';
-    return numberToRomanianWord(num);
+    if (num === null || typeof num !== 'number') return '';
+    // Use a specific key format for number words
+    const key = `number_word_${num}`;
+    // Fallback to the number itself if translation is missing
+    return t(key, num.toString());
   };
 
   return (
