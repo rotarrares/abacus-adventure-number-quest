@@ -14,16 +14,27 @@ import '../../styles/TreasureReward.css';
  */
 const TreasureReward = ({ show, level, onClose, sound }) => {
   const containerRef = useRef(null);
-  const [imageLoaded, setImageLoaded] = useState(false);
+  const [imageLoaded, setImageLoaded] = useState(false); // Still useful for placeholder
+  const [isOpen, setIsOpen] = useState(false); // State for chest open/closed
   const { t } = useTranslation();
   
   // Play sound and animation when treasure is shown
+  // Handle opening animation and sound
   useEffect(() => {
-    if (show && containerRef.current) {
-      playSound('complete', sound);
-      createConfettiEffect(containerRef.current, 150, 4000);
+    if (show) {
+      setIsOpen(false); // Reset to closed when shown
+      setImageLoaded(false); // Reset loaded state for closed image check
+      const timer = setTimeout(() => {
+        setIsOpen(true);
+        playSound('complete', sound); // Play sound when it opens
+        if (containerRef.current) {
+          createConfettiEffect(containerRef.current, 150, 4000); // Confetti on open
+        }
+      }, 3000); // Open after 3 seconds
+
+      return () => clearTimeout(timer); // Cleanup timer on unmount/hide
     }
-  }, [show, sound]);
+  }, [show, sound]); // Rerun when 'show' changes
 
   // Determine reward based on level
   const getReward = () => {
@@ -62,26 +73,32 @@ const TreasureReward = ({ show, level, onClose, sound }) => {
         };
     }
   };
-  const reward = getReward();
+  // const reward = getReward(); // We'll handle image logic directly based on isOpen
 
-  // Check if the image exists - Moved before conditional return
+  const closedImgSrc = '/assets/images/treasure-closed.png';
+  const openImgSrc = '/assets/images/treasure-open.png';
+  const currentImgSrc = isOpen ? openImgSrc : closedImgSrc;
+
+  // Check if the *current* image exists
   useEffect(() => {
-    // Only run if showing and we have a reward image path
-    if (show && reward.image) {
+    if (show) {
+      setImageLoaded(false); // Assume not loaded initially
       const img = new Image();
       img.onload = () => setImageLoaded(true);
-      img.onerror = () => setImageLoaded(false); // Handle potential errors
-      img.src = reward.image;
-    } else if (!show) {
-      // Reset image loaded state when not showing
-      setImageLoaded(false);
+      img.onerror = () => {
+        console.error(`Failed to load treasure image: ${currentImgSrc}`);
+        setImageLoaded(false); // Ensure placeholder shows on error
+      };
+      img.src = currentImgSrc;
     }
-  }, [show, reward.image]); // Depend on show and reward.image
+  }, [show, currentImgSrc]); // Depend on show and the current image source
 
   if (!show) return null; // Conditional return is now after all hooks
 
-  const rewardName = t(reward.nameKey);
-  const rewardDescription = t(reward.descriptionKey);
+  // Use generic treasure text for now, or adapt getReward if needed
+  const rewardName = t('reward_name_treasure');
+  const rewardDescription = t('reward_desc_treasure');
+  const rewardColor = 'linear-gradient(135deg, #ffd700, #ffcc00, #ff9900)'; // Default gold gradient
 
   return (
     <div className="treasure-overlay" ref={containerRef}>
@@ -95,14 +112,15 @@ const TreasureReward = ({ show, level, onClose, sound }) => {
           <div className="treasure-image-container">
             {imageLoaded ? (
               <img 
-                src={reward.image} 
-                alt={rewardName} 
-                className="treasure-image pulse"
+                src={currentImgSrc} // Use state-driven image source
+                alt={rewardName}
+                // Add transition class if needed, pulse might be okay
+                className={`treasure-image ${isOpen ? 'pulse' : ''}`}
               />
             ) : (
               <div 
                 className="treasure-placeholder pulse" 
-                style={{ background: reward.color }}
+                style={{ background: rewardColor }} // Use default color
               >
                 🎁
               </div>

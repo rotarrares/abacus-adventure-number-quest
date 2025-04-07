@@ -9,6 +9,7 @@ import IngredientJars from './IngredientJars';
 import MixingBowl from './MixingBowl';
 import RobiAnaCharacters from './RobiAnaCharacters';
 import AnswerOptions from './AnswerOptions'; // Assuming multiple choice for now
+import TreasureReward from '../../ui/TreasureReward'; // Import TreasureReward
 // import RecipeBook from './RecipeBook'; // Keep commented for now, add later
 import '../../../styles/magic_bakery/MagicBakery.css';
 import '../../../styles/magic_bakery/Ingredients.css'; // Import sub-component styles
@@ -16,7 +17,8 @@ import '../../../styles/magic_bakery/MixingBowl.css';
 import '../../../styles/magic_bakery/Characters.css';
 
 const MagicBakeryMode = () => {
-  const { gameState } = useGameContext(); // Only need gameState here for level display
+  const { gameState } = useGameContext();
+  const { level, sound } = gameState; // Get level and sound for TreasureReward
   const { t } = useTranslation();
   const gameLogic = useMagicBakeryGame(); // Initialize the game hook
 
@@ -75,6 +77,13 @@ const MagicBakeryMode = () => {
         {/* RecipeBook can be added here later */}
         {/* <RecipeBook completedRecipes={...} /> */}
 
+        {/* Render Treasure Reward Modal */}
+        <TreasureReward
+          show={gameLogic.showTreasure}
+          level={level} // Pass current level
+          onClose={gameLogic.handleCloseTreasure}
+          sound={sound} // Pass sound setting
+        />
       </Bakery>
     </div>
   );
