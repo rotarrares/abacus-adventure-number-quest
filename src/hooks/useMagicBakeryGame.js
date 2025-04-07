@@ -24,11 +24,16 @@ const useMagicBakeryGame = () => {
   const [message, setMessage] = useState('');
   const [robiSpeaking, setRobiSpeaking] = useState(true); // Or Ana starts
   const [feedback, setFeedback] = useState(''); // 'correct', 'incorrect', ''
-  const [bakedTreatImage, setBakedTreatImage] = useState(null); // State for the reward image
+  const [bakedTreatImage, setBakedTreatImage] = useState(null); // State for the individual treat image
   const [robiMood, setRobiMood] = useState('neutral'); // 'neutral', 'happy', 'wrong', 'explain'
   const [anaMood, setAnaMood] = useState('neutral'); // 'neutral', 'happy', 'thinking', 'explains'
+  const [showTreasure, setShowTreasure] = useState(false); // State for treasure reward modal
 
   // Function to generate a new problem based on the level
+  // --- Constants ---
+  const MAX_LEVEL = 30; // Define the maximum level
+
+  // --- Problem Generation ---
   const generateProblem = useCallback(() => {
     console.log(`Generating problem for level ${level}`);
     let n1 = 0, n2 = 0, sum = 0;
@@ -37,14 +42,17 @@ const useMagicBakeryGame = () => {
     const generateWithCarry = (placeValue) => {
       let num1 = 0, num2 = 0;
       let digit1 = 0, digit2 = 0;
-      const maxVal = Math.pow(10, placeValue + 1) - 1; // e.g., placeValue 0 (units) -> max 99
-      const minVal = Math.pow(10, placeValue);        // e.g., placeValue 0 (units) -> min 10
+      // Adjust maxVal based on placeValue to allow for larger numbers later
+      const maxDigits = placeValue <= 1 ? 2 : (placeValue === 2 ? 3 : 4); // Up to 4 digits
+      const maxVal = Math.pow(10, maxDigits) - 1; // e.g., placeValue 0 -> max 99, placeValue 2 -> max 999
+      const minVal = placeValue > 0 ? Math.pow(10, maxDigits - 1) : 10; // Ensure minimum digits
 
       do {
         num1 = Math.floor(Math.random() * (maxVal - minVal + 1)) + minVal;
         num2 = Math.floor(Math.random() * (maxVal - minVal + 1)) + minVal;
         // Ensure the sum doesn't exceed 10000 for simplicity
-        if (num1 + num2 > 10000) continue;
+        // Ensure sum doesn't exceed 9999 for 4-digit display consistency
+        if (num1 + num2 > 9999) continue;
 
         const s1 = String(num1).padStart(4, '0');
         const s2 = String(num2).padStart(4, '0');
@@ -67,50 +75,58 @@ const useMagicBakeryGame = () => {
       return { n1: num1, n2: num2, sum: num1 + num2 };
     };
 
-    switch (level) {
-      case 1: // Units carry-over (e.g., 36 + 19)
-        ({ n1, n2, sum } = generateWithCarry(0)); // Carry from units (index 3)
-        break;
-      case 2: // Tens carry-over (e.g., 178 + 45)
-        ({ n1, n2, sum } = generateWithCarry(1)); // Carry from tens (index 2)
-        break;
-      case 3: // Hundreds carry-over (e.g., 1234 + 876)
-        ({ n1, n2, sum } = generateWithCarry(2)); // Carry from hundreds (index 1)
-        break;
-      case 4: // Multiple carry-overs (e.g., 299 + 301) - generateWithCarry handles this implicitly
-         // Generate a problem likely to have multiple carries
-         do {
-            n1 = Math.floor(Math.random() * 4000) + 1000; // e.g., 1000-4999
-            n2 = Math.floor(Math.random() * 4000) + 1000;
-            sum = n1 + n2;
-            // Check for at least two carry-overs
-            const s1 = String(n1).padStart(4, '0');
-            const s2 = String(n2).padStart(4, '0');
-            let carryCount = 0;
-            let currentCarry = 0;
-            for (let i = 3; i >= 1; i--) { // Check units, tens, hundreds
-                let digitSum = parseInt(s1[i]) + parseInt(s2[i]) + currentCarry;
-                currentCarry = Math.floor(digitSum / 10);
-                if (currentCarry > 0) carryCount++;
-            }
-            if (carryCount >= 2 && sum <= 10000) break;
-         } while(true);
-        break;
-      case 5: // Grand Cake Challenge (e.g., 999 + 1)
-        // Generate problems resulting in exactly 1000, 10000 or similar edge cases
+    // Difficulty Scaling Logic (Example)
+    if (level <= 5) { // Levels 1-5: Basic units carry
+      ({ n1, n2, sum } = generateWithCarry(0));
+    } else if (level <= 10) { // Levels 6-10: Tens carry
+      ({ n1, n2, sum } = generateWithCarry(1));
+    } else if (level <= 15) { // Levels 11-15: Hundreds carry
+      ({ n1, n2, sum } = generateWithCarry(2));
+    } else if (level <= 20) { // Levels 16-20: Multiple carries (simple 4-digit)
+       do {
+          n1 = Math.floor(Math.random() * 2000) + 1000; // 1000-2999
+          n2 = Math.floor(Math.random() * 2000) + 1000;
+          sum = n1 + n2;
+          if (sum > 9999) continue; // Ensure sum fits
+          const s1 = String(n1).padStart(4, '0');
+          const s2 = String(n2).padStart(4, '0');
+          let carryCount = 0; let currentCarry = 0;
+          for (let i = 3; i >= 1; i--) {
+              let digitSum = parseInt(s1[i]) + parseInt(s2[i]) + currentCarry;
+              currentCarry = Math.floor(digitSum / 10);
+              if (currentCarry > 0) carryCount++;
+          }
+          if (carryCount >= 2) break;
+       } while(true);
+    } else if (level <= 25) { // Levels 21-25: Larger 4-digit, multiple carries
+       do {
+          n1 = Math.floor(Math.random() * 4000) + 1000; // 1000-4999
+          n2 = Math.floor(Math.random() * 4000) + 1000;
+          sum = n1 + n2;
+          if (sum > 9999) continue;
+          const s1 = String(n1).padStart(4, '0');
+          const s2 = String(n2).padStart(4, '0');
+          let carryCount = 0; let currentCarry = 0;
+          for (let i = 3; i >= 1; i--) {
+              let digitSum = parseInt(s1[i]) + parseInt(s2[i]) + currentCarry;
+              currentCarry = Math.floor(digitSum / 10);
+              if (currentCarry > 0) carryCount++;
+          }
+          if (carryCount >= 2) break;
+       } while(true);
+    } else { // Levels 26-30: Edge cases / Max difficulty within 4 digits
         const type = Math.random();
-        if (type < 0.5) { // Sum is 1000
-            n1 = Math.floor(Math.random() * 998) + 1; // 1 to 998
-            n2 = 1000 - n1;
-        } else { // Sum is 10000 or close
-            n1 = Math.floor(Math.random() * 500) + 9500; // 9500-9999
-            n2 = Math.floor(Math.random() * (10000 - n1)) + 1; // Ensure sum <= 10000
+        if (type < 0.5) { // Sum is near 9999
+            n1 = Math.floor(Math.random() * 500) + 9000; // 9000-9499
+            n2 = Math.floor(Math.random() * (9999 - n1)) + 500; // Ensure sum <= 9999
+        } else { // Multiple complex carries
+            n1 = Math.floor(Math.random() * 1000) + 8900; // 8900-9899
+            n2 = Math.floor(Math.random() * 100) + 90;   // 90-189
         }
         sum = n1 + n2;
-        break;
-      default: // Fallback for levels > 5 or invalid
-        ({ n1, n2, sum } = generateWithCarry(0));
-        break;
+        if (sum > 9999) { // Recalculate if sum exceeds max
+            n1 = 5000; n2 = 4999; sum = 9999; // Fallback
+        }
     }
 
     setNum1(n1);
@@ -121,14 +137,14 @@ const useMagicBakeryGame = () => {
     setResultDigits({ units: null, tens: null, hundreds: null, thousands: null });
     setUserInput('');
     setFeedback('');
-    setBakedTreatImage(null); // Reset treat image on new problem
+    setBakedTreatImage(null); // Reset treat image
+    setShowTreasure(false); // Ensure treasure is hidden on new problem
     const initialSpeakerIsRobi = Math.random() < 0.5;
     setRobiSpeaking(initialSpeakerIsRobi);
-    // Set initial moods based on who speaks first
     setRobiMood(initialSpeakerIsRobi ? 'explain' : 'neutral');
     setAnaMood(!initialSpeakerIsRobi ? 'explains' : 'neutral');
-    setMessage(t('magic_bakery.initial_prompt', { num1: n1, num2: n2 })); // Use translation
-  }, [level, t]); // Add t to dependency array
+    setMessage(t('magic_bakery.initial_prompt', { num1: n1, num2: n2 }));
+  }, [level, t]);
 
   // Effect to generate a new problem when the level changes
   useEffect(() => {
@@ -221,39 +237,48 @@ const useMagicBakeryGame = () => {
     const finalAnswer = parseInt(answer);
     if (finalAnswer === correctSum) {
       setFeedback('correct');
-      // Determine the treat based on the level
+      // Determine the treat based on the level (keep this for individual level success)
       let treatImage = null;
       let treatKey = 'magic_bakery.treat_cookie'; // Default fallback key
-      switch (level) {
-        case 1: treatImage = '/assets/images/magic_bakery/treat_cupcake.png'; treatKey = 'magic_bakery.treat_cupcake'; break;
-        case 2: treatImage = '/assets/images/magic_bakery/treat_cookie.png'; treatKey = 'magic_bakery.treat_cookie'; break;
-        case 3: treatImage = '/assets/images/magic_bakery/treat_pie.png'; treatKey = 'magic_bakery.treat_pie'; break;
-        case 4: treatImage = '/assets/images/magic_bakery/donut.png'; treatKey = 'magic_bakery.treat_donut'; break; // Corrected path
-        case 5: treatImage = '/assets/images/magic_bakery/treat_cake.png'; treatKey = 'magic_bakery.treat_cake'; break;
-        default: treatImage = '/assets/images/magic_bakery/treat_cookie.png';
-      }
-      setBakedTreatImage(treatImage);
+      // Simple treat logic for now, can be expanded
+      const treatIndex = (level - 1) % 5; // Cycle through 5 treats
+      const treats = ['cupcake', 'cookie', 'pie', 'donut', 'cake'];
+      treatKey = `magic_bakery.treat_${treats[treatIndex]}`;
+      treatImage = `/assets/images/magic_bakery/treat_${treats[treatIndex]}.png`;
+      // Handle potential missing images gracefully
+      if (treatIndex === 3) treatImage = '/assets/images/magic_bakery/donut.png'; // Explicit path if needed
+
+      setBakedTreatImage(treatImage); // Show the baked treat first
       setMessage(t('magic_bakery.success_message', { treatName: t(treatKey), num1: num1, num2: num2, correctSum: correctSum }));
       // playSound('correct', sound); // Assuming playSound utility exists
       dispatch({ type: actions.ADD_STARS, payload: 10 }); // Award stars
       // Set moods for success
       setRobiMood('happy');
       setAnaMood('happy');
-      // Potentially trigger level advance after a delay
-      setTimeout(() => {
-         // Check if level 5 was just completed
-         if (level < 5) {
-            dispatch({ type: actions.SET_LEVEL, payload: level + 1 });
-            // generateProblem will be called by useEffect on level change
-         } else {
-            // Handle game completion? Show final message?
-            // Add a specific translation key for game completion
-            setMessage(t('magic_bakery.game_complete_message') || "Wow! You baked everything!");
-            // Keep moods happy or neutral
-            setRobiMood('happy');
-            setAnaMood('happy');
-         }
-      }, 3000); // Increased delay to show treat
+      // Check for treasure reward milestone AFTER setting success state
+      if (level % 5 === 0 && level <= MAX_LEVEL) {
+        // Trigger treasure reward display after a short delay to show the baked treat
+        setTimeout(() => {
+          setBakedTreatImage(null); // Hide individual treat before showing treasure
+          setShowTreasure(true);
+          // Level advancement will happen in handleCloseTreasure
+        }, 1500); // Short delay to see the baked item
+      } else {
+        // If not a milestone, advance level after a delay
+        setTimeout(() => {
+          if (level < MAX_LEVEL) {
+             dispatch({ type: actions.SET_LEVEL, payload: level + 1 });
+             // generateProblem will be called by useEffect on level change
+          } else {
+             // Handle MAX_LEVEL completion
+             setMessage(t('magic_bakery.game_complete_message') || "Wow! You baked everything!");
+             setRobiMood('happy');
+             setAnaMood('happy');
+             // Optionally show treasure one last time?
+             // setShowTreasure(true);
+          }
+        }, 3000); // Delay for non-milestone level advance
+      }
     } else {
       setFeedback('incorrect');
       setMessage(t('magic_bakery.incorrect_message'));
@@ -264,9 +289,26 @@ const useMagicBakeryGame = () => {
     }
     // Don't switch speaker on final answer check, keep the one who gave feedback
     // setRobiSpeaking(prev => !prev);
-  }, [correctSum, num1, num2, dispatch, actions, level, sound, t]); // Add t to dependency array
+  }, [correctSum, num1, num2, dispatch, actions, level, sound, t]);
 
 
+  // --- Treasure Handling ---
+  const handleCloseTreasure = useCallback(() => {
+    setShowTreasure(false);
+    // Advance level after closing treasure
+    if (level < MAX_LEVEL) {
+      dispatch({ type: actions.SET_LEVEL, payload: level + 1 });
+      // generateProblem is triggered by useEffect watching level
+    } else {
+      // This case might be redundant if handled in checkFinalAnswer, but safe to have
+      setMessage(t('magic_bakery.game_complete_message') || "Wow! You baked everything!");
+      setRobiMood('happy');
+      setAnaMood('happy');
+    }
+  }, [level, dispatch, actions, t]);
+
+
+  // --- Return Hook Values ---
   return {
     num1,
     num2,
@@ -280,9 +322,11 @@ const useMagicBakeryGame = () => {
     setUserInput,
     handleMixStep,
     checkFinalAnswer,
-    bakedTreatImage, // Expose the treat image path
-    robiMood, // Expose Robi's mood
-    anaMood, // Expose Ana's mood
+    bakedTreatImage,
+    robiMood,
+    anaMood,
+    showTreasure, // Expose treasure state
+    handleCloseTreasure, // Expose treasure close handler
   };
 };
 
