@@ -12,7 +12,7 @@ const AnswerOptions = ({ options, onSelectAnswer, disabled }) => {
 
   return (
     <div className="answer-options-container">
-      <h4>What's the total?</h4>
+      {/* Title removed, character message provides the prompt */}
       <div className="options-buttons">
         {options.map((option, index) => (
           <button

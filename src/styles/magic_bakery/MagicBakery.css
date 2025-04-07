@@ -73,7 +73,23 @@
 }
 .baked-treat-container {
   grid-area: treat;
-  margin: 5px auto; /* Center and add small margin */
+  margin: 15px auto; /* Center and add slightly more margin */
+  position: relative; /* Needed for pseudo-element positioning */
+  padding: 20px; /* Add padding to contain the background */
+  display: inline-block; /* Allow background to fit content */
+}
+
+/* Semi-transparent background rectangle */
+.baked-treat-container::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(255, 255, 255, 0.8); /* Semi-transparent white */
+  border-radius: 15px; /* Softly rounded corners */
+  z-index: 0; /* Place it behind the treat image */
 }
 .answer-options-container { grid-area: answers; }
 .character-area {
@@ -84,11 +100,13 @@
 
 /* Styles for the Baked Treat */
 .baked-treat {
-  /* Responsive width: min 50px, preferred 10vw, max 70px */
-  width: clamp(50px, 10vw, 70px);
+  /* Significantly larger responsive width */
+  width: clamp(180px, 35vw, 280px); /* Increased size */
   height: auto; /* Maintain aspect ratio */
   display: block; /* Ensure proper block-level behavior */
-  margin: 5px auto; /* Center horizontally and add small vertical margin */
+  margin: 0 auto; /* Center horizontally within the padded container */
+  position: relative; /* Ensure it's above the pseudo-element */
+  z-index: 1; /* Stack above the ::before element */
 }
 
 /* Styles for Answer Options */
