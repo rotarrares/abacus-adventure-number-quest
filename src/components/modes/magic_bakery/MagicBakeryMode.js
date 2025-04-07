@@ -20,13 +20,8 @@ const MagicBakeryMode = () => {
   const { t } = useTranslation();
   const gameLogic = useMagicBakeryGame(); // Initialize the game hook
 
-  // Combine result digits into a displayable string (or handle in MixingBowl)
-  const displayResult = [
-      gameLogic.resultDigits.thousands,
-      gameLogic.resultDigits.hundreds,
-      gameLogic.resultDigits.tens,
-      gameLogic.resultDigits.units
-  ].filter(d => d !== null).join('') || t('magic_bakery.result_placeholder');
+  // Result digits object is now passed directly to MixingBowl
+  // const displayResult = [ ... ]; // No longer needed here
 
   // Placeholder answer options (replace with logic later)
   const answerOptions = gameLogic.currentStep === 'done' && gameLogic.feedback !== 'correct'
@@ -40,16 +35,27 @@ const MagicBakeryMode = () => {
         <RobiAnaCharacters
           message={gameLogic.message}
           robiSpeaking={gameLogic.robiSpeaking}
+          robiMood={gameLogic.robiMood} // Pass Robi's mood
+          anaMood={gameLogic.anaMood}   // Pass Ana's mood
         />
 
         <IngredientJars num1={gameLogic.num1} num2={gameLogic.num2} />
 
-        <MixingBowl
-          currentStep={gameLogic.currentStep}
-          carryOver={gameLogic.carryOver}
-          resultDigits={displayResult} // Pass combined result string
-          onMixClick={gameLogic.currentStep !== 'done' && gameLogic.feedback !== 'correct' ? gameLogic.handleMixStep : null} // Only allow mixing before 'done' or correct
-        />
+        {/* Main Interaction Area: Show Mixing Bowl OR Baked Treat */}
+        {gameLogic.bakedTreatImage ? (
+          <div className="baked-treat-container main-display-area"> {/* Reuse container or create specific style */}
+            <img src={gameLogic.bakedTreatImage} alt={t('magic_bakery.baked_treat_reward_alt')} className="baked-treat" loading="lazy" />
+          </div>
+        ) : (
+          <MixingBowl
+            num1={gameLogic.num1} // Pass num1
+            num2={gameLogic.num2} // Pass num2
+            currentStep={gameLogic.currentStep}
+            carryOver={gameLogic.carryOver}
+            resultDigits={gameLogic.resultDigits} // Pass the result digits object
+            onMixClick={gameLogic.currentStep !== 'done' && gameLogic.feedback !== 'correct' ? gameLogic.handleMixStep : null} // Only allow mixing before 'done' or correct
+          />
+        )}
 
         {/* Show answer options only when mixing is done and not yet correct */}
         {gameLogic.currentStep === 'done' && gameLogic.feedback !== 'correct' && (
@@ -64,12 +70,7 @@ const MagicBakeryMode = () => {
         {gameLogic.feedback === 'correct' && <div className="feedback correct">{t('magic_bakery.feedback_correct_short')}</div>}
         {gameLogic.feedback === 'incorrect' && <div className="feedback incorrect">{t('magic_bakery.feedback_incorrect_short')}</div>}
 
-        {/* Display Baked Treat Reward */}
-        {gameLogic.bakedTreatImage && (
-          <div className="baked-treat-container">
-            <img src={gameLogic.bakedTreatImage} alt={t('magic_bakery.baked_treat_reward_alt')} className="baked-treat" loading="lazy" />
-          </div>
-        )}
+        {/* Baked Treat Reward is now handled conditionally above */}
 
         {/* RecipeBook can be added here later */}
         {/* <RecipeBook completedRecipes={...} /> */}

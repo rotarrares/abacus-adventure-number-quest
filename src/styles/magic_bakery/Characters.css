@@ -21,7 +21,7 @@
 
 .character img {
   /* Responsive height: min 80px, preferred 12vh, max 120px */
-  height: clamp(160px, 24vh, 240px); /* Doubled size */
+  height: clamp(200px, 30vh, 300px); /* Increased size */
   width: auto; /* Maintain aspect ratio */
   display: block;
   margin: 0 auto;
@@ -52,6 +52,7 @@
 /* Speech bubble pointer */
 .speech-bubble::after {
   content: '';
+  top:calc(100% + 10px);
   position: absolute;
   bottom: -10px; /* Pointing down */
   left: 50%;
@@ -65,6 +66,7 @@
   content: '';
   position: absolute;
   bottom: -7px;
+  top:calc(100% + 10px);
   left: 50%;
   transform: translateX(-50%);
   border-width: 7px 7px 0;
@@ -85,7 +87,7 @@
   }
 
   .character img {
-     height: clamp(140px, 20vh, 200px); /* Doubled size */
+     height: clamp(175px, 25vh, 250px); /* Increased size */
   }
 
   .speech-bubble {
@@ -107,7 +109,7 @@
 
   .character img {
      /* Slightly reduce max height */
-     height: clamp(100px, 16vh, 140px);
+     height: clamp(125px, 20vh, 175px); /* Increased size */
   }
 
   .speech-bubble {

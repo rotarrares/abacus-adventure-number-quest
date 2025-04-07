@@ -271,8 +271,9 @@
     "feedback_correct_short": "Corect! 🎉",
     "feedback_incorrect_short": "Încearcă din nou! 🤔",
     "baked_treat_reward_alt": "Recompensă Prăjitură Coaptă",
-    "result_placeholder": "..."
-  }
+    "result_placeholder": "...",
+    "game_complete_message": "Wow! Ai copt toate bunătățile! Ești un maestru brutar!"
+  },
   "number_word_0": "zero",
   "number_word_1": "unu",
   "number_word_2": "doi",
